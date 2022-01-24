@@ -1,0 +1,21 @@
+service: eForm
+plugins:
+  - serverless-offline
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  memorySize: 192
+  timeout: 10
+package:
+  patterns:
+    - "!/**"
+    - "node_modules/@vendia/serverless-express/**"
+    - "dist/**"
+    - "lambda.js"
+functions:
+  api:
+    handler: lambda.handler
+    events:
+      - http: GET /
+      - http: GET /{proxy+}
