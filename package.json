@@ -30,6 +30,7 @@
     "@angular/platform-browser-dynamic": "~11.0.1",
     "@angular/platform-server": "~11.0.1",
     "@angular/router": "~11.0.1",
+    "@aws-amplify/ui-angular": "^1.0.35",
     "@nguniversal/express-engine": "^11.0.1",
     "@vendia/serverless-express": "^4.5.3",
     "aws-amplify": "^4.3.12",

@@ -10,6 +10,11 @@
       "StackName": "amplify-eform-dev-170005",
       "StackId": "arn:aws:cloudformation:eu-central-1:845604589409:stack/amplify-eform-dev-170005/157dc500-7d37-11ec-b6ee-0655bdfe6fa8",
       "AmplifyAppId": "d3fd9496ceckoj"
+    },
+    "categories": {
+      "auth": {
+        "eformdb1712f8": {}
+      }
     }
   }
 }
