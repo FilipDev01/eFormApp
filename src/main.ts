@@ -4,10 +4,12 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-// import Amplify from 'aws-amplify';
-// import awsconfig from './aws-exports';
+import Amplify from '@aws-amplify/core'
+import { Auth } from '@aws-amplify/auth'
+import AWSConfig from './aws-exports'
 
-// Amplify.configure(awsconfig);
+Amplify.configure(AWSConfig)
+Auth.configure(AWSConfig)
 
 if (environment.production) {
   enableProdMode();
@@ -15,5 +17,5 @@ if (environment.production) {
 
 document.addEventListener('DOMContentLoaded', () => {
   platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+    .catch(err => console.error(err));
 });
