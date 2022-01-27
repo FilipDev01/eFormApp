@@ -1,0 +1,164 @@
+<button class="btn btn-primary" (click)=saveTableAsPdf();>Stiahnuť ako PDF</button>
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <button mat-raised-button color="primary" (click)="openDialog()">Intervencie Formulár</button>        
+        <!-- <mat-stepper linear #stepper>
+          <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Fill out your name</ng-template>
+              <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="firstCtrl" placeholder="Last name, First name" required>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Fill out your address</ng-template>
+              <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+          </mat-step>
+        </mat-stepper> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body table-responsive">
+        <div id="table-interventions" class="p-2" style="display: table;">
+          <table class="table table-interventions">
+            <thead>
+              <tr>
+                <th colspan="23">
+                  <div class="table-header d-flex justify-content-between">
+                    <img src="../../../assets/img/form/healthy-regions/picture_2.png" width="200">
+                    <img src="../../../assets/img/form/healthy-regions/picture_1.png" width="200">
+                    <img src="../../../assets/img/form/healthy-regions/picture_3.png" width="200">
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th colspan="23" class="text-center">
+                  <h3 class="m-0"><strong>Intervencie</strong></h3>
+                </th>
+              </tr>
+              <tr>
+                <th colspan="1"></th>
+                <th colspan="4"><strong>A: Podpora preventívnych zdravotných programov</strong></th>
+                <th colspan="4"><strong>B: Spolupráca s lekármi</strong></th>
+                <th colspan="5"><strong>C: Spolupráca</strong></th>
+                <th colspan="8"><strong>D: Priama asistencia klientom</strong></th>
+                <th colspan="1"><strong>E: Ďalšie aktivity</strong></th>
+              </tr>
+              <tr>
+                <th>Deň</th>
+                <th>A1:<br> Preventívna prehliadka </th>
+                <th>A2:<br> Očkovanie</th>
+                <th>A3:<br> Materská poradnňa</th>
+                <th>A4:<br> Očkovanie COVID-19</th>
+                <th>B1:<br> Všeobecný pre dospelých</th>
+                <th>B2:<br> Pediater</th>
+                <th>B3:<br> Nemocnica</th>
+                <th>B4:<br> Odborný lekár</th>
+                <th>C1:<br> TSP</th>
+                <th>C2:<br> OU/MS</th>
+                <th>C3:<br> RPZ, 112</th>
+                <th>C4:<br> Škola</th>
+                <th>C5:<br> ÚPSVaR</th>
+                <th>D1:<br> Meranie krvného tlaku</th>
+                <th>D2:<br> Prvá pomoc ošetrenie poranení </th>
+                <th>D3:<br> Sprevádzanie na vyšetrenie</th>
+                <th>D4:<br> Zdravotné poistenie</th>
+                <th>D5:<br> Kompenzačné pomôcky a ZŤP</th>
+                <th>D6:<br> Lieky</th>
+                <th>D7:<br> RUVZ-Lekár v prípade epidémie</th>
+                <th>D8:<br> Aktívna pomoc a podpora klienta</th>
+                <th>Charita, brigáda, zbierky iné...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let intervention of interventions | async">
+                <td>1</td>
+                <td>{{intervention.a1}}</td>
+                <td>{{intervention.a2}}</td>
+                <td>{{intervention.a3}}</td>
+                <td>{{intervention.a4}}</td>
+                <td>{{intervention.b1}}</td>
+                <td>{{intervention.b2}}</td>
+                <td>{{intervention.b3}}</td>
+                <td>{{intervention.b4}}</td>
+                <td>{{intervention.c1}}</td>
+                <td>{{intervention.c2}}</td>
+                <td>{{intervention.c3}}</td>
+                <td>{{intervention.c4}}</td>
+                <td>{{intervention.c5}}</td>
+                <td>{{intervention.d1}}</td>
+                <td>{{intervention.d2}}</td>
+                <td>{{intervention.d3}}</td>
+                <td>{{intervention.d4}}</td>
+                <td>{{intervention.d5}}</td>
+                <td>{{intervention.d6}}</td>
+                <td>{{intervention.d7}}</td>
+                <td>{{intervention.d8}}</td>
+                <td>{{intervention.e1}}</td>
+              </tr>
+              <tr>
+                <td colspan="23">
+                  <p class="text-center m-0">
+                    <small>
+                      „Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu v rámci Operačného
+                      programu
+                      Ľudské
+                      zdroje“ <br>
+                      Odkaz na riadiaci orgán – www.esf.gov.sk<br>
+                      Sprostredkovateľský orgán – www.mpsvr.sk
+                    </small>
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+
+            <style>
+              .table-interventions thead th {
+                font-size: 9pt;
+                min-width: 96px;
+                text-align: center;
+                line-height: 1;
+              }
+
+              .table-interventions tbody td {
+                text-align: center;
+              }
+
+            </style>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

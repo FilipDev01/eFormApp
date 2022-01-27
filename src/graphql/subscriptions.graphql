@@ -1,0 +1,97 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateInterventions {
+  onCreateInterventions {
+    id
+    user_id
+    date
+    created_at
+    a1
+    a2
+    a3
+    a4
+    b1
+    b2
+    b3
+    b4
+    c1
+    c2
+    c3
+    c4
+    c5
+    d1
+    d2
+    d3
+    d4
+    d5
+    d6
+    d7
+    d8
+    e1
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateInterventions {
+  onUpdateInterventions {
+    id
+    user_id
+    date
+    created_at
+    a1
+    a2
+    a3
+    a4
+    b1
+    b2
+    b3
+    b4
+    c1
+    c2
+    c3
+    c4
+    c5
+    d1
+    d2
+    d3
+    d4
+    d5
+    d6
+    d7
+    d8
+    e1
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteInterventions {
+  onDeleteInterventions {
+    id
+    user_id
+    date
+    created_at
+    a1
+    a2
+    a3
+    a4
+    b1
+    b2
+    b3
+    b4
+    c1
+    c2
+    c3
+    c4
+    c5
+    d1
+    d2
+    d3
+    d4
+    d5
+    d6
+    d7
+    d8
+    e1
+    createdAt
+    updatedAt
+  }
+}

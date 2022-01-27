@@ -1,0 +1,12 @@
+projects:
+  eform:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.graphql
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: angular
+        generatedFileName: Interventions.service.ts
+        docsFilePath: src/graphql

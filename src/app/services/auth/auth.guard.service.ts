@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CognitoUser } from '@aws-amplify/auth';
 import { Auth } from 'aws-amplify';
+import { GlobalConstants } from 'src/app/common/global-constants';
 
 @Injectable()
 export class AuthService {
@@ -10,28 +11,24 @@ export class AuthService {
 
     }
 
-    async isLoggedInAsync(): Promise<CognitoUser | null> {
+    async isLoggedInAsync(): Promise<boolean> {
         try {
-            return Auth.currentAuthenticatedUser()
-                .then((user: CognitoUser) => {
-                    return user;
-                })
-                .catch((err: any) => {
-                    return null;
-                });
+            const user: any = await Auth.currentAuthenticatedUser();
+            if (!!user) {
+                GlobalConstants.currentUserGroups = user.signInUserSession.accessToken.payload['cognito:groups'];
+            }
 
+            return !!user;
         }
         catch (err) {
-            throw err;
+            return false;
         }
     }
 
-    logout() {
+    async logout() {
         try {
-            Auth.signOut({ global: true }).then((res: any) => {
-                this._router.navigate(['/']);
-            });
-
+            await Auth.signOut({ global: true });
+            this._router.navigate(['/login']);
         } catch (err) {
             throw err;
         }

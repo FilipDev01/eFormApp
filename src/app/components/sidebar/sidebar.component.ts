@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalConstants } from 'src/app/common/global-constants';
+
 import * as $ from "jquery";
 
 declare interface RouteInfo {
@@ -10,12 +12,12 @@ declare interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
-  { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
-  { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
-  { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
-  { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
-  { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
-  { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' }
+  { path: '/teams', title: 'Teams', icon: 'person', class: '' },
+  // { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
+  // { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
+  // { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
+  // { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
+  // { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' }
 ];
 
 @Component({
@@ -30,11 +32,24 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    const availableRoutes = this.setAvailabeRoutes();
+    this.menuItems = availableRoutes.filter(menuItem => menuItem);
   }
 
   isMobileMenu() {
     const winWidth = !!$(window) ? $(window).width() : 0
     return !!winWidth && winWidth <= 991;
   };
+
+
+  setAvailabeRoutes(): Array<RouteInfo> {
+    const routes = new Array<RouteInfo>();
+    routes.push({ path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' });
+
+    if (Array.isArray(GlobalConstants.currentUserGroups) && GlobalConstants.currentUserGroups.includes('admin')) {
+      routes.push({ path: '/teams', title: 'Teams', icon: 'person', class: '' });
+    }
+
+    return routes;
+  }
 }

@@ -1,0 +1,35 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+
+
+type Interventions @model @auth(rules: [
+  { allow: groups, groups: ["Admins", "Agents"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  user_id: String
+  date: String
+  created_at: String
+  a1: Int
+  a2: Int
+  a3: Int
+  a4: Int
+  b1: Int
+  b2: Int
+  b3: Int
+  b4: Int
+  c1: Int
+  c2: Int
+  c3: Int
+  c4: Int
+  c5: Int
+  d1: Int
+  d2: Int
+  d3: Int
+  d4: Int
+  d5: Int
+  d6: Int
+  d7: Int
+  d8: Int
+  e1: Int
+}

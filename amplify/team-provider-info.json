@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "eformdb1712f8": {}
+      },
+      "function": {
+        "AdminQueriese99241ab": {
+          "deploymentBucketName": "amplify-eform-dev-170005-deployment",
+          "s3Key": "amplify-builds/AdminQueriese99241ab-31686950535149516861-build.zip"
+        }
       }
     }
   }
