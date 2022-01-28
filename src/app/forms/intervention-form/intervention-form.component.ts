@@ -12,26 +12,27 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./intervention-form.component.css']
 })
 export class InterventionFormComponent implements OnInit {
+
+  public dateToday: Date;
+  public interventions$: Promise<any>;
   public interventions: any;
 
   constructor(
     private _interventionsFormService: InterventionsFormService,
     public dialog: MatDialog,
   ) {
-
+    this.dateToday = new Date();
   }
 
   async ngOnInit() {
-    // this.interventions = this._interventionsFormService.getInterventionsAsync();
-    this.interventions = [{ date: "2022-01-28T00:00:00.000Z" }, { date: "2022-01-26T00:00:00.000Z" }]
+    this.interventions$ = this._interventionsFormService.getInterventionsAsync();
   }
 
-  openDialog(date: any): void {
-    const dialogRef = this.dialog.open(InterventionWizardComponent, { panelClass: 'my-dialog', data: { date: date } });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed', result);
-
-      const temp = this._interventionsFormService.createInterventionAsync(result);
+  async openDialog(date: any): Promise<any> {
+    const dialogRef = this.dialog.open(InterventionWizardComponent, { panelClass: 'my-dialog', data: { form_data: await this.interventions$, date: date } });
+    dialogRef.afterClosed().subscribe(async (result: any) => {
+      await this._interventionsFormService.createInterventionAsync(result);
+      this.interventions$ = this._interventionsFormService.getInterventionsAsync();
     });
   }
 

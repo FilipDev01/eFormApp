@@ -22,8 +22,7 @@ export class InterventionWizardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.dialogData)
-    this.setForm();
+    this.setForm(this.dialogData);
   }
 
   onNoClick(): void {
@@ -34,42 +33,48 @@ export class InterventionWizardComponent implements OnInit {
     this.dialogRef.close({ data: this.getWizardFormData() });
   }
 
-  setForm() {
+  setForm(data: any) {
+    let savedData = null;
+    if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
+      var dateISOstr = data.date.toISOString();
+      savedData = data.form_data.find((x: any) => x.date === dateISOstr);
+    }
+
     this.sectionA = this._formBuilder.group({
-      a1: [0, Validators.required],
-      a2: [0, Validators.required],
-      a3: [0, Validators.required],
-      a4: [0, Validators.required],
+      a1: [(!!savedData ? savedData.a1 : 0), Validators.required],
+      a2: [(!!savedData ? savedData.a2 : 0), Validators.required],
+      a3: [(!!savedData ? savedData.a3 : 0), Validators.required],
+      a4: [(!!savedData ? savedData.a4 : 0), Validators.required],
     });
 
     this.sectionB = this._formBuilder.group({
-      b1: [0, Validators.required],
-      b2: [0, Validators.required],
-      b3: [0, Validators.required],
-      b4: [0, Validators.required],
+      b1: [(!!savedData ? savedData.b1 : 0), Validators.required],
+      b2: [(!!savedData ? savedData.b2 : 0), Validators.required],
+      b3: [(!!savedData ? savedData.b3 : 0), Validators.required],
+      b4: [(!!savedData ? savedData.b4 : 0), Validators.required],
     });
 
     this.sectionC = this._formBuilder.group({
-      c1: [0, Validators.required],
-      c2: [0, Validators.required],
-      c3: [0, Validators.required],
-      c4: [0, Validators.required],
-      c5: [0, Validators.required],
+      c1: [(!!savedData ? savedData.c1 : 0), Validators.required],
+      c2: [(!!savedData ? savedData.c2 : 0), Validators.required],
+      c3: [(!!savedData ? savedData.c3 : 0), Validators.required],
+      c4: [(!!savedData ? savedData.c4 : 0), Validators.required],
+      c5: [(!!savedData ? savedData.c5 : 0), Validators.required],
     });
 
     this.sectionD = this._formBuilder.group({
-      d1: [0, Validators.required],
-      d2: [0, Validators.required],
-      d3: [0, Validators.required],
-      d4: [0, Validators.required],
-      d5: [0, Validators.required],
-      d6: [0, Validators.required],
-      d7: [0, Validators.required],
-      d8: [0, Validators.required],
+      d1: [(!!savedData ? savedData.d1 : 0), Validators.required],
+      d2: [(!!savedData ? savedData.d2 : 0), Validators.required],
+      d3: [(!!savedData ? savedData.d3 : 0), Validators.required],
+      d4: [(!!savedData ? savedData.d4 : 0), Validators.required],
+      d5: [(!!savedData ? savedData.d5 : 0), Validators.required],
+      d6: [(!!savedData ? savedData.d6 : 0), Validators.required],
+      d7: [(!!savedData ? savedData.d7 : 0), Validators.required],
+      d8: [(!!savedData ? savedData.d8 : 0), Validators.required],
     });
 
     this.sectionE = this._formBuilder.group({
-      e1: [0, Validators.required],
+      e1: [(!!savedData ? savedData.e1 : 0), Validators.required],
     });
   }
 
@@ -80,7 +85,7 @@ export class InterventionWizardComponent implements OnInit {
     });
 
     Object.assign(formData, this.dialogData);
-    
+
     return formData;
   }
 

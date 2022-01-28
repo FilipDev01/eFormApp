@@ -14,16 +14,14 @@ export class CalendarComponent implements OnInit {
   public maxDate: Date | null = null;
 
   private _datesToHighlight: Array<string>;
-  private _allDaysInMonth: Array<Date>;
 
-  @Input() formData: any;
+  @Input() data: any;
   @Output() dateSelected: EventEmitter<Date | DateRange<Date> | null> = new EventEmitter();
 
   @ViewChild('calendar', { static: true }) calendar: MatCalendar<moment.Moment>;
 
   constructor(private _renderer: Renderer2) {
     this._datesToHighlight = new Array<string>();
-    this._allDaysInMonth = this.getDaysInCurrentMonth();
   }
 
   ngOnInit(): void {
@@ -51,8 +49,8 @@ export class CalendarComponent implements OnInit {
   dateClass() {
     return (date: Date): MatCalendarCellCssClasses => {
 
-      if (!!this.formData && Array.isArray(this.formData)) {
-        this.formData.forEach((data: any) => {
+      if (!!this.data && Array.isArray(this.data)) {
+        this.data.forEach((data: any) => {
           this._datesToHighlight.push(data.date);
         });
 
