@@ -1,0 +1,24 @@
+.calendar-wrapper {
+  width: 300px;
+  max-width: 90%;
+  min-width: 50%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+:host ::ng-deep .form-non-filled {
+  background-color: #ff00001f;
+  border-radius: 50px;
+}
+
+:host ::ng-deep .form-filled {
+  background-color: #0ccc0c63;
+  border-radius: 50px;
+}
+
+
+:host ::ng-deep .mat-calendar-arrow,
+:host ::ng-deep .mat-calendar-previous-button,
+:host ::ng-deep .mat-calendar-next-button {
+  display: none;
+}

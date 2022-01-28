@@ -19,7 +19,6 @@ export type CreateInterventionsInput = {
   id?: string | null;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -47,7 +46,6 @@ export type CreateInterventionsInput = {
 export type ModelInterventionsConditionInput = {
   user_id?: ModelStringInput | null;
   date?: ModelStringInput | null;
-  created_at?: ModelStringInput | null;
   a1?: ModelIntInput | null;
   a2?: ModelIntInput | null;
   a3?: ModelIntInput | null;
@@ -131,7 +129,6 @@ export type Interventions = {
   id: string;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -162,7 +159,6 @@ export type UpdateInterventionsInput = {
   id: string;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -195,7 +191,6 @@ export type ModelInterventionsFilterInput = {
   id?: ModelIDInput | null;
   user_id?: ModelStringInput | null;
   date?: ModelStringInput | null;
-  created_at?: ModelStringInput | null;
   a1?: ModelIntInput | null;
   a2?: ModelIntInput | null;
   a3?: ModelIntInput | null;
@@ -250,7 +245,6 @@ export type CreateInterventionsMutation = {
   id: string;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -282,7 +276,6 @@ export type UpdateInterventionsMutation = {
   id: string;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -314,7 +307,6 @@ export type DeleteInterventionsMutation = {
   id: string;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -346,7 +338,6 @@ export type GetInterventionsQuery = {
   id: string;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -380,7 +371,6 @@ export type ListInterventionsQuery = {
     id: string;
     user_id?: string | null;
     date?: string | null;
-    created_at?: string | null;
     a1?: number | null;
     a2?: number | null;
     a3?: number | null;
@@ -414,7 +404,6 @@ export type OnCreateInterventionsSubscription = {
   id: string;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -446,7 +435,6 @@ export type OnUpdateInterventionsSubscription = {
   id: string;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -478,7 +466,6 @@ export type OnDeleteInterventionsSubscription = {
   id: string;
   user_id?: string | null;
   date?: string | null;
-  created_at?: string | null;
   a1?: number | null;
   a2?: number | null;
   a3?: number | null;
@@ -519,7 +506,6 @@ export class APIService {
           id
           user_id
           date
-          created_at
           a1
           a2
           a3
@@ -567,7 +553,6 @@ export class APIService {
           id
           user_id
           date
-          created_at
           a1
           a2
           a3
@@ -615,7 +600,6 @@ export class APIService {
           id
           user_id
           date
-          created_at
           a1
           a2
           a3
@@ -660,7 +644,6 @@ export class APIService {
           id
           user_id
           date
-          created_at
           a1
           a2
           a3
@@ -708,7 +691,6 @@ export class APIService {
             id
             user_id
             date
-            created_at
             a1
             a2
             a3
@@ -762,7 +744,6 @@ export class APIService {
           id
           user_id
           date
-          created_at
           a1
           a2
           a3
@@ -804,7 +785,6 @@ export class APIService {
           id
           user_id
           date
-          created_at
           a1
           a2
           a3
@@ -846,7 +826,6 @@ export class APIService {
           id
           user_id
           date
-          created_at
           a1
           a2
           a3

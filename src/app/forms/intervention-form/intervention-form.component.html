@@ -1,52 +1,44 @@
-<button class="btn btn-primary" (click)=saveTableAsPdf();>Stiahnuť ako PDF</button>
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <a mat-raised-button color="primary" [routerLink]="'/dashboard'">Späť</a>
+      </div>
+    </div>
 
 
-<div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-body">
-        <button mat-raised-button color="primary" (click)="openDialog()">Intervencie Formulár</button>        
-        <!-- <mat-stepper linear #stepper>
-          <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
-            <form [formGroup]="firstFormGroup">
-              <ng-template matStepLabel>Fill out your name</ng-template>
-              <mat-form-field appearance="fill">
-                <mat-label>Name</mat-label>
-                <input matInput formControlName="firstCtrl" placeholder="Last name, First name" required>
-              </mat-form-field>
-              <div>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
-            <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel>Fill out your address</ng-template>
-              <mat-form-field appearance="fill">
-                <mat-label>Address</mat-label>
-                <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-              </mat-form-field>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done.</p>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
-            </div>
-          </mat-step>
-        </mat-stepper> -->
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="card card-plain bg-white">
+          <div class="card-header card-header-danger">
+            <h3 class="m-0">Intervencie</h3>
+            <p></p>
+          </div>
+          <div class="card-body table-responsive">
+            <app-calendar *ngIf="interventions" [formData]="interventions" (dateSelected)="openDialog($event)">
+            </app-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-none">
+      <div class="col-lg-12 col-md-12">
+        <!-- <mat-card class="demo-inline-calendar-card">
+          <mat-calendar [(selected)]="selected"></mat-calendar>
+        </mat-card> -->
+
+
+        <button class="btn btn-primary" (click)=saveTableAsPdf();>Stiahnuť ako PDF</button>
+        <!-- <button mat-raised-button color="primary" (click)="openDialog()">Intervencie Formulár</button> -->
       </div>
     </div>
   </div>
 </div>
 
-<div class="row">
+
+<div class="row d-none">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body table-responsive">
@@ -102,7 +94,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let intervention of interventions | async">
+              <tr *ngFor="let intervention of interventions ">
                 <td>1</td>
                 <td>{{intervention.a1}}</td>
                 <td>{{intervention.a2}}</td>

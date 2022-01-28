@@ -8,5 +8,8 @@ projects:
     extensions:
       amplify:
         codeGenTarget: angular
-        generatedFileName: Interventions.service.ts
+        generatedFileName: src/app/services/graphql/Interventions.service.ts
         docsFilePath: src/graphql
+extensions:
+  amplify:
+    version: 3

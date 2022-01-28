@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DashboardService } from './dashboard.service';
 
 @Component({
@@ -9,13 +10,18 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private _service: DashboardService) {
+  constructor(
+    private _service: DashboardService,
+    private _router: Router
+  ) {
   }
 
   ngOnInit() {
-    
+
   }
 
-
+  redirectToFrom(type: string) {
+    this._router.navigateByUrl(`/${type}`);
+  };
 
 }

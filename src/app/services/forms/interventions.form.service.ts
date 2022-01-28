@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { APIService, CreateInterventionsInput, ListInterventionsQuery } from '../graphql/Interventions.service';
+import { Auth } from 'aws-amplify'
+import { GlobalConstants } from 'src/app/common/global-constants';
 
 @Injectable({ providedIn: 'root', })
 
@@ -80,7 +82,7 @@ export class InterventionsFormService {
     async getInterventionsAsync() {
         const intervetions: ListInterventionsQuery = await this._interventionsService.ListInterventions();
         return intervetions.items;
-        
+
         if (!!intervetions && !!intervetions.items && intervetions.items.length > 0) {
             return new InterventionFormModel(intervetions.items);
         } else {
@@ -89,37 +91,24 @@ export class InterventionsFormService {
 
     }
 
-    async createIntervention() {
-        const request: CreateInterventionsInput = {
-            user_id: '123',
-            date: '1233',
-            created_at: '123',
-            a1: 1,
-            a2: 1,
-            a3: 1,
-            a4: 1,
-            b1: 1,
-            b2: 1,
-            b3: 1,
-            b4: 1,
-            c1: 1,
-            c2: 1,
-            c3: 1,
-            c4: 1,
-            c5: 1,
-            d1: 1,
-            d2: 1,
-            d3: 1,
-            d4: 1,
-            d5: 1,
-            d6: 1,
-            d7: 1,
-            d8: 1,
-            e1: 1,
+    async createInterventionAsync(formData: any) {
+
+        // const user: any = await Auth.currentAuthenticatedUser();
+        const request: CreateInterventionsInput = formData?.data;
+        if (!!request) {
+            request.user_id = GlobalConstants.userId;
+            request.date = !!formData.data.date ? formData.data.date.toISOString() : null;
+            
+            console.log(request);
+
+            if (!!request.date) {
+                const response = await this._interventionsService.CreateInterventions(request);
+                console.log(response);
+            } else {
+                // TODO: error message
+            }
         }
 
-        const response = await this._interventionsService.CreateInterventions(request);
-        console.log(response);
     }
 
 }

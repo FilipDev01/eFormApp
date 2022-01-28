@@ -9,7 +9,6 @@ type Interventions @model @auth(rules: [
   id: ID!
   user_id: String
   date: String
-  created_at: String
   a1: Int
   a2: Int
   a3: Int

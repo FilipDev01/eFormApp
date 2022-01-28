@@ -1,36 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
+import { InterventionWizardComponent } from './intervention-wizard/intervention-wizard.component';
 import { InterventionsFormService } from '../../services/forms/interventions.form.service';
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas';
-
-
-
-export interface DialogData {
-  animal: string;
-  name: string;
-}
-
-/**
- * @title Dialog Overview
- */
-@Component({
-  selector: 'dialog-overview-example',
-  templateUrl: 'dialog-overview-example-dialog.html'
-})
-
-export class DialogOverviewExampleDialog {
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-}
 
 @Component({
   selector: 'app-intervention-form',
@@ -38,44 +12,28 @@ export class DialogOverviewExampleDialog {
   styleUrls: ['./intervention-form.component.css']
 })
 export class InterventionFormComponent implements OnInit {
-  public firstFormGroup: FormGroup;
-  public secondFormGroup: FormGroup;
-  public isEditable = true;
-
   public interventions: any;
 
-  animal: string;
-  name: string;
   constructor(
     private _interventionsFormService: InterventionsFormService,
-    private _formBuilder: FormBuilder,
     public dialog: MatDialog,
   ) {
 
   }
 
-  ngOnInit(): void {
-    this.interventions = this._interventionsFormService.getInterventionsAsync();
-
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
-    });
+  async ngOnInit() {
+    // this.interventions = this._interventionsFormService.getInterventionsAsync();
+    this.interventions = [{ date: "2022-01-28T00:00:00.000Z" }, { date: "2022-01-26T00:00:00.000Z" }]
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      data: { name: this.name, animal: this.animal }
-    });
-
+  openDialog(date: any): void {
+    const dialogRef = this.dialog.open(InterventionWizardComponent, { panelClass: 'my-dialog', data: { date: date } });
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed', result);
-      this.animal = result;
+
+      const temp = this._interventionsFormService.createInterventionAsync(result);
     });
   }
-
 
   public saveTableAsPdf() {
     var data: any = document.getElementById('table-interventions');

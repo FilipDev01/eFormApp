@@ -15,6 +15,7 @@ export class AuthService {
         try {
             const user: any = await Auth.currentAuthenticatedUser();
             if (!!user) {
+                GlobalConstants.userId = user.attributes.sub;
                 GlobalConstants.currentUserGroups = user.signInUserSession.accessToken.payload['cognito:groups'];
             }
 
@@ -33,4 +34,5 @@ export class AuthService {
             throw err;
         }
     }
+
 }
