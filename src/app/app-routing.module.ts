@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { AuthGuard } from './services/auth/auth.gard';
+
 import { AppLayoutComponent } from './layout/layout.component';
-import { CommonModule } from '@angular/common';
+import { AuthenticationComponent } from './pages/auth/authentication/authentication.component';
 
 const routes: Routes = [
   {
@@ -22,8 +24,12 @@ const routes: Routes = [
     }]
   },
   {
-    path: 'login',
-    loadChildren: () => import('../app/pages/auth/login/login.module').then(m => m.LoginModule),
+    path: 'authentication',
+    component: AuthenticationComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('../app/pages/auth/authentication/authentication.module').then(m => m.AuthenticationModule),
+    }]
   },
   {
     path: '**', redirectTo: '/error/page-not-found', pathMatch: 'full'

@@ -1,0 +1,21 @@
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background-color: #625f6261;
+}
+
+.spinner-wrapper {
+  position: relative;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+}
+
+
+:host ::ng-deep .mat-progress-spinner circle,
+:host ::ng-deep .mat-spinner circle {
+  stroke: #9c27b0;
+}

@@ -1,0 +1,89 @@
+<app-spinner *ngIf="processing"></app-spinner>
+
+<div class="form-wrapper">
+  <div class="container">
+    <div class="card">
+
+      <div class="row">
+        <div class="col pb-0" style="border-right: 1px solid #ccc">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="d-block d-lg-none text-center text-lg-start">
+                <img width="120" src="../../../../assets/img/logo_1.png" alt="logo">
+              </div>
+              <div class="my-5 text-center text-lg-start">
+                <h2 class="mb-0"><strong>Vitaje</strong></h2>
+                <p class="text-muted">Prihlásiť sa pre pokračovanie</p>
+              </div>
+              <form class="mb-3">
+                <div class="mb-3">
+                  <input type="email" class="form-control px-2" placeholder="E-MAIL" autofocus required name="name"
+                    [(ngModel)]="user.name">
+                </div>
+                <div class="mb-1">
+                  <input type="password" class="form-control px-2" placeholder="HESLO" required name="password"
+                    [(ngModel)]="user.password">
+                </div>
+                <div class="text-center text-lg-start">
+                  <p class="small mb-0"><a href="#">Zabudli ste svoje heslo?</a></p>
+                </div>
+              </form>
+
+
+              <div class="social-links justify-content-center d-none">
+                <a href="#">
+                  <i class="ti-google bg-google"></i> Sign in with Google
+                </a>
+                <a href="#">
+                  <i class="ti-facebook bg-facebook"></i> Sign in with Facebook
+                </a>
+              </div>
+              <p class="text-center d-block d-lg-none mt-5 mt-lg-0">
+                Don't have an account? <a href="#">Sign up</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col p-3 pb-0 text-center">
+          <div class="logo mt-3">
+            <img width="170" src="../../../../assets/img/logo_1.png" alt="logo">
+          </div>
+          <div>
+            <h3 class="fw-bold d-none">Vitajte!</h3>
+            <p class="lead mb-3 mt-3">Ak ešte nemáte účet, pomocou tejto možnosti získate prístup k registračnému
+              fromuláru
+            </p>
+
+          </div>
+          <ul class="list-inline d-none">
+            <li class="list-inline-item">
+              <a href="#">Privacy Policy</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">Terms & Conditions</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row m-0 pb-3">
+
+        <div class="col" style="border-right: 1px solid #ccc">
+          <div class="row">
+            <div class="col-md-10 offset-md-1" style="padding-left: 0;">
+              <button (click)="signIn();" class="btn btn-primary w-100">Prihlásiť sa</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col p-3 pt-0 text-center">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <a [routerLink]="'/authentication/register'" class="btn btn-primary">Vytvoriť účet</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
