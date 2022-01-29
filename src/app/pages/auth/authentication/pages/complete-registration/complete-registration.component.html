@@ -1,0 +1,52 @@
+<app-spinner *ngIf="processing"></app-spinner>
+
+
+
+<div class="form-wrapper">
+  <div class="container">
+    <div class="card">
+      <div class="row g-0">
+        <div class="col d-none d-lg-flex flex-column border-start align-items-center text-center px-3">
+          <div class="logo mt-4">
+            <img width="170" src="../../../../assets/img/logo_1.png" alt="logo">
+          </div>
+
+          <div *ngIf="!registrationCompleted">
+            <div class="mt-3 mb-4 text-center text-lg-start">
+              <h2 class="mb-0">Dokončenie Registrácie</h2>
+            </div>
+
+            <form class="mb-3">
+              <div class="mb-3">
+                <input type="text" class="form-control px-2" placeholder="Registračný kľuč" name="confirmation_key"
+                  [(ngModel)]="confirmationKey">
+              </div>
+
+
+              <p *ngIf="errorMessage" class="text-center m-0">
+                <small class="text-danger"><strong>{{errorMessage}}</strong></small>
+              </p>
+
+              <div class="text-center text-lg-start">
+                <button (click)="completeRegistrationAsync();" class="btn btn-primary w-100 mt-0" type="button">
+                  Dokončiť Registráciu
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div *ngIf="!!registrationCompleted">
+            <div class="mt-3 mb-4 text-center text-lg-start">
+              <h2 class="mb-0">Registrácie Prebehla Úspešne</h2>
+              <p>Prosím pokračujte prihlásením do aplikácie</p>
+              <div class="text-center text-lg-start">
+                <a mat-raised-button color="primary" [routerLink]="'/authentication-login'">Prihlásiť Sa</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

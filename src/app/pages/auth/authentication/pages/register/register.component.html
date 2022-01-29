@@ -5,36 +5,67 @@
         <div class="col">
           <div class="row">
             <div class="col-md-10 offset-md-1">
-              <div class="ltf-block-logo d-block d-lg-none text-center text-lg-start">
-                <img width="120" src="../../../../../../assets/img/logo_1.png" alt="logo">
+              <div class="ltf-block-logo d-block d-lg-none text-center text-lg-start mt-3">
+                <img width="150" src="../../../../../../assets/img/logo_1.png" alt="logo">
               </div>
               <div class="mt-5 mb-3 text-center text-lg-start">
                 <h2 class="mb-0">Vytvoriť Účet</h2>
-                <p class="text-muted">Na ukončenie procesu registrácie musíte vyplniť formulár</p>
+                <p class="text-muted">Na ukončenie procesu registrácie musíte vyplniť tento formulár</p>
               </div>
-              <form class="mb-5">
+
+              <form class="mb-5" #regForm="ngForm" (ngSubmit)="regForm.form.valid && signUpAsync(regForm)" validate>
+
                 <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Meno" autofocus
-                    autocomplete="random-string">
+                  <input type="text" class="form-control" placeholder="Meno" autofocus autocomplete="random-string"
+                    name="name" required [(ngModel)]="user.name" #nameVar="ngModel">
+
+                  <div class="text-danger" *ngIf="regForm.submitted && nameVar.errors">
+                    <p *ngIf="nameVar.errors.required">Poviný údaj</p>
+                  </div>
                 </div>
+
                 <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Email" autocomplete="random-string">
+                  <input type="email" class="form-control" placeholder="Email" autocomplete="random-string" name="email"
+                    required [(ngModel)]="user.email" #emailVar="ngModel" email>
+
+                  <div class="text-danger" *ngIf="regForm.submitted">
+                    <p *ngIf="emailVar.errors?.required">Poviný údaj</p>
+                    <p *ngIf="emailVar.errors?.email">Neplatný Email</p>
+                  </div>
                 </div>
+
                 <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Heslo" autocomplete="new-password">
+                  <input type="password" class="form-control" placeholder="Heslo" autocomplete="new-password"
+                    name="password" required [(ngModel)]="user.password" #pwdVar="ngModel">
+                  <div class="text-danger" *ngIf="regForm.submitted && pwdVar.errors">
+                    <p *ngIf="pwdVar.errors.required">Poviný údaj</p>
+                  </div>
                 </div>
+
                 <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Zopakovať heslo"
-                    autocomplete="new-password">
+                  <input type="password" class="form-control" placeholder="Zopakovať heslo" autocomplete="new-password"
+                    name="confirm_password" required [(ngModel)]="user.confirm_password" #confPwdVar="ngModel">
+                  <div class="text-danger" *ngIf="regForm.submitted && confPwdVar.errors">
+                    <p *ngIf="confPwdVar.errors.required">Poviný údaj</p>
+                  </div>
                 </div>
+
+                <p *ngIf="errorMessage" class="text-center m-0">
+                  <small class="text-danger"><strong>{{errorMessage}}</strong></small>
+                </p>
+
                 <div class="text-center text-lg-start">
                   <button class="btn btn-primary w-100 mt-3">Vytvoriť účet</button>
                 </div>
               </form>
+
+              <p class="text-center d-block d-lg-none mt-5 mt-lg-0">
+                Máte už vytvorený účet?&nbsp;<a [routerLink]="'/authentication/login'">Prihlásiť sa</a>.
+              </p>
             </div>
           </div>
         </div>
-        <div class="col border-start d-flex justify-content-center align-items-center text-center">
+        <div class="col border-start d-none d-lg-flex justify-content-center align-items-center text-center">
           <div>
             <div class="logo">
               <img width="170" src="../../../../../../assets/img/logo_1.png" alt="logo">

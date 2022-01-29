@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../authentication.service';
 })
 export class AuthenticationLoginComponent implements OnInit {
     public processing: boolean;
+    public errorMessage: string | null;
     public user: any;
 
     constructor(private _auth: AuthenticationService) {
@@ -18,7 +19,14 @@ export class AuthenticationLoginComponent implements OnInit {
     ngOnInit(): void { }
 
     async signIn() {
+        this.errorMessage = null;
         this.processing = true;
-        this.processing = await this._auth.signInAsync(this.user);
+
+        const res = await this._auth.signInAsync(this.user);
+        
+        this.processing = false;
+        if (!!res && res.error) {
+            this.errorMessage = "Neplatné meno alebo heslo!";
+        }
     }
 }

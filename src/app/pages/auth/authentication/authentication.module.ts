@@ -11,12 +11,14 @@ import { AuthenticationRoutes } from './authentication.routing.module';
 import { AuthenticationComponent } from './authentication.component';
 import { AuthenticationLoginComponent } from './pages/login/login.component';
 import { AuthenticationRegisterComponent } from './pages/register/register.component';
+import { AuthenticationCompleteRegistrationComponent } from './pages/complete-registration/complete-registration.component';
 
 @NgModule({
   declarations: [
     AuthenticationComponent,
     AuthenticationLoginComponent,
-    AuthenticationRegisterComponent
+    AuthenticationRegisterComponent,
+    AuthenticationCompleteRegistrationComponent
   ],
   imports: [
     CommonModule,

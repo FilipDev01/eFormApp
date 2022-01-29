@@ -1,0 +1,43 @@
+:host ::ng-deep .form-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-height: 100%;
+  padding: 30px 15px
+}
+
+:host ::ng-deep .form-wrapper .container {
+  min-height: 100%
+}
+
+:host ::ng-deep .d-lg-flex {
+  display: flex;
+}
+
+:host ::ng-deep .d-lg-none {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  :host ::ng-deep .mt-lg-0 {
+    margin-top: 0 !important;
+  }
+
+  :host ::ng-deep .d-lg-none {
+    display: block;
+  }
+
+  :host ::ng-deep .form-wrapper .col {
+    padding: 0 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :host ::ng-deep .form-wrapper {
+    width: 1000px;
+    margin: auto
+  }
+}

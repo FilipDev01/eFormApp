@@ -35,28 +35,36 @@ export class AuthService {
         }
     }
 
-    async signUpAsync(username: string, password: string, email: any) {
+    async signUpAsync(username: string, password: string, name: string) {
         try {
+            const email = username;
+
             const { user } = await Auth.signUp({
                 username,
                 password,
                 attributes: {
-                    email, // optional
-                    // other custom attributes 
+                    email, // email
+                    given_name: name
                 }
             });
 
             return user;
         } catch (error) {
-            return null;
+            throw error;
         }
     }
 
-    async confirmSignUpAsync(username: string, code: string) {
+    async confirmSignUpAsync(code: string) {
         try {
-            return await Auth.confirmSignUp(username, code);
+            const user = GlobalConstants.user;
+            if (!!user) {
+                return await Auth.confirmSignUp(user.email, code);
+            } else {
+                return null;
+            }
+
         } catch (error) {
-            return null;
+            throw error;
         }
     }
 
@@ -72,7 +80,7 @@ export class AuthService {
         try {
             return await Auth.resendSignUp(username);
         } catch (err) {
-            return null;
+            throw err;
         }
     }
 
