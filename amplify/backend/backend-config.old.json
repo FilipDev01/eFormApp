@@ -83,7 +83,15 @@
               "userPoolConfig": {
                 "userPoolId": "autheformdb1712f8"
               }
-            }        
+            },
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "description": "eFormApiKey",
+                "apiKeyExpirationDays": 100,
+                "apiKeyExpirationDate": "2022-05-09T13:20:57.388Z"
+              }
+            }
           ]
         }
       }

@@ -4,7 +4,6 @@ subscription OnCreateInterventions {
     id
     user_id
     date
-    created_at
     a1
     a2
     a3
@@ -36,7 +35,6 @@ subscription OnUpdateInterventions {
     id
     user_id
     date
-    created_at
     a1
     a2
     a3
@@ -68,7 +66,6 @@ subscription OnDeleteInterventions {
     id
     user_id
     date
-    created_at
     a1
     a2
     a3

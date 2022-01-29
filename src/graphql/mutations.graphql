@@ -7,7 +7,6 @@ mutation CreateInterventions(
     id
     user_id
     date
-    created_at
     a1
     a2
     a3
@@ -42,7 +41,6 @@ mutation UpdateInterventions(
     id
     user_id
     date
-    created_at
     a1
     a2
     a3
@@ -77,7 +75,6 @@ mutation DeleteInterventions(
     id
     user_id
     date
-    created_at
     a1
     a2
     a3

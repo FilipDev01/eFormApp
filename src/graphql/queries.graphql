@@ -4,7 +4,6 @@ query GetInterventions($id: ID!) {
     id
     user_id
     date
-    created_at
     a1
     a2
     a3
@@ -41,7 +40,6 @@ query ListInterventions(
       id
       user_id
       date
-      created_at
       a1
       a2
       a3
