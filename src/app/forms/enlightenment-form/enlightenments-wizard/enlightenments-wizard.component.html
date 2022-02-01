@@ -1,0 +1,116 @@
+<div class="mat-dialog-wrapper">
+
+  <button class="close" mat-button (click)="onNoClick()">X</button>
+  <h3 class="mt-0 mb-2 text-center"><strong>Osveta Formulár</strong></h3>
+
+  <div class="mat-dialog-content">
+    <mat-vertical-stepper [linear]="true">
+      <mat-step [stepControl]="sectionA" label="A: Jednotlivec">
+        <form [formGroup]="sectionA">
+          <mat-form-field>
+            <mat-label>A1: Jednotlivec počet</mat-label>
+            <input matInput type="number" formControlName="a1" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>A2: Kód intervencie osvetovej činnosti</mat-label>
+            <input matInput type="text" formControlName="a2" required>
+          </mat-form-field>
+
+          <div class="text-end">
+            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="sectionB" label="B: Rodiny">
+        <form [formGroup]="sectionB">
+          <mat-form-field>
+            <mat-label>B1: Počet rodín</mat-label>
+            <input matInput type="number" placeholder="Placeholder" formControlName="b1" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>B2: Počet osôb v rodinách </mat-label>
+            <input matInput type="number" placeholder="Placeholder" formControlName="b2" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>B3: Kód intervencie osvetovej činnosti</mat-label>
+            <input matInput type="number" placeholder="Placeholder" formControlName="b3" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+        
+          <div class="d-flex justify-content-between">
+            <button mat-raised-button matStepperPrevious>Späť</button>
+            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="sectionC" label="C: Škola">
+        <form [formGroup]="sectionC">
+          <mat-form-field>
+            <mat-label>C1: Škola</mat-label>
+            <input matInput type="text" placeholder="Placeholder" formControlName="c1" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>C2: Ročník</mat-label>
+            <input matInput type="number" placeholder="Placeholder" formControlName="c2" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>C3: Počet osôb</mat-label>
+            <input matInput type="number" placeholder="Placeholder" formControlName="c3" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>C4: Kód</mat-label>
+            <input matInput type="text" placeholder="Placeholder" formControlName="c4" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+       
+          <div class="d-flex justify-content-between">
+            <button mat-raised-button matStepperPrevious>Späť</button>
+            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="sectionD" label="D: Komunitné centrum">
+        <form [formGroup]="sectionD">
+          <mat-form-field>
+            <mat-label>D1: Komunitné centrum</mat-label>
+            <input matInput type="text" placeholder="Placeholder" formControlName="d1" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>D2: Počet osôb</mat-label>
+            <input matInput type="number" placeholder="Placeholder" formControlName="d2" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>D3: Kód intervencie osvetovej činnosti</mat-label>
+            <input matInput type="number" placeholder="Placeholder" formControlName="d3" required>
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+          
+          <div class="d-flex justify-content-between">
+            <button mat-raised-button matStepperPrevious>Späť</button>
+            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step label="Ďokončiť Formulár">
+        <div class="p-0 mt-2 text-end">
+          <button mat-flat-button color="primary" (click)="saveWizard()">Ulož</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </div>
+</div>

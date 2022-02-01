@@ -6,11 +6,13 @@ import { AgentDetailComponent } from '../pages/agent-detail/agent-detail.compone
 
 import { InterventionFormComponent } from '../forms/intervention-form/intervention-form.component';
 import { ActivityFormComponent } from '../forms/activity-form/activity-form.component';
+import { EnlightenmentFormComponent } from '../forms/enlightenment-form/enlightenment-form.component';
 
 export const AppLayoutRoutes: Routes = [
   { path: 'processing', component: ProcessingComponent },
   { path: 'agents', component: AgentsComponent },
   { path: 'agent/:agentId', component: AgentDetailComponent },
   { path: 'interventions/:agentId', component: InterventionFormComponent },
+  { path: 'enlightenments/:agentId', component: EnlightenmentFormComponent },
   { path: 'activity/:agentId', component: ActivityFormComponent }
 ]

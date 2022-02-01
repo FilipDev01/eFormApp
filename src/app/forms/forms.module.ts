@@ -8,6 +8,9 @@ import { InterventionWizardComponent } from './intervention-form/intervention-wi
 import { ActivityFormComponent } from './activity-form/activity-form.component';
 import { ActivityTableComponent } from './activity-form/activity-table/activity-table.component';
 
+import { EnlightenmentFormComponent } from './enlightenment-form/enlightenment-form.component';
+import { EnlightenmentstionWizardComponent } from './enlightenment-form/enlightenments-wizard/enlightenments-wizard.component';
+
 import { CalendarModule } from '../common/calendar/calendar.module';
 import { CustomDateAdapter } from '../common/customDateAdapter/customDateAdapter';
 import { SpinnerModule } from '../common/spinner/spinner.module'
@@ -58,11 +61,14 @@ registerLocaleData(sk);
         InterventionFormComponent,
         InterventionWizardComponent,
         ActivityFormComponent,
-        ActivityTableComponent
+        ActivityTableComponent,
+        EnlightenmentFormComponent,
+        EnlightenmentstionWizardComponent
     ],
     exports: [
         InterventionFormComponent,
-        ActivityFormComponent
+        ActivityFormComponent,
+        EnlightenmentFormComponent
     ],
     providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },

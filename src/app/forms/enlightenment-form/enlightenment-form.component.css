@@ -1,0 +1,82 @@
+.form-details-wrapper {
+  width: 300px;
+  max-width: 90%;
+  min-width: 50%;
+  text-align: center;
+  margin: 0 auto;
+  color: #121212;
+}
+
+.dot {
+  height: 20px;
+  width: 20px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.red {
+  background-color: #ff00001f;
+}
+
+.dot.green {
+  background-color: #0ccc0c63;
+}
+
+
+:host ::ng-deep .form-filled .mat-calendar-body-cell-content {
+
+  border-radius: 50px;
+}
+
+.table-footer {
+  display: flex;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  text-align: start;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.pdf-table-wrapper {
+  position: fixed;
+  left: -9999px;
+}
+
+.table> :not(caption)>*>* {
+  border-color: black;
+  border-width: 1px;
+}
+
+.btn-download-pdf {
+  min-width: 350px;
+  margin: 15px 0 10px 0;
+}
+
+.legend {
+  display: flex;
+  gap: 20px;
+  border-top: 1px solid #e3e3e3;
+  padding-top: 15px;
+}
+
+@media screen and (max-width: 767px) {
+  .btn-download-pdf {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .table-footer,
+  .table-footer-divider {
+    display: none;
+  }
+
+  .legend {
+    font-size: 9pt;
+    justify-content: center;
+  }
+}

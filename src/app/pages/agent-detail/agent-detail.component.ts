@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/common/global-constants';
 
 @Component({
@@ -9,10 +9,12 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 })
 export class AgentDetailComponent implements OnInit, OnDestroy {
     public agent: any;
+    public agentId: string | null;
     public availableForms: Array<any>;
 
-    constructor(private _router: Router) {
+    constructor(private _router: Router, private _route: ActivatedRoute) {
         this.agent = GlobalConstants.selectedAgent;
+        this.agentId = this._route.snapshot.paramMap.get('agentId');
         if (!this.agent) {
             this.goBack();
             return;
@@ -43,9 +45,9 @@ export class AgentDetailComponent implements OnInit, OnDestroy {
 
     setAvailableForms() {
         this.availableForms = [
-            { name: 'Aktivity', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png', form_url: `/activity/${this.agent.Username}` },
+            { name: 'Aktivity', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png', form_url: `/activity/${this.agentId}` },
             { name: 'Intervencie', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png', form_url: `/interventions/${this.agent.Username}` },
-            { name: 'Zdravotná Osveta', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png' },
+            { name: 'Zdravotná Osveta', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png', form_url: `/enlightenments/${this.agent.Username}` },
         ]
     }
 

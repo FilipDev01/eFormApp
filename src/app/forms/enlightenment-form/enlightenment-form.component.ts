@@ -5,44 +5,46 @@ import { ActivatedRoute, Router } from '@angular/router';
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas';
 
-import { InterventionWizardComponent } from './intervention-wizard/intervention-wizard.component';
-import { InterventionsFormService } from '../../services/forms/interventions.form.service';
-import { Interventions } from "../../services/graphql/graphql.service";
 import { GlobalConstants } from '../../common/global-constants';
+import { Enlightenments } from '../../services/graphql/graphql.service';
+import { EnlightenmentstionWizardComponent } from './enlightenments-wizard/enlightenments-wizard.component';
+import { EnlightenmentsFormService } from '../../services/forms/enlightenment.form.service';
 
 @Component({
-  selector: 'app-intervention-form',
-  templateUrl: './intervention-form.component.html',
-  styleUrls: ['./intervention-form.component.css']
+  selector: 'app-enlightenment-form',
+  templateUrl: './enlightenment-form.component.html',
+  styleUrls: ['./enlightenment-form.component.css']
 })
-export class InterventionFormComponent implements OnInit {
+export class EnlightenmentFormComponent implements OnInit {
   public agentId: string | null;
   public agentName: string;
-  public isAdmin: boolean;
+  public agentIsAdmin: boolean;
 
   public dateToday: Date;
   public processing: boolean;
 
-  public interventions$: Promise<any>;
-  public interventions: any;
+  public enlightenments$: Promise<any>;
+  public enlightenments: any;
 
   public pdfData: Array<any>;
+
+
   constructor(
     public dialog: MatDialog,
-    private _interventionsFormService: InterventionsFormService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _enlightenmentsFormService: EnlightenmentsFormService
   ) {
     this.agentId = this._route.snapshot.paramMap.get('agentId');
     this.dateToday = new Date();
   }
 
   async ngOnInit() {
-    this.interventions$ = this._interventionsFormService.getInterventionsAsync(this.agentId);
-    this.isAdmin = GlobalConstants.currentUserGroups.includes('admin');
-    if (this.isAdmin) {
+    this.agentIsAdmin = GlobalConstants.currentUserGroups.includes('admin');
+    this.enlightenments$ = this._enlightenmentsFormService.getEnlightenmentsAsync(this.agentId);
+    if (this.agentIsAdmin) {
       this._setAgentDetails();
-      this.generatePdfData();
+      // this.generatePdfData();
     }
   }
 
@@ -51,21 +53,21 @@ export class InterventionFormComponent implements OnInit {
   }
 
   async openDialog(date: any): Promise<any> {
-    const dialogRef = this.dialog.open(InterventionWizardComponent, { panelClass: 'my-dialog', data: { form_data: await this.interventions$, date: date } });
+    const dialogRef = this.dialog.open(EnlightenmentstionWizardComponent, { panelClass: 'my-dialog', data: { form_data: await this.enlightenments$, date: date } });
     dialogRef.afterClosed().subscribe(async (result: any) => {
-      await this._interventionsFormService.createInterventionAsync(result, this.agentId);
-      this.interventions$ = this._interventionsFormService.getInterventionsAsync(this.agentId);
+      // await this._interventionsFormService.createInterventionAsync(result, this.agentId);
+      // this.enlightenments$ = this._interventionsFormService.getInterventionsAsync(this.agentId);
     });
   }
 
   async generatePdfData() {
-    const interventions = await this.interventions$;
+    const interventions = await this.enlightenments$;
 
-    const rows: Array<Interventions> = new Array<Interventions>();
+    const rows: Array<Enlightenments> = new Array<Enlightenments>();
     const daysInMonth = this._getDaysInCurrentMonth();
     daysInMonth.forEach((date: any) => {
-      const temp: Interventions = {
-        __typename: "Interventions",
+      const temp: Enlightenments = {
+        __typename: "Enlightenments",
         id: 'dummy',
         createdAt: 'dummy',
         updatedAt: 'dummy'
@@ -125,42 +127,26 @@ export class InterventionFormComponent implements OnInit {
 
 
   private async _generatePdfCanvas(pageNo: number) {
-    var data: any = document.getElementById(`pdf_page_${pageNo}`);
-    if (data) {
-      const styleEl = document.createElement('style');
-      styleEl.id = "temp-style";
-      styleEl.innerHTML = ".table-interventions thead th, .table-interventions tbody td {font-size: 14pt !important;} #table-interventions {padding: 50px!important;}"
-      data.parentNode.insertBefore(styleEl, data.nextElementSibling);
-
-      var canvas = document.createElement('canvas');
-      const can = await html2canvas(data);
-
-      const contentDataURL = can.toDataURL('image/png');
-      var pdf = new jsPDF('l', 'mm', 'a4', true);
-
-      var width = pdf.internal.pageSize.getWidth();
-      var height = canvas.height * width / canvas.width;;
-
-      return { data_url: contentDataURL, img_type: 'PNG', x: 1, y: 1, width: width, height: height }
-
-      html2canvas(data).then((canvas) => {
-        const contentDataURL = canvas.toDataURL('image/png');
-        var pdf = new jsPDF('l', 'mm', 'a4', true);
-
-        var width = pdf.internal.pageSize.getWidth();
-        var height = canvas.height * width / canvas.width;;
-
-        pdf.addImage(contentDataURL, 'PNG', 1, 1, width, height);
-        pdf.save(`HAHA- Dashboard-${pageNo}`);
-
-        var sEl: any = document.getElementById('temp-style');
-        if (sEl) {
-          sEl.remove();
-        }
-      });
+    const data: any = document.getElementById(`pdf_page_${pageNo}`);
+    if (!data) {
+      return null;
     }
 
-    return null;
+    const styleEl = document.createElement('style');
+    styleEl.id = "temp-style";
+    styleEl.innerHTML = ".table-interventions thead th, .table-interventions tbody td {font-size: 14pt !important;} #table-interventions {padding: 50px!important;}"
+    data.parentNode.insertBefore(styleEl, data.nextElementSibling);
+
+    const canvas = document.createElement('canvas');
+    const can = await html2canvas(data);
+
+    const contentDataURL = can.toDataURL('image/png');
+    const pdf = new jsPDF('l', 'mm', 'a4', true);
+
+    const width = pdf.internal.pageSize.getWidth();
+    const height = canvas.height * width / canvas.width;;
+
+    return { data_url: contentDataURL, img_type: 'PNG', x: 1, y: 1, width: width, height: height }
   }
 
   private _getDaysInCurrentMonth() {

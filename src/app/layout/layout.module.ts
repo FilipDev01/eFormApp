@@ -24,6 +24,7 @@ import { InterventionsFormService } from '../services/forms/interventions.form.s
 import { AdminQueriesService } from '../services/admin-queries/admin-queries.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { SpinnerModule } from '../common/spinner/spinner.module';
+import { EnlightenmentsFormService } from '../services/forms/enlightenment.form.service';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { SpinnerModule } from '../common/spinner/spinner.module';
   ],
   providers: [
     InterventionsFormService,
+    EnlightenmentsFormService,
     AdminQueriesService
   ]
 })
