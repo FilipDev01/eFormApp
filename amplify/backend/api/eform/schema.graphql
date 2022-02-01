@@ -32,3 +32,36 @@ type Interventions @model @auth(rules: [
   d8: Int
   e1: Int
 }
+
+type Enlightenments @model @auth(rules: [
+  { allow: groups, groups: ["Admins", "Agents"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  user_id: String
+  date: String
+  a1: Int
+  a2: String
+  b1: Int
+  b2: Int
+  b3: String
+  c1: String
+  c2: Int
+  c3: Int
+  c4: String
+  d1: String
+  d2: Int
+  d3: String
+}
+
+type Activities @model @auth(rules: [
+  { allow: groups, groups: ["Admins", "Agents"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  user_id: String
+  date: String
+  time: String
+  activity: String
+  done: Int
+}

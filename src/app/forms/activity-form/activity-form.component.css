@@ -1,0 +1,73 @@
+.form-details-wrapper {
+  width: 300px;
+  max-width: 90%;
+  min-width: 50%;
+  text-align: center;
+  margin: 0 auto;
+  color: #121212;
+}
+
+table tr th:not(:last-child),
+table tr td:not(:last-child) {
+  min-width: 50px;
+}
+
+table input {
+  outline: unset;
+  border: unset;
+  border-bottom: 1px solid;
+  width: 100%;
+}
+
+tr.mat-row,
+tr.mat-header-row,
+tr.mat-footer-row {
+  height: 40px;
+}
+
+tr.mat-header-row th {
+  font-size: 11pt;
+  font-weight: 700;
+}
+
+.td-time,
+.td-status {
+  width: 65px;
+  text-align: center;
+  padding: 0 !important;
+}
+
+.td-activity {
+  padding-left: 10px;
+}
+
+.td-action {
+  font-size: 15pt;
+  line-height: 1;
+  font-weight: 800;
+  color: red;
+  cursor: pointer;
+}
+
+.btn-download-pdf {
+  min-width: 350px;
+  margin: 15px 0 10px 0;
+}
+
+
+@media screen and (max-width: 767px) {
+  .btn-download-pdf {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .table-footer,
+  .table-footer-divider {
+    display: none;
+  }
+
+  .legend {
+    font-size: 9pt;
+    justify-content: center;
+  }
+}

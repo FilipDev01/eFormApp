@@ -5,9 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InterventionFormComponent } from './intervention-form/intervention-form.component';
 import { InterventionWizardComponent } from './intervention-form/intervention-wizard/intervention-wizard.component';
+import { ActivityFormComponent } from './activity-form/activity-form.component';
+import { ActivityTableComponent } from './activity-form/activity-table/activity-table.component';
 
 import { CalendarModule } from '../common/calendar/calendar.module';
 import { CustomDateAdapter } from '../common/customDateAdapter/customDateAdapter';
+import { SpinnerModule } from '../common/spinner/spinner.module'
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,7 +22,10 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatBadgeModule } from '@angular/material/badge';
-import { SpinnerModule } from '../common/spinner/spinner.module'
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatTableModule } from '@angular/material/table';
 
 import sk from '@angular/common/locales/sk';
 import { registerLocaleData } from '@angular/common';
@@ -41,15 +47,22 @@ registerLocaleData(sk);
         MatNativeDateModule,
         MatDividerModule,
         MatBadgeModule,
+        MatCheckboxModule,
+        MatSelectModule,
+        MatExpansionModule,
+        MatTableModule,
         CalendarModule,
         SpinnerModule
     ],
     declarations: [
         InterventionFormComponent,
         InterventionWizardComponent,
+        ActivityFormComponent,
+        ActivityTableComponent
     ],
     exports: [
-        InterventionFormComponent
+        InterventionFormComponent,
+        ActivityFormComponent
     ],
     providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },

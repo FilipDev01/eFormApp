@@ -92,3 +92,102 @@ subscription OnDeleteInterventions {
     updatedAt
   }
 }
+subscription OnCreateEnlightenments {
+  onCreateEnlightenments {
+    id
+    user_id
+    date
+    a1
+    a2
+    b1
+    b2
+    b3
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateEnlightenments {
+  onUpdateEnlightenments {
+    id
+    user_id
+    date
+    a1
+    a2
+    b1
+    b2
+    b3
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteEnlightenments {
+  onDeleteEnlightenments {
+    id
+    user_id
+    date
+    a1
+    a2
+    b1
+    b2
+    b3
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateActivities {
+  onCreateActivities {
+    id
+    user_id
+    date
+    time
+    activity
+    done
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateActivities {
+  onUpdateActivities {
+    id
+    user_id
+    date
+    time
+    activity
+    done
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteActivities {
+  onDeleteActivities {
+    id
+    user_id
+    date
+    time
+    activity
+    done
+    createdAt
+    updatedAt
+  }
+}

@@ -101,3 +101,120 @@ mutation DeleteInterventions(
     updatedAt
   }
 }
+mutation CreateEnlightenments(
+  $input: CreateEnlightenmentsInput!
+  $condition: ModelEnlightenmentsConditionInput
+) {
+  createEnlightenments(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    a1
+    a2
+    b1
+    b2
+    b3
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateEnlightenments(
+  $input: UpdateEnlightenmentsInput!
+  $condition: ModelEnlightenmentsConditionInput
+) {
+  updateEnlightenments(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    a1
+    a2
+    b1
+    b2
+    b3
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteEnlightenments(
+  $input: DeleteEnlightenmentsInput!
+  $condition: ModelEnlightenmentsConditionInput
+) {
+  deleteEnlightenments(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    a1
+    a2
+    b1
+    b2
+    b3
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateActivities(
+  $input: CreateActivitiesInput!
+  $condition: ModelActivitiesConditionInput
+) {
+  createActivities(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    time
+    activity
+    done
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateActivities(
+  $input: UpdateActivitiesInput!
+  $condition: ModelActivitiesConditionInput
+) {
+  updateActivities(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    time
+    activity
+    done
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteActivities(
+  $input: DeleteActivitiesInput!
+  $condition: ModelActivitiesConditionInput
+) {
+  deleteActivities(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    time
+    activity
+    done
+    createdAt
+    updatedAt
+  }
+}

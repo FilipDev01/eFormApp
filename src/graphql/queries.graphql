@@ -68,3 +68,83 @@ query ListInterventions(
     nextToken
   }
 }
+query GetEnlightenments($id: ID!) {
+  getEnlightenments(id: $id) {
+    id
+    user_id
+    date
+    a1
+    a2
+    b1
+    b2
+    b3
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    createdAt
+    updatedAt
+  }
+}
+query ListEnlightenments(
+  $filter: ModelEnlightenmentsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEnlightenments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user_id
+      date
+      a1
+      a2
+      b1
+      b2
+      b3
+      c1
+      c2
+      c3
+      c4
+      d1
+      d2
+      d3
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetActivities($id: ID!) {
+  getActivities(id: $id) {
+    id
+    user_id
+    date
+    time
+    activity
+    done
+    createdAt
+    updatedAt
+  }
+}
+query ListActivities(
+  $filter: ModelActivitiesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listActivities(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user_id
+      date
+      time
+      activity
+      done
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
