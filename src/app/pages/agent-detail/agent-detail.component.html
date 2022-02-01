@@ -1,0 +1,77 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <a mat-raised-button color="primary" (click)="goBack();">Späť na zoznam agentov</a>
+
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <div class="card">
+
+              <div class="card-header card-header-primary">
+                <h4 class="card-title">Agent</h4>
+                <p class="card-category d-none"></p>
+              </div>
+
+              <div class="card-body">
+                <div class="container-fluid">
+                  <div class="col-md-12 col-lg-4">
+                    <div class="mb-3 d-flex align-items-end gap-3">
+                      <p class="form-label m-0"><strong>Meno:</strong></p>
+                      <p class="form-label m-0">{{agent.name || '-'}}</p>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-lg-4">
+                    <div class="mb-3 d-flex align-items-end gap-3">
+                      <p class="form-label m-0"><strong>Email:</strong></p>
+                      <p class="form-label m-0">{{agent.email}}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+
+              <div class="card-header card-header-primary">
+                <h4 class="card-title">Formuláre</h4>
+                <p class="card-category d-none"></p>
+              </div>
+
+              <div class="card-body row">
+                <div *ngFor="let af of availableForms" class="col-lg-4 col-md-6 col-sm-12">
+                  <div class="card mt-2 mb-0">
+                    <div class="card-body text-center cust-card-body">
+                      <div class="avatar avatar-xl mb-3">
+                        <img [src]="af.img_url" width="150" alt="...">
+                      </div>
+                      <mat-divider class="mt-3"></mat-divider>
+                      <div class="py-2">
+                        <h2 class="mb-1">
+                          <strong>{{af.name}}</strong>
+                        </h2>
+                      </div>
+                      <mat-divider class="mb-3"></mat-divider>
+                      <div class="d-flex justify-content-center gap-3">
+                        <a [routerLink]="af.form_url" class="btn btn-outline-primary button-custom btn-icon w-100">
+                          <i class="bi bi-person-plus"></i> Vybrať
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

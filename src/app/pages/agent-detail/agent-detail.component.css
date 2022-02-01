@@ -1,0 +1,27 @@
+.button-custom {
+  background-color: #00adef !important;
+  color: white !important;
+  border: unset !important;
+}
+
+.cust-card-header {
+  position: relative;
+  padding: 10px 15px;
+  min-width: 0;
+  word-wrap: break-word;
+  background: linear-gradient(60deg, #ef5350, #e53935);
+  color: white;
+  background-clip: border-box;
+  border: 1px solid #eeeeee;
+  border-radius: 0.25rem;
+}
+
+.cust-card-body {
+  border: 2px solid #a43fb724;
+  border-radius: 6px;
+}
+
+.cust-card-header h3 {
+  color: white !important;
+  margin: 0 !important;
+}

@@ -15,7 +15,7 @@
   display: inline-block;
 }
 
-.dot.red{
+.dot.red {
   background-color: #ff00001f;
 }
 
@@ -42,10 +42,41 @@
   margin-top: 10px;
 }
 
+.pdf-table-wrapper {
+  position: fixed;
+  left: -9999px;
+}
+
+.table> :not(caption)>*>* {
+  border-color: black;
+  border-width: 1px;
+}
+
+.btn-download-pdf {
+  min-width: 350px;
+  margin: 15px 0 10px 0;
+}
+
+.legend {
+  display: flex;
+  gap: 20px;
+  border-top: 1px solid #e3e3e3;
+  padding-top: 15px;
+}
+
 @media screen and (max-width: 767px) {
+  .btn-download-pdf {
+    width: 100%;
+    min-width: unset;
+  }
 
   .table-footer,
-  .table-divider {
+  .table-footer-divider {
     display: none;
+  }
+
+  .legend {
+    font-size: 9pt;
+    justify-content: center;
   }
 }

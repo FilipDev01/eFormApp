@@ -11,7 +11,7 @@ import { AuthenticationComponent } from './pages/auth/authentication/authenticat
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'processing',
     pathMatch: 'full',
   },
   {

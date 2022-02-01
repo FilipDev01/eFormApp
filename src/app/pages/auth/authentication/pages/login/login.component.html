@@ -20,10 +20,10 @@
               <form class="mb-5">
                 <div class="mb-3">
                   <input type="email" class="form-control px-2" placeholder="E-MAIL" name="email"
-                    [(ngModel)]="user.email">
+                    [(ngModel)]="user.email" autocomplete="username">
                 </div>
                 <div class="mb-1">
-                  <input type="password" class="form-control px-2" placeholder="HESLO" name="password" [(ngModel)]="user.password">
+                  <input type="password" class="form-control px-2" placeholder="HESLO" name="password" [(ngModel)]="user.password" autocomplete="current-password">
                 </div>
 
                 <p *ngIf="errorMessage" class="text-center m-0">

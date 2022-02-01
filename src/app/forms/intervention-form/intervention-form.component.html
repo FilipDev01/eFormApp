@@ -3,10 +3,9 @@
 
     <div class="row">
       <div class="col-lg-12 col-md-12">
-        <a mat-raised-button color="primary" [routerLink]="'/dashboard'">Späť</a>
+        <a mat-raised-button color="primary" (click)="goBackToAgent()">Späť</a>
       </div>
     </div>
-
 
     <div class="row">
       <div class="col-lg-12 col-md-12">
@@ -20,6 +19,9 @@
               <h3>Základné informácie</h3>
               <mat-divider></mat-divider>
 
+              <p *ngIf="isAdmin" class="details-grid mt-3">
+                <strong>Agent:</strong><span>{{agentName || '-'}}</span>
+              </p>
               <p class="details-grid mt-3">
                 <strong>Aktuálny deň:</strong><span> {{dateToday | date:'dd/MM/yyyy'}}</span>
               </p>
@@ -27,22 +29,37 @@
                 <strong>Aktuálny mesiac:</strong><span style="text-transform: capitalize;">
                   {{dateToday | date:'LLLL'}}</span>
               </p>
-              <p class="details-grid">
-                <strong>Deň Zaznamenaný</strong><span class="dot green"></span>
-              </p>
-              <p class="details-grid mb-3">
-                <strong>Deň Nezaznamenaný</strong><span class="dot red"></span>
-              </p>
+
               <mat-divider></mat-divider>
             </div>
-
 
             <app-calendar *ngIf="interventions$ | async as interventions" [data]="interventions"
               (dateSelected)="openDialog($event)">
             </app-calendar>
 
+            <div class="form-details-wrapper legend">
+              <p class="d-flex align-items-center gap-1">
+                <span class="dot green"></span>
+                <strong>Deň Zaznamenaný</strong>
+              </p>
+              <p class="d-flex align-items-center gap-1">
+                <span class="dot red"></span>
+                <strong>Deň Nezaznamenaný</strong>
+              </p>
+            </div>
 
-            <mat-divider class="table-divider"></mat-divider>
+            <div *ngIf="isAdmin" class="fp-admin-section">
+              <mat-divider class="table-divider"></mat-divider>
+
+              <div class="row">
+                <div class="col-lg-12 col-md-12 text-center">
+                  <button mat-raised-button color="primary" class="btn-download-pdf"
+                    (click)="generatePdfFileAsync()">Stiahnuť PDF</button>
+                </div>
+              </div>
+            </div>
+
+            <mat-divider class="table-footer-divider mt-2"></mat-divider>
 
             <div class="table-footer justify-content-between align-items-center" style="padding: 10px 10px 0 15px;">
               <img src="../../../assets/img/form/healthy-regions/picture_3.png" width="auto" height="44">
@@ -54,35 +71,23 @@
         </div>
       </div>
     </div>
-
-    <div class="row d-none">
-      <div class="col-lg-12 col-md-12">
-        <!-- <mat-card class="demo-inline-calendar-card">
-          <mat-calendar [(selected)]="selected"></mat-calendar>
-        </mat-card> -->
-
-
-        <button class="btn btn-primary" (click)=saveTableAsPdf();>Stiahnuť ako PDF</button>
-        <!-- <button mat-raised-button color="primary" (click)="openDialog()">Intervencie Formulár</button> -->
-      </div>
-    </div>
   </div>
 </div>
 
-
-<div class="row d-none">
+<div *ngIf="!!pdfData" class="row pdf-table-wrapper">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body table-responsive">
-        <div id="table-interventions" class="p-2" style="display: table;">
+
+        <div *ngFor="let page of pdfData; let ind = index" [id]="'pdf_page_'+ind" class="p-4" style="display: table;">
           <table class="table table-interventions">
             <thead>
               <tr>
                 <th colspan="23">
                   <div class="table-header d-flex justify-content-between">
-                    <img src="../../../assets/img/form/healthy-regions/picture_2.png" width="200">
-                    <img src="../../../assets/img/form/healthy-regions/picture_1.png" width="200">
-                    <img src="../../../assets/img/form/healthy-regions/picture_3.png" width="200">
+                    <img src="../../../assets/img/form/healthy-regions/picture_2.png" width="300">
+                    <img src="../../../assets/img/form/healthy-regions/picture_1.png" width="300">
+                    <img src="../../../assets/img/form/healthy-regions/picture_3.png" width="300">
                   </div>
                 </th>
               </tr>
@@ -126,8 +131,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let intervention of interventions$ | async">
-                <td>1</td>
+              <tr *ngFor="let intervention of page; let i = index;">
+                <td>{{intervention.day_int}}</td>
                 <td>{{intervention.a1}}</td>
                 <td>{{intervention.a2}}</td>
                 <td>{{intervention.a3}}</td>

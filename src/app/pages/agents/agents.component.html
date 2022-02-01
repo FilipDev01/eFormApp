@@ -1,0 +1,43 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Agenti</h4>
+            <p class="card-category d-none"></p>
+          </div>
+
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class=" text-primary">
+                  <th>ID</th>
+                  <th class="d-none"></th>
+                  <th>Meno</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Vytvorený</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let agent of agents; let ind = index" (click)="goToAgentDetails(agent)">
+                    <td>{{ind + 1}}</td>
+                    <td class="d-none">{{agent.Username}}</td>
+                    <td>{{(agent.Attributes[2]?.Value) || '-'}}</td>
+                    <td>{{(agent.Attributes[3]?.Value) || '-'}}</td>
+                    <td>
+                      <span *ngIf="agent.UserStatus === 'UNCONFIRMED'" class="badge bg-danger">Neaktívny</span>
+                      <span *ngIf="agent.UserStatus !== 'UNCONFIRMED'" class="badge bg-success">Aktívny</span>
+                    </td>
+                    <td>{{agent.UserCreateDate | date: 'dd/MM/yyyy'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

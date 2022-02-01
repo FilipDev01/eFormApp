@@ -83,7 +83,7 @@
               "userPoolConfig": {
                 "userPoolId": "autheformdb1712f8"
               }
-            }        
+            }
           ]
         }
       }

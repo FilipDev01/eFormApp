@@ -11,8 +11,9 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
-  { path: '/teams', title: 'Teams', icon: 'person', class: '' },
+  { path: '/dashboard', title: 'Prehľad', icon: 'dashboard', class: 'primary' },
+  { path: '/agents', title: 'Agenti', icon: 'person', class: 'primary' },
+  { path: '/agent/:agentId', title: 'Agent', icon: 'person', class: 'primary' },
   // { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
   // { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
   // { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
@@ -44,10 +45,10 @@ export class SidebarComponent implements OnInit {
 
   setAvailabeRoutes(): Array<RouteInfo> {
     const routes = new Array<RouteInfo>();
-    routes.push({ path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' });
-
     if (Array.isArray(GlobalConstants.currentUserGroups) && GlobalConstants.currentUserGroups.includes('admin')) {
-      routes.push({ path: '/teams', title: 'Teams', icon: 'person', class: '' });
+      routes.push({ path: '/agents', title: 'Agenti', icon: 'supervisor_account', class: 'primary' });
+    } else {
+      routes.push({ path: `/agent/${GlobalConstants.selectedAgent.username}`, title: 'Agent', icon: 'person', class: 'primary' });
     }
 
     return routes;

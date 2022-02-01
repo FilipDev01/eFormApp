@@ -10,14 +10,21 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 
-import { AppLayoutRoutes } from './layout.routing.module';
-import { ComponentsModule } from '../components/components.module';
-import { AppLayoutComponent } from './layout.component';
-
-import { DashboardComponent } from '../pages/dashboard/dashboard.component';
-import { TeamsComponent } from '../pages/teams/teams.component';
-import { InterventionsFormService } from '../services/forms/interventions.form.service';
 import { eFormsModule } from '../forms/forms.module';
+import { ComponentsModule } from '../components/components.module';
+
+import { AppLayoutRoutes } from './layout.routing.module';
+
+import { AppLayoutComponent } from './layout.component';
+import { ProcessingComponent } from '../pages/processing/processing.component';
+import { AgentsComponent } from '../pages/agents/agents.component';
+import { AgentDetailComponent } from '../pages/agent-detail/agent-detail.component';
+
+import { InterventionsFormService } from '../services/forms/interventions.form.service';
+import { AdminQueriesService } from '../services/admin-queries/admin-queries.service';
+import { MatDividerModule } from '@angular/material/divider';
+import { SpinnerModule } from '../common/spinner/spinner.module';
+
 
 @NgModule({
   imports: [
@@ -26,6 +33,7 @@ import { eFormsModule } from '../forms/forms.module';
     ReactiveFormsModule,
     ComponentsModule,
     eFormsModule,
+    SpinnerModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -33,15 +41,18 @@ import { eFormsModule } from '../forms/forms.module';
     MatSelectModule,
     MatStepperModule,
     MatTooltipModule,
+    MatDividerModule,
     RouterModule.forChild(AppLayoutRoutes),
   ],
   declarations: [
     AppLayoutComponent,
-    DashboardComponent,
-    TeamsComponent,
+    ProcessingComponent,
+    AgentsComponent,
+    AgentDetailComponent
   ],
   providers: [
-    InterventionsFormService
+    InterventionsFormService,
+    AdminQueriesService
   ]
 })
 

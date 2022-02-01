@@ -71,20 +71,4 @@ export class CalendarComponent implements OnInit {
       return '';
     };
   }
-
-
-  getDaysInCurrentMonth() {
-    const currentDate = new Date();
-    const month = currentDate.getMonth();
-    const year = currentDate.getFullYear();
-
-    var date = new Date(year, month, 1);
-    var days = [];
-    while (date.getMonth() === month) {
-      days.push(new Date(date));
-      date.setDate(date.getDate() + 1);
-    }
-    return days;
-  }
-
 }

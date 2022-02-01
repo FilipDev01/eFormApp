@@ -17,6 +17,8 @@ export class AuthService {
             if (!!user) {
                 GlobalConstants.userId = user.attributes.sub;
                 GlobalConstants.currentUserGroups = user.signInUserSession.accessToken.payload['cognito:groups'];
+
+                GlobalConstants.selectedAgent = !!GlobalConstants.selectedAgent ? GlobalConstants.selectedAgent : user;
             }
 
             return !!user;
