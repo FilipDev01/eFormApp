@@ -19,7 +19,7 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatBadgeModule } from '@angular/material/badge';
-
+import { SpinnerModule } from '../common/spinner/spinner.module'
 
 import sk from '@angular/common/locales/sk';
 import { registerLocaleData } from '@angular/common';
@@ -41,7 +41,8 @@ registerLocaleData(sk);
         MatNativeDateModule,
         MatDividerModule,
         MatBadgeModule,
-        CalendarModule
+        CalendarModule,
+        SpinnerModule
     ],
     declarations: [
         InterventionFormComponent,

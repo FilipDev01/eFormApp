@@ -21,6 +21,7 @@ export class InterventionFormComponent implements OnInit {
   public isAdmin: boolean;
 
   public dateToday: Date;
+  public processing: boolean;
 
   public interventions$: Promise<any>;
   public interventions: any;
@@ -89,30 +90,36 @@ export class InterventionFormComponent implements OnInit {
   }
 
   public async generatePdfFileAsync() {
-    const canvasesAsync = Array<Promise<any>>();
-    this.pdfData.forEach(async (element: any, ind: number) => {
-      canvasesAsync.push(this._generatePdfCanvas(ind));
-    });
-
-    const canvases = await Promise.all(canvasesAsync);
-    if (!!canvases && canvases.length > 0 && !!canvases[0]) {
-      var pdf = new jsPDF('l', 'mm', 'a4', true);
-      canvases.forEach((canvas: any, i: number) => {
-
-        if (i > 0) {
-          pdf.addPage();
-        }
-        pdf.setPage(i + 1);
-        pdf.addImage(
-          canvas.data_url,
-          canvas.img_type,
-          canvas.x,
-          canvas.y,
-          canvas.width,
-          canvas.height);
+    try {
+      this.processing = true
+      const canvasesAsync = Array<Promise<any>>();
+      this.pdfData.forEach(async (element: any, ind: number) => {
+        canvasesAsync.push(this._generatePdfCanvas(ind));
       });
 
-      pdf.save(`apz_intervencie.pdf`);
+      const canvases = await Promise.all(canvasesAsync);
+      if (!!canvases && canvases.length > 0 && !!canvases[0]) {
+        var pdf = new jsPDF('l', 'mm', 'a4', true);
+        canvases.forEach((canvas: any, i: number) => {
+          if (i > 0) {
+            pdf.addPage();
+          }
+          pdf.setPage(i + 1);
+          pdf.addImage(
+            canvas.data_url,
+            canvas.img_type,
+            canvas.x,
+            canvas.y,
+            canvas.width,
+            canvas.height);
+        });
+
+        pdf.save(`apz_intervencie.pdf`);       
+      }
+
+      this.processing = false;
+    } catch (err: any) {
+      this.processing = false;
     }
   }
 
