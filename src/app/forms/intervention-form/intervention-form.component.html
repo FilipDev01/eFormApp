@@ -91,6 +91,14 @@
                   </div>
                 </th>
               </tr>
+              <tr *ngIf="ind === 0">
+                <th colspan="5" class="text-start">
+                  <strong>Mesiac/rok: {{(dateToday | date:'LLLL/yyyy') | uppercase}}</strong>
+                </th>
+                <th colspan="18" class="text-start">
+                  <strong>Meno APZ: {{agentName}}</strong>
+                </th>
+              </tr>
               <tr>
                 <th colspan="23" class="text-center">
                   <h3 class="m-0"><strong>Intervencie</strong></h3>
@@ -155,6 +163,50 @@
                 <td>{{intervention.d7}}</td>
                 <td>{{intervention.d8}}</td>
                 <td>{{intervention.e1}}</td>
+              </tr>
+              <tr *ngIf="ind === (pdfData.length - 1)">
+                <td>Spolu</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+              </tr>
+              <tr *ngIf="ind === (pdfData.length - 1)">
+                <td colspan="23" class="text-start">
+                  <span>V mesiaci {{dateToday | date:'LLLL'}} sa v mojej lokalite vyskytlo infekčné ochorenie:</span>
+                </td>
+              </tr>
+              <tr *ngIf="ind === (pdfData.length - 1)">
+                <td colspan="23" class="text-start">
+                  <span>Spolupracoval som s lekármi:</span>
+                </td>
+              </tr>
+              <tr *ngIf="ind === (pdfData.length - 1)">
+                <td colspan="20" class="text-start">
+                  <span>Svojim podpisom vyhlasujem, že údaje uvedené v dokumente sú pravdivé, reálne a správne a som si
+                    vedomý následkov spojených s uvedením/predložením nesprávnych,neúplných a nereálnych údajov.</span>
+                </td>
+                <td colspan="3" class="text-start">
+                  <span>Podpis APZ:</span>
+                </td>
               </tr>
               <tr>
                 <td colspan="23">

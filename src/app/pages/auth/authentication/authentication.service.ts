@@ -13,7 +13,7 @@ export class AuthenticationService {
         try {
             const res = await this._authService.signInAsync(user.email, user.password)
             if (!!res) {
-                this._router.navigate(['/dashboard']);
+                this._router.navigate(['/processing']);
             }
 
             return { success: true, error: null };

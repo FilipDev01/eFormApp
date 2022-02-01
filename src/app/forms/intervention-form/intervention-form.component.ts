@@ -7,8 +7,8 @@ import html2canvas from 'html2canvas';
 
 import { InterventionWizardComponent } from './intervention-wizard/intervention-wizard.component';
 import { InterventionsFormService } from '../../services/forms/interventions.form.service';
-import { Interventions } from 'src/app/services/graphql/Interventions.service';
-import { GlobalConstants } from 'src/app/common/global-constants';
+import { Interventions } from "../../services/graphql/Interventions.service";
+import { GlobalConstants } from '../../common/global-constants';
 
 @Component({
   selector: 'app-intervention-form',
