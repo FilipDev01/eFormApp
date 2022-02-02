@@ -55,14 +55,21 @@ export class EnlightenmentstionWizardComponent implements OnInit {
   }
 
   getWizardFormData() {
-    const formData = {};
+    const formData: any = {};
     [this.sectionA, this.sectionB, this.sectionC, this.sectionD].forEach((group: FormGroup) => {
       Object.assign(formData, group.getRawValue());
     });
 
-    Object.assign(formData, this.dialogData);
+    if (!!formData) {
+      const keys = Object.keys(formData);
+      keys.forEach((key: string) => {
+        if (Array.isArray(formData[key])) {
+          formData[key] = formData[key].join(',');
+        }
+      });
+    }
 
-    console.log(formData);
+    formData.date = this.dialogData.date;
     return formData;
   }
 
@@ -78,7 +85,6 @@ export class EnlightenmentstionWizardComponent implements OnInit {
     }
   }
 
-
   private _setForm(data: any) {
     let savedData = null;
     if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
@@ -88,26 +94,26 @@ export class EnlightenmentstionWizardComponent implements OnInit {
 
     this.sectionA = this._formBuilder.group({
       a1: [(!!savedData ? savedData.a1 : 0), Validators.required],
-      a2: [(!!savedData ? savedData.a2 : ''), Validators.required],
+      a2: [((!!savedData && !!savedData.a2) ? savedData.a2.split(',') : ''), Validators.required],
     });
 
     this.sectionB = this._formBuilder.group({
       b1: [(!!savedData ? savedData.b1 : 0), Validators.required],
       b2: [(!!savedData ? savedData.b2 : 0), Validators.required],
-      b3: [(!!savedData ? savedData.b3 : ''), Validators.required],
+      b3: [((!!savedData && !!savedData.b3) ? savedData.b3.split(',') : ''), Validators.required],
     });
 
     this.sectionC = this._formBuilder.group({
       c1: [(!!savedData ? savedData.c1 : ''), Validators.required],
       c2: [(!!savedData ? savedData.c2 : 0), Validators.required],
       c3: [(!!savedData ? savedData.c3 : 0), Validators.required],
-      c4: [(!!savedData ? savedData.c4 : ''), Validators.required],
+      c4: [((!!savedData && !!savedData.c4) ? savedData.c4.split(',') : ''), Validators.required],
     });
 
     this.sectionD = this._formBuilder.group({
       d1: [(!!savedData ? savedData.d1 : ''), Validators.required],
       d2: [(!!savedData ? savedData.d2 : 0), Validators.required],
-      d3: [(!!savedData ? savedData.d3 : ''), Validators.required],
+      d3: [((!!savedData && savedData.d3) ? savedData.d3.split(',') : ''), Validators.required],
     });
   }
 
@@ -152,8 +158,5 @@ export class EnlightenmentstionWizardComponent implements OnInit {
       const index = i + 1;
       this.enlightenmentOptions.push({ code: `F${index}`, description: option, value: index });
     });
-
-    console.log(this.enlightenmentOptions);
-
   }
 }

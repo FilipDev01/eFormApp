@@ -15,13 +15,13 @@
 }
 
 
-
-.cdk-overlay-connected-position-bounding-box {
-  background: #b993bf73 !important;
-}
-
 :host ::ng-deep .dropdown-list {
   position: relative !important;
+}
+
+/* MATERIAL DIALOG */
+.cdk-overlay-connected-position-bounding-box {
+  background: #33333354 !important;
 }
 
 .cdk-overlay-connected-position-bounding-box .mat-select-panel {
@@ -36,7 +36,8 @@
   height: 2em;
 }
 
-.my-dialog-enlightenments {
+.my-dialog-enlightenments,
+.cdk-overlay-connected-position-bounding-box .cdk-overlay-pane {
   width: min(500px, 93vw);
   right: 0;
   left: 0 !important;
@@ -76,7 +77,8 @@
     padding: 0 !important;
   }
 
-  .my-dialog-enlightenments {
+  .my-dialog-enlightenments,
+  .cdk-overlay-connected-position-bounding-box .cdk-overlay-pane {
     left: 0 !important;
     right: 0;
     width: 90vh;

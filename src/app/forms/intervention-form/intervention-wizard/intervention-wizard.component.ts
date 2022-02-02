@@ -84,7 +84,7 @@ export class InterventionWizardComponent implements OnInit {
       Object.assign(formData, group.getRawValue());
     });
 
-    Object.assign(formData, this.dialogData);
+    // Object.assign(formData, this.dialogData);
 
     return formData;
   }

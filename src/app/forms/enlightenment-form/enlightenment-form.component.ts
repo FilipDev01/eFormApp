@@ -44,7 +44,7 @@ export class EnlightenmentFormComponent implements OnInit {
     this.enlightenments$ = this._enlightenmentsFormService.getEnlightenmentsAsync(this.agentId);
     if (this.agentIsAdmin) {
       this._setAgentDetails();
-      // this.generatePdfData();
+      this._generatePdfData();
     }
   }
 
@@ -54,41 +54,13 @@ export class EnlightenmentFormComponent implements OnInit {
 
   async openDialog(date: any): Promise<any> {
     const dialogRef = this.dialog.open(EnlightenmentstionWizardComponent, { panelClass: 'my-dialog-enlightenments', data: { form_data: await this.enlightenments$, date: date } });
-    dialogRef.afterClosed().subscribe(async (result: any) => {
-      // await this._interventionsFormService.createInterventionAsync(result, this.agentId);
-      // this.enlightenments$ = this._interventionsFormService.getInterventionsAsync(this.agentId);
-    });
-  }
-
-  async generatePdfData() {
-    const interventions = await this.enlightenments$;
-
-    const rows: Array<Enlightenments> = new Array<Enlightenments>();
-    const daysInMonth = this._getDaysInCurrentMonth();
-    daysInMonth.forEach((date: any) => {
-      const temp: Enlightenments = {
-        __typename: "Enlightenments",
-        id: 'dummy',
-        createdAt: 'dummy',
-        updatedAt: 'dummy'
-      };
-
-      const int = interventions.find((x: any) => x.date === date);
-
-      if (!!int) {
-        rows.push(int);
-      } else {
-        rows.push(temp)
-      }
-    });
-
-    rows.forEach((row: any, i: number) => {
-      row.day_int = (i + 1);
-    });
-
-    this.pdfData = new Array<any>();
-    this.pdfData.push(rows.slice(0, 16));
-    this.pdfData.push(rows.slice(16));
+    dialogRef.afterClosed()
+      .subscribe(async (result: any) => {
+        const response = await this._enlightenmentsFormService.createEnlightenmentAsync(result, this.agentId);
+        if (!!response) {
+          this.enlightenments$ = this._enlightenmentsFormService.getEnlightenmentsAsync(this.agentId);
+        }
+      });
   }
 
   public async generatePdfFileAsync() {
@@ -116,13 +88,46 @@ export class EnlightenmentFormComponent implements OnInit {
             canvas.height);
         });
 
-        pdf.save(`apz_intervencie.pdf`);
+        pdf.save(`apz_osveta.pdf`);
       }
 
       this.processing = false;
     } catch (err: any) {
       this.processing = false;
     }
+  }
+
+  private async _generatePdfData() {
+    const enlightenments = await this.enlightenments$;
+
+    const rows: Array<Enlightenments> = new Array<Enlightenments>();
+    const daysInMonth = this._getDaysInCurrentMonth();
+    daysInMonth.forEach((date: any) => {
+      const temp: Enlightenments = {
+        __typename: "Enlightenments",
+        id: 'dummy',
+        createdAt: 'dummy',
+        updatedAt: 'dummy'
+      };
+
+      const int = enlightenments.find((x: any) => x.date === date);
+
+      if (!!int) {
+        rows.push(int);
+      } else {
+        rows.push(temp)
+      }
+    });
+
+    rows.forEach((row: any, i: number) => {
+      row.day_int = (i + 1);
+    });
+
+    this.pdfData = new Array<any>();
+    this.pdfData.push(rows.slice(0, 16));
+    this.pdfData.push(rows.slice(16));
+
+    console.log(this.pdfData);
   }
 
 
