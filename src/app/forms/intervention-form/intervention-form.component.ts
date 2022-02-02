@@ -39,7 +39,7 @@ export class InterventionFormComponent implements OnInit {
 
   async ngOnInit() {
     this.interventions$ = this._interventionsFormService.getInterventionsAsync(this.agentId);
-    this.isAdmin = !!!!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
+    this.isAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
     if (this.isAdmin) {
       this._setAgentDetails();
       this.generatePdfData();

@@ -10,9 +10,11 @@ import { GlobalConstants } from 'src/app/common/global-constants';
 export class AgentDetailComponent implements OnInit, OnDestroy {
     public agent: any;
     public agentId: string | null;
+    public isAdmin: boolean;
     public availableForms: Array<any>;
 
     constructor(private _router: Router, private _route: ActivatedRoute) {
+        this.isAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
         this.agent = GlobalConstants.selectedAgent;
         this.agentId = this._route.snapshot.paramMap.get('agentId');
         if (!this.agent) {
