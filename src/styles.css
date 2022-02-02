@@ -9,11 +9,85 @@
 }
 
 @media screen and (max-width: 767px) {
-  .cdk-overlay-pane {
-    max-width: 95vw !important;
+  .mat-dialog-container {
+    padding: 24px 0 !important;
+  }
+}
+
+
+
+.cdk-overlay-connected-position-bounding-box {
+  background: #b993bf73 !important;
+}
+
+:host ::ng-deep .dropdown-list {
+  position: relative !important;
+}
+
+.cdk-overlay-connected-position-bounding-box .mat-select-panel {
+  min-width: 100% !important;
+  overflow: hidden !important;
+  max-height: 350px !important;
+  padding: 0px 10px;
+}
+
+.my-dialog-enlightenments .mat-option {
+  line-height: 2em;
+  height: 2em;
+}
+
+.my-dialog-enlightenments {
+  width: min(500px, 93vw);
+  right: 0;
+  left: 0 !important;
+  transform: unset !important;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.cdk-overlay-pane .custom-panel {
+  max-height: 235px;
+  overflow-y: auto;
+  border-bottom: 1px solid #efefef;
+  padding-bottom: 5px;
+  margin-bottom: 12px;
+}
+
+.cdk-overlay-pane .mt-footer {
+  display: flex;
+  justify-content: space-between;
+  height: unset;
+  padding-bottom: 15px;
+}
+
+.cdk-overlay-pane .mt-footer button {
+  width: 75px;
+}
+
+
+@media screen and (max-width: 767px) {
+
+  .my-dialog-enlightenments .mat-dialog-container {
+    padding: 24px 0 !important;
   }
 
-  .mat-dialog-container {
-      padding: 24px 0 !important;
+  .my-dialog-enlightenments .mat-dialog-content {
+    margin: 0 !important;
+    padding: 0 !important;
   }
+
+  .my-dialog-enlightenments {
+    left: 0 !important;
+    right: 0;
+    width: 90vh;
+    max-width: 90%;
+    transform: unset !important;
+    margin: 0 auto;
+  }
+
+  .my-dialog-enlightenments {
+    max-width: 95vw !important;
+    width: max(90%, 350px);
+  }
+
 }

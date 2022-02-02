@@ -15,7 +15,25 @@
 
           <mat-form-field>
             <mat-label>A2: Kód intervencie osvetovej činnosti</mat-label>
-            <input matInput type="text" formControlName="a2" required>
+            <mat-select multiple formControlName="a2" required #matSelectA>
+              <mat-select-trigger>
+                {{sectionA.controls['a2'].value}}
+              </mat-select-trigger>
+
+              <header class="mat-select">
+                <h4 class="text-center mb-0 py-3">Vyber vyhovujúce možnosti</h4>
+                <mat-divider class="table-divider"></mat-divider>
+              </header>
+              <div class="custom-panel">
+                <mat-option *ngFor="let enlightenmentOption of enlightenmentOptions" [value]="enlightenmentOption.code">
+                  <small>{{enlightenmentOption.code}}: {{enlightenmentOption.description}}</small>
+                </mat-option>
+              </div>
+              <footer class="mat-select mt-footer">
+                <button mat-raised-button (click)="handleSelectionAction('a');">Zruš</button>
+                <button mat-raised-button (click)="handleSelectionAction('a');">Potvrď</button>
+              </footer>
+            </mat-select>
           </mat-form-field>
 
           <div class="text-end">
@@ -40,10 +58,27 @@
 
           <mat-form-field>
             <mat-label>B3: Kód intervencie osvetovej činnosti</mat-label>
-            <input matInput type="number" placeholder="Placeholder" formControlName="b3" required>
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-select multiple formControlName="b3" required #matSelectB>
+              <mat-select-trigger>
+                {{sectionB.controls['b3'].value}}
+              </mat-select-trigger>
+
+              <header class="mat-select">
+                <h4 class="text-center mb-0 py-3">Vyber vyhovujúce možnosti</h4>
+                <mat-divider class="table-divider"></mat-divider>
+              </header>
+              <div class="custom-panel">
+                <mat-option *ngFor="let enlightenmentOption of enlightenmentOptions" [value]="enlightenmentOption.code">
+                  <small>{{enlightenmentOption.code}}: {{enlightenmentOption.description}}</small>
+                </mat-option>
+              </div>
+              <footer class="mat-select mt-footer">
+                <button mat-raised-button (click)="handleSelectionAction('b');">Zruš</button>
+                <button mat-raised-button (click)="handleSelectionAction('b');">Potvrď</button>
+              </footer>
+            </mat-select>
           </mat-form-field>
-        
+
           <div class="d-flex justify-content-between">
             <button mat-raised-button matStepperPrevious>Späť</button>
             <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
@@ -70,10 +105,27 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>C4: Kód</mat-label>
-            <input matInput type="text" placeholder="Placeholder" formControlName="c4" required>
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-select multiple formControlName="c4" required #matSelectC>
+              <mat-select-trigger>
+                {{sectionC.controls['c4'].value}}
+              </mat-select-trigger>
+
+              <header class="mat-select">
+                <h4 class="text-center mb-0 py-3">Vyber vyhovujúce možnosti</h4>
+                <mat-divider class="table-divider"></mat-divider>
+              </header>
+              <div class="custom-panel">
+                <mat-option *ngFor="let enlightenmentOption of enlightenmentOptions" [value]="enlightenmentOption.code">
+                  <small>{{enlightenmentOption.code}}: {{enlightenmentOption.description}}</small>
+                </mat-option>
+              </div>
+              <footer class="mat-select mt-footer">
+                <button mat-raised-button (click)="handleSelectionAction('c');">Zruš</button>
+                <button mat-raised-button (click)="handleSelectionAction('c');">Potvrď</button>
+              </footer>
+            </mat-select>
           </mat-form-field>
-       
+
           <div class="d-flex justify-content-between">
             <button mat-raised-button matStepperPrevious>Späť</button>
             <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
@@ -95,10 +147,27 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>D3: Kód intervencie osvetovej činnosti</mat-label>
-            <input matInput type="number" placeholder="Placeholder" formControlName="d3" required>
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-select multiple formControlName="d3" required #matSelectD>
+              <mat-select-trigger>
+                {{sectionD.controls['d3'].value}}
+              </mat-select-trigger>
+
+              <header class="mat-select">
+                <h4 class="text-center mb-0 py-3">Vyber vyhovujúce možnosti</h4>
+                <mat-divider class="table-divider"></mat-divider>
+              </header>
+              <div class="custom-panel">
+                <mat-option *ngFor="let enlightenmentOption of enlightenmentOptions" [value]="enlightenmentOption.code">
+                  <small>{{enlightenmentOption.code}}: {{enlightenmentOption.description}}</small>
+                </mat-option>
+              </div>
+              <footer class="mat-select mt-footer">
+                <button mat-raised-button (click)="handleSelectionAction('d');">Zruš</button>
+                <button mat-raised-button (click)="handleSelectionAction('d');">Potvrď</button>
+              </footer>
+            </mat-select>
           </mat-form-field>
-          
+
           <div class="d-flex justify-content-between">
             <button mat-raised-button matStepperPrevious>Späť</button>
             <button mat-flat-button color="primary" matStepperNext>Ďalej</button>

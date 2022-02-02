@@ -46,8 +46,8 @@ export class AgentDetailComponent implements OnInit, OnDestroy {
     setAvailableForms() {
         this.availableForms = [
             { name: 'Aktivity', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png', form_url: `/activity/${this.agentId}` },
-            { name: 'Intervencie', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png', form_url: `/interventions/${this.agent.Username}` },
-            { name: 'Zdravotná Osveta', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png', form_url: `/enlightenments/${this.agent.Username}` },
+            { name: 'Intervencie', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png', form_url: `/interventions/${this.agentId}` },
+            { name: 'Zdravotná Osveta', img_url: '../../../../assets/img/form/healthy-regions/picture_3.png', form_url: `/enlightenments/${this.agentId}` },
         ]
     }
 

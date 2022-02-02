@@ -1,7 +1,5 @@
 .calendar-wrapper {
-  width: 300px;
-  max-width: 90%;
-  min-width: 50%;
+  max-width: min(90%, 700px);
   text-align: center;
   margin: 0 auto;
 }

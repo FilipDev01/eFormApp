@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-enlightenments-wizard',
@@ -13,16 +14,36 @@ export class EnlightenmentstionWizardComponent implements OnInit {
   public sectionB: FormGroup;
   public sectionC: FormGroup;
   public sectionD: FormGroup;
-  public sectionE: FormGroup;
+
+  @ViewChild('matSelectA') matSelectA: any = null;
+  @ViewChild('matSelectB') matSelectB: any = null;
+  @ViewChild('matSelectC') matSelectC: any = null;
+  @ViewChild('matSelectD') matSelectD: any = null;
+
+  public enlightenmentOptions: Array<any>;
+  public selected: any;
+  public dropdownSettings: IDropdownSettings;
 
   constructor(
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     public dialogRef: MatDialogRef<EnlightenmentstionWizardComponent>
-  ) { }
+  ) {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'code',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+  }
 
   ngOnInit(): void {
-    this.setForm(this.dialogData);
+    this._setEnlightenmentOptions();
+    this._setForm(this.dialogData);
+
   }
 
   onNoClick(): void {
@@ -33,7 +54,32 @@ export class EnlightenmentstionWizardComponent implements OnInit {
     this.dialogRef.close({ data: this.getWizardFormData() });
   }
 
-  setForm(data: any) {
+  getWizardFormData() {
+    const formData = {};
+    [this.sectionA, this.sectionB, this.sectionC, this.sectionD].forEach((group: FormGroup) => {
+      Object.assign(formData, group.getRawValue());
+    });
+
+    Object.assign(formData, this.dialogData);
+
+    console.log(formData);
+    return formData;
+  }
+
+  handleSelectionAction(type: string) {
+    if (type === 'a') {
+      this.matSelectA.close();
+    } else if (type === 'b') {
+      this.matSelectB.close();
+    } else if (type === 'c') {
+      this.matSelectC.close();
+    } else if (type === 'd') {
+      this.matSelectD.close();
+    }
+  }
+
+
+  private _setForm(data: any) {
     let savedData = null;
     if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
       var dateISOstr = data.date.toISOString();
@@ -65,14 +111,49 @@ export class EnlightenmentstionWizardComponent implements OnInit {
     });
   }
 
-  getWizardFormData() {
-    const formData = {};
-    [this.sectionA, this.sectionB, this.sectionC, this.sectionD, this.sectionE].forEach((group: FormGroup) => {
-      Object.assign(formData, group.getRawValue());
+  private _setEnlightenmentOptions() {
+    const options = [
+      'Poučenie o užívaní lieku',
+      'Osveta o rizikách užívania liekov v kombinácii s návykovými látkami',
+      'Poučenie o pitnom režime',
+      'Osveta pre tehotné (prevencia ochorení, príprava na pôrod, výbava pre novorodenca, správna životospráva v tehotenstve, vývoj plodu, príprava na nemocničné prostredie, príprava tašky do pôrodnice a ďalšie)',
+      'Osveta o dojčení, prípadne dohľad nad správnym používaním náhrady stravy pre novorodenca',
+      'Osveta o ošatení',
+      'Osveta o preventívnych prehliadkach',
+      'Osveta o povinnom očkovaní ',
+      'Osveta o starostlivosti o deti a rodinu',
+      'Osveta - prevencia a liečba pedikulózy',
+
+      'Osveta - svrab, prevencia a liečba',
+      'Osveta - TBC tuberkulóza, prevencia a liečba',
+      'Osveta - prevencia pre žltačkou A a B',
+      'Osveta pred ostatnými infekčnými ochoreniami - prevencia, očkovanie',
+      'Osveta - reprodukčné zdravie a plánované rodičovstvo',
+      'Osveta - sexuálne zdravie a ochrana pred pohlavnými chorobami',
+      'Osveta o poskytnutí prvej pomoci a dôležitých telefónnych číslach a dodržaní zásad telefonovania na tiesňové telefónne linky',
+      'Osveta - osobná hygiena',
+      'Osveta - komunálna hygiena a ochrana zdravia',
+      'Osveta - dentálna hygiena',
+
+      'Osveta - hygiena domáceho prostredia',
+      'Osveta - o infekčnom ochorení COVID-19 ',
+      'Osveta - hygiena stolovania',
+      'Osveta - správna životospráva',
+      'Osveta - hypertenzia, hypotenzia - prevencia, dodržiavanie liečby, užívanie liekov ',
+      'Osveta - nikotinizmus (fajčenie)',
+      'Osveta - alkoholizmus ',
+      'Osveta - osveta o užívaní návykových látok - drogy',
+      'Osveta - nelátkové závislosti - gamblerstvo ',
+      'Osveta - zvýšenie povedomia o právach osôb so zdravotným postihnutím',
+    ]
+
+    this.enlightenmentOptions = new Array<any>();
+    options.forEach((option: string, i: number) => {
+      const index = i + 1;
+      this.enlightenmentOptions.push({ code: `F${index}`, description: option, value: index });
     });
 
-    Object.assign(formData, this.dialogData);
+    console.log(this.enlightenmentOptions);
 
-    return formData;
   }
 }

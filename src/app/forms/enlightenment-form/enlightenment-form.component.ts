@@ -53,7 +53,7 @@ export class EnlightenmentFormComponent implements OnInit {
   }
 
   async openDialog(date: any): Promise<any> {
-    const dialogRef = this.dialog.open(EnlightenmentstionWizardComponent, { panelClass: 'my-dialog', data: { form_data: await this.enlightenments$, date: date } });
+    const dialogRef = this.dialog.open(EnlightenmentstionWizardComponent, { panelClass: 'my-dialog-enlightenments', data: { form_data: await this.enlightenments$, date: date } });
     dialogRef.afterClosed().subscribe(async (result: any) => {
       // await this._interventionsFormService.createInterventionAsync(result, this.agentId);
       // this.enlightenments$ = this._interventionsFormService.getInterventionsAsync(this.agentId);

@@ -30,6 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatTableModule } from '@angular/material/table';
 
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 import sk from '@angular/common/locales/sk';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(sk);
@@ -55,7 +57,8 @@ registerLocaleData(sk);
         MatExpansionModule,
         MatTableModule,
         CalendarModule,
-        SpinnerModule
+        SpinnerModule,
+        NgMultiSelectDropDownModule.forRoot()
     ],
     declarations: [
         InterventionFormComponent,
