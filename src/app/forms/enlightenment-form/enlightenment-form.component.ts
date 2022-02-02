@@ -40,7 +40,7 @@ export class EnlightenmentFormComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.agentIsAdmin = GlobalConstants.currentUserGroups.includes('admin');
+    this.agentIsAdmin = !!!!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
     this.enlightenments$ = this._enlightenmentsFormService.getEnlightenmentsAsync(this.agentId);
     if (this.agentIsAdmin) {
       this._setAgentDetails();

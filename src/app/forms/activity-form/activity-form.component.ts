@@ -33,7 +33,7 @@ export class ActivityFormComponent implements OnInit {
     ) {
         this.dateToday = new Date();
 
-        this.agentIsAdmin = GlobalConstants.currentUserGroups.includes('admin');
+        this.agentIsAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
         this.agentId = this._route.snapshot.paramMap.get('agentId');
 
         this.activities = new Array<any>();

@@ -17,7 +17,7 @@ export class ProcessingComponent implements OnInit {
   }
 
   redirectToAgentDetails() {
-    if (GlobalConstants.currentUserGroups.includes('admin')) {
+    if (!!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin')) {
       this._router.navigateByUrl(`/agents`);
     } else {
       this._router.navigateByUrl(`/agent/${GlobalConstants.selectedAgent.username}`);
