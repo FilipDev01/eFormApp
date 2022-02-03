@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalConstants } from 'src/app/common/global-constants';
+import { GlobalConstants } from '../../../../../common/global-constants';
 import { AuthenticationService } from '../../authentication.service';
 
 @Component({

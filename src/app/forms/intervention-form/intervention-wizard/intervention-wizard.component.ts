@@ -79,13 +79,13 @@ export class InterventionWizardComponent implements OnInit {
   }
 
   getWizardFormData() {
-    const formData = {};
+    const formData: any = {};
     [this.sectionA, this.sectionB, this.sectionC, this.sectionD, this.sectionE].forEach((group: FormGroup) => {
       Object.assign(formData, group.getRawValue());
     });
 
     // Object.assign(formData, this.dialogData);
-
+    formData.date = this.dialogData.date;
     return formData;
   }
 

@@ -3,5 +3,6 @@ export class GlobalConstants {
     public static userId: string;
     public static user: any;
 
+    public static agents: any;
     public static selectedAgent: any;
 }

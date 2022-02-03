@@ -1,13 +1,15 @@
 export type AmplifyDependentResourcesAttributes = {
     "auth": {
         "eformdb1712f8": {
-            "IdentityPoolId": "string",
-            "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
             "AppClientID": "string"
+        },
+        "userPoolGroups": {
+            "agentGroupRole": "string",
+            "agentsGroupRole": "string"
         }
     },
     "function": {
@@ -16,6 +18,12 @@ export type AmplifyDependentResourcesAttributes = {
             "Arn": "string",
             "Region": "string",
             "LambdaExecutionRole": "string"
+        },
+        "eformdb1712f8PostConfirmation": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
         }
     },
     "api": {

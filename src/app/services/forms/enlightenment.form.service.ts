@@ -28,7 +28,7 @@ export class EnlightenmentsFormService {
     async createEnlightenmentAsync(formData: any, userId: string | null) {
         const data: any = formData?.data;
         if (!data) {
-            return;
+            return null;
         }
 
         delete data.form_data;
@@ -38,6 +38,7 @@ export class EnlightenmentsFormService {
         request.date = !!formData.data.date ? formData.data.date.toISOString() : null;
 
         if (!request.date) {
+            console.warn('eForm:: Form Date Not Defined');
             return null; // TODO: error message
         }
 

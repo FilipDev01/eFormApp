@@ -9,16 +9,23 @@
       "UnauthRoleName": "amplify-eform-dev-170005-unauthRole",
       "StackName": "amplify-eform-dev-170005",
       "StackId": "arn:aws:cloudformation:eu-central-1:845604589409:stack/amplify-eform-dev-170005/157dc500-7d37-11ec-b6ee-0655bdfe6fa8",
-      "AmplifyAppId": "d3fd9496ceckoj"
+      "AmplifyAppId": "d3fd9496ceckoj",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eform-dev-170005-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
-        "eformdb1712f8": {}
+        "eformdb1712f8": {},
+        "userPoolGroups": {}
       },
       "function": {
         "AdminQueriese99241ab": {
           "deploymentBucketName": "amplify-eform-dev-170005-deployment",
           "s3Key": "amplify-builds/AdminQueriese99241ab-31686950535149516861-build.zip"
+        },
+        "eformdb1712f8PostConfirmation": {
+          "GROUP": "agent",
+          "deploymentBucketName": "amplify-eform-dev-170005-deployment",
+          "s3Key": "amplify-builds/eformdb1712f8PostConfirmation-364d534664494f564c38-build.zip"
         }
       }
     }

@@ -35,8 +35,7 @@
               <mat-divider></mat-divider>
             </div>
 
-            <app-calendar *ngIf="interventions$ | async as interventions" [data]="interventions"
-              (dateSelected)="openDialog($event)">
+            <app-calendar *ngIf="interventions && !dataProcessing" [data]="interventions" (dateSelected)="openDialog($event)">
             </app-calendar>
 
             <div class="form-details-wrapper legend">
@@ -166,30 +165,30 @@
                 <td>{{intervention.d8}}</td>
                 <td>{{intervention.e1}}</td>
               </tr>
-              <tr *ngIf="ind === (pdfData.length - 1)">
+              <tr *ngIf="pdfTotals && ind === (pdfData.length - 1)">
                 <td>Spolu</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td>{{pdfTotals.a1}}</td>
+                <td>{{pdfTotals.a2}}</td>
+                <td>{{pdfTotals.a3}}</td>
+                <td>{{pdfTotals.a4}}</td>
+                <td>{{pdfTotals.b1}}</td>
+                <td>{{pdfTotals.b2}}</td>
+                <td>{{pdfTotals.b3}}</td>
+                <td>{{pdfTotals.b4}}</td>
+                <td>{{pdfTotals.c1}}</td>
+                <td>{{pdfTotals.c2}}</td>
+                <td>{{pdfTotals.c3}}</td>
+                <td>{{pdfTotals.c4}}</td>
+                <td>{{pdfTotals.c5}}</td>
+                <td>{{pdfTotals.d1}}</td>
+                <td>{{pdfTotals.d2}}</td>
+                <td>{{pdfTotals.d3}}</td>
+                <td>{{pdfTotals.d4}}</td>
+                <td>{{pdfTotals.d5}}</td>
+                <td>{{pdfTotals.d6}}</td>
+                <td>{{pdfTotals.d7}}</td>
+                <td>{{pdfTotals.d8}}</td>
+                <td>{{pdfTotals.e1}}</td>
               </tr>
               <tr *ngIf="ind === (pdfData.length - 1)">
                 <td colspan="23" class="text-start">

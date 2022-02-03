@@ -37,16 +37,19 @@ export class AuthService {
         }
     }
 
-    async signUpAsync(username: string, password: string, name: string) {
+    async signUpAsync(email: string, password: string, name: string) {
         try {
-            const email = username;
+            // const email = username;
 
             const { user } = await Auth.signUp({
-                username,
+                username: email,
                 password,
                 attributes: {
                     email, // email
                     given_name: name
+                },
+                clientMetadata: {
+                    default_user_group: 'agent'
                 }
             });
 

@@ -34,6 +34,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import sk from '@angular/common/locales/sk';
 import { registerLocaleData } from '@angular/common';
+import { FormCommonService } from '../services/forms/common.service';
 registerLocaleData(sk);
 
 @NgModule({
@@ -74,6 +75,7 @@ registerLocaleData(sk);
         EnlightenmentFormComponent
     ],
     providers: [
+        FormCommonService,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: DateAdapter, useClass: CustomDateAdapter },
         { provide: MatDialogRef, useValue: {} },

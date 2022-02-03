@@ -1,8 +1,6 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "eformdb1712f8_identitypool_db1712f8",
-    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "eformdb1712f8",
     "userPoolName": "eformdb1712f8_userpool_db1712f8",
     "autoVerifiedAttributes": [
@@ -35,12 +33,15 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "db1712f8",
     "resourceName": "eformdb1712f8",
-    "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "authSelections": "userPoolOnly",
+    "useDefault": "manual",
     "usernameAttributes": [
       "email"
     ],
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+      "agent",
+      "agents"
+    ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
@@ -57,7 +58,33 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [],
-    "adminQueryGroup": "admin"
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "eformdb1712f8PostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "adminQueryGroup": "admin",
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": {
+      "PostConfirmation": [
+        "add-to-group"
+      ]
+    },
+    "hostedUI": false,
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": [
+      "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
+    ],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"eformdb1712f8PostConfirmation\"\n  }\n]",
+    "authProviders": []
   }
 }

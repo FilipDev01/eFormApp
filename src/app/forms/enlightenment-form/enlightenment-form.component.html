@@ -36,8 +36,7 @@
               <mat-divider></mat-divider>
             </div>
 
-            <app-calendar *ngIf="enlightenments$ | async as enlightenments" [data]="enlightenments"
-              (dateSelected)="openDialog($event)">
+            <app-calendar *ngIf="enlightenments" [data]="enlightenments" (dateSelected)="openDialog($event)">
             </app-calendar>
 
             <div class="form-details-wrapper legend">
@@ -81,7 +80,7 @@
 <div *ngIf="agentIsAdmin" class="row pdf-table-wrapper">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-body table-responsive">
+      <div *ngIf="!!pdfData" class="card-body table-responsive">
 
         <div *ngFor="let page of pdfData; let ind = index" [id]="'pdf_page_'+ind" class="p-4" style="display: table;">
           <table class="table table-enlightenments">
