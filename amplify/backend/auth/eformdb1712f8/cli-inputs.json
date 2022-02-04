@@ -39,8 +39,7 @@
       "email"
     ],
     "userPoolGroupList": [
-      "agent",
-      "agents"
+      "agent"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -58,17 +57,15 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [
-      {
-        "category": "function",
-        "resourceName": "eformdb1712f8PostConfirmation",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      }
-    ],
+    "dependsOn": [{
+      "category": "function",
+      "resourceName": "eformdb1712f8PostConfirmation",
+      "triggerProvider": "Cognito",
+      "attributes": [
+        "Arn",
+        "Name"
+      ]
+    }],
     "adminQueryGroup": "admin",
     "userPoolGroups": false,
     "adminQueries": false,

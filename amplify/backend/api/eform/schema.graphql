@@ -3,7 +3,7 @@
 
 
 type Interventions @model @auth(rules: [
-  { allow: groups, groups: ["Admins", "Agents"] },
+  { allow: groups, groups: ["admin", "agent"] },
   { allow: public, operations: [read, create, update, delete] }
   ]) {
   id: ID!
@@ -34,7 +34,7 @@ type Interventions @model @auth(rules: [
 }
 
 type Enlightenments @model @auth(rules: [
-  { allow: groups, groups: ["Admins", "Agents"] },
+  { allow: groups, groups: ["admin", "agent"] },
   { allow: public, operations: [read, create, update, delete] }
   ]) {
   id: ID!
@@ -55,7 +55,7 @@ type Enlightenments @model @auth(rules: [
 }
 
 type Activities @model @auth(rules: [
-  { allow: groups, groups: ["Admins", "Agents"] },
+  { allow: groups, groups: ["admin", "agent"] },
   { allow: public, operations: [read, create, update, delete] }
   ]) {
   id: ID!
