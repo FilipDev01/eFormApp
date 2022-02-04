@@ -19,6 +19,7 @@ export class EnlightenmentFormComponent implements OnInit {
 
   public enlightenments: any;
   public pdfData: Array<any> | null;
+  public pdfTotals: any;
 
   constructor(
     private _route: ActivatedRoute,
@@ -29,12 +30,13 @@ export class EnlightenmentFormComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.enlightenments = await this._formService.getFormData('enlightenments', this.agentId);
+    this.enlightenments = await this._formService.getFormData('enlightenments', this.agentId, this.dateToday);
 
     this.agentIsAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
     if (this.agentIsAdmin) {
       this.agentName = this._formService.setAgentDetails();
-      this.pdfData = this._formService.generatePdfData('interventions', this.enlightenments);
+      this.pdfData = this._formService.generatePdfData('enlightenments', this.enlightenments);
+      this.pdfTotals = this._formService.generatePdfTotals('enlightenments', this.enlightenments);
     }
   }
 
@@ -43,7 +45,13 @@ export class EnlightenmentFormComponent implements OnInit {
   }
 
   async openDialog(date: any): Promise<any> {
+    const temp = this.enlightenments;
+
+    this.enlightenments = null;
     this.enlightenments = await this._formService.openFormWizardAsync(this.agentId, 'enlightenments', { data: this.enlightenments, date: date });
+    if (!this.enlightenments) {
+      this.enlightenments = temp;
+    }
   }
 
   public async generatePdfFileAsync() {

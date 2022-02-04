@@ -33,7 +33,7 @@ export class InterventionFormComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.interventions = await this._formService.getFormData('interventions', this.agentId);
+    this.interventions = await this._formService.getFormData('interventions', this.agentId, this.dateToday);
 
     this.isAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
     if (this.isAdmin) {

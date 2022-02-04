@@ -27,15 +27,15 @@ export class FormCommonService {
         this._router.navigate([route]);
     }
 
-    async getFormData(type: string, agentId: string | null): Promise<any> {
+    async getFormData(type: string, agentId: string | null, fromDate: Date): Promise<any> {
         if (!agentId) {
             return null;
         }
 
         if (type === 'enlightenments') {
-            return await this._enlightenmentsFormService.getEnlightenmentsAsync(agentId);
+            return await this._enlightenmentsFormService.getEnlightenmentsAsync(agentId, fromDate);
         } else if (type === 'interventions') {
-            return await this._interventionsFormService.getInterventionsAsync(agentId);
+            return await this._interventionsFormService.getInterventionsAsync(agentId, fromDate);
         }
 
         return null;
@@ -82,7 +82,7 @@ export class FormCommonService {
             return new Array<any>();
         }
 
-        return this.getFormData(type, agentId);
+        return this.getFormData(type, agentId, wizardData.date);
     }
 
 
@@ -119,6 +119,11 @@ export class FormCommonService {
         const totalObj: any = {};
         if (formType === 'interventions') {
             filteredKeys.forEach((key: string) => {
+                totalObj[key] = data.map(a => a[key]).reduce((a, b) => a + b, 0);
+            });
+        } else if (formType === 'enlightenments') {
+            const totalFields = ['a1', 'b1', 'b2', 'c2', 'c3', 'd2'];
+            totalFields.forEach((key: string) => {
                 totalObj[key] = data.map(a => a[key]).reduce((a, b) => a + b, 0);
             });
         }

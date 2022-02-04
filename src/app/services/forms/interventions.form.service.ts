@@ -10,11 +10,20 @@ export class InterventionsFormService {
         this._interventionsService = new APIService();
     }
 
-    async getInterventionsAsync(userId: string | null) {
+    async getInterventionsAsync(userId: string | null, fromDate?: Date) {
         if (!userId) { return null; }
 
-        const uId: ModelStringInput = { eq: userId }
-        const filter: ModelInterventionsFilterInput = { user_id: uId };
+        const uId: ModelStringInput = { eq: userId };
+        const filter: ModelInterventionsFilterInput = {
+            user_id: uId
+        };
+
+        // Add Query Start From Limit
+        if (!!fromDate) {
+            const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
+            const date: ModelStringInput = { ge: firstDayOfMonth?.toISOString() };
+            filter.date = date;
+        }
 
         const intervetions: ListInterventionsQuery = await this._interventionsService.ListInterventions(filter);
         return intervetions.items;

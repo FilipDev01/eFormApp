@@ -141,20 +141,21 @@
                 <td>{{intervention.d2}}</td>
                 <td>{{intervention.d3}}</td>
               </tr>
-              <tr *ngIf="ind === (pdfData.length - 1)">
+
+              <tr *ngIf="pdfTotals && ind === (pdfData.length - 1)">
                 <td>Spolu</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td>{{pdfTotals.a1 || '-'}}</td>
+                <td>{{pdfTotals.a2 || '-'}}</td>
+                <td>{{pdfTotals.b1 || '-'}}</td>
+                <td>{{pdfTotals.b2 || '-'}}</td>
+                <td>{{pdfTotals.b3 || '-'}}</td>
+                <td>{{pdfTotals.c1 || '-'}}</td>
+                <td>{{pdfTotals.c2 || '-'}}</td>
+                <td>{{pdfTotals.c3 || '-'}}</td>
+                <td>{{pdfTotals.c4 || '-'}}</td>
+                <td>{{pdfTotals.d1 || '-'}}</td>
+                <td>{{pdfTotals.d2 || '-'}}</td>
+                <td>{{pdfTotals.d3 || '-'}}</td>
               </tr>
               <tr *ngIf="ind === (pdfData.length - 1)">
                 <td colspan="10" class="text-start">
