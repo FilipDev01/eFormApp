@@ -18,8 +18,6 @@ export class EnlightenmentFormComponent implements OnInit {
   public processing: boolean;
 
   public enlightenments: any;
-  public pdfData: Array<any> | null;
-  public pdfTotals: any;
 
   constructor(
     private _route: ActivatedRoute,
@@ -35,8 +33,6 @@ export class EnlightenmentFormComponent implements OnInit {
     this.agentIsAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
     if (this.agentIsAdmin) {
       this.agentName = this._formService.setAgentDetails();
-      this.pdfData = this._formService.generatePdfData('enlightenments', this.enlightenments);
-      this.pdfTotals = this._formService.generatePdfTotals('enlightenments', this.enlightenments);
     }
   }
 
@@ -45,17 +41,25 @@ export class EnlightenmentFormComponent implements OnInit {
   }
 
   async openDialog(date: any): Promise<any> {
-    const temp = this.enlightenments;
-
-    this.enlightenments = null;
-    this.enlightenments = await this._formService.openFormWizardAsync(this.agentId, 'enlightenments', { data: this.enlightenments, date: date });
-    if (!this.enlightenments) {
-      this.enlightenments = temp;
+    try {
+      this.processing = true;
+      const response = await this._formService.openFormWizardAsync(this.agentId, 'enlightenments', { data: this.enlightenments, date: date });
+      this._handleResponse(response);
+    } catch (err: any) {
+      console.log(err);
+      this.processing = false;
     }
   }
 
-  public async generatePdfFileAsync() {
-    this.processing = true;
-    this.processing = await this._formService.generatePdfFileAsync(this.pdfData, 'apz_intervencie');
+  private _handleResponse(response: any) {
+    if (!!response && Array.isArray(response)) {
+      this.enlightenments = null;
+      setTimeout(() => {
+        this.enlightenments = response;
+        this.processing = false;
+      }, 250);
+    } else {
+      this.processing = false;
+    }
   }
 }

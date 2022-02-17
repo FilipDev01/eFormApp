@@ -5,9 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InterventionFormComponent } from './intervention-form/intervention-form.component';
 import { InterventionWizardComponent } from './intervention-form/intervention-wizard/intervention-wizard.component';
-import { ActivityFormComponent } from './activity-form/activity-form.component';
-import { ActivityTableComponent } from './activity-form/activity-table/activity-table.component';
-
+import { MonitoringCovidFormComponent } from './covid-monitoring/covid-monitoring-form.component';
+import { MonitoringCovidWizardComponent } from './covid-monitoring/wizard/covid-wizard.component';
 import { EnlightenmentFormComponent } from './enlightenment-form/enlightenment-form.component';
 import { EnlightenmentstionWizardComponent } from './enlightenment-form/enlightenments-wizard/enlightenments-wizard.component';
 
@@ -64,14 +63,14 @@ registerLocaleData(sk);
     declarations: [
         InterventionFormComponent,
         InterventionWizardComponent,
-        ActivityFormComponent,
-        ActivityTableComponent,
+        MonitoringCovidFormComponent,
+        MonitoringCovidWizardComponent,
         EnlightenmentFormComponent,
         EnlightenmentstionWizardComponent
     ],
     exports: [
         InterventionFormComponent,
-        ActivityFormComponent,
+        MonitoringCovidFormComponent,
         EnlightenmentFormComponent
     ],
     providers: [

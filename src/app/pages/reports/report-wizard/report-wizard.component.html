@@ -1,0 +1,61 @@
+<div class="mat-dialog-wrapper" style="position: relative;">
+
+  <div class="dialog-header-action position-absolute">
+    <button mat-button (click)="onNoClick()" class="dialog-close">X</button>
+  </div>
+
+  <h3 class="mt-0 mb-2 text-center"> <strong>{{reportName}}</strong> </h3>
+
+  <div class="mat-dialog-content">
+
+    <div class="col-md-12">
+      <div class="card-body">
+        <section *ngIf="reportType === 'excel'" class="agent-details excel-report">
+          <form [formGroup]="dateRangeForm" (ngSubmit)="confirm()">
+            <mat-form-field appearance="standard">
+              <mat-label>Časový Interval</mat-label>
+              <mat-date-range-input [rangePicker]="picker" (click)="picker.open()" [max]="maxDate">
+                <input matStartDate placeholder="Začiatok" readonly formControlName="fromDate">
+                <input matEndDate placeholder="Koniec" readonly formControlName="toDate">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+
+            <button class="btn btn-primary w-100" type="submit"><strong>Generuj Report</strong></button>
+          </form>
+        </section>
+
+
+        <section *ngIf="reportType === 'pdf'" class="agent-details excel-report">
+          <form [formGroup]="pdfDataForm" (ngSubmit)="confirmPdf()">
+            <!-- <div class="row d-flex align-baseline" style="align-items: baseline !important;">
+              <div class="col-sm-3">
+                <h6 class="m-0">Formulár</h6>
+              </div>
+              <div class="col-sm-9">
+                <mat-select formControlName="pdfFormType">
+                  <mat-option value="1">Intervencie</mat-option>
+                  <mat-option value="2">Zdravotná Osveta</mat-option>
+                </mat-select>
+              </div>
+            </div> -->
+            <div class="row d-flex align-baseline pt-3" style="align-items: baseline !important;">
+              <div class="col-sm-3">
+                <h6 class="m-0">APZ</h6>
+              </div>
+              <div *ngIf="agents" class="col-sm-9">
+                <mat-select formControlName="agentId">
+                  <mat-option *ngFor="let a of agents" [value]="a.user_id">{{a.name || '-'}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <hr class="mt-2 mb-4">
+            <button class="btn btn-primary w-100" type="submit"><strong>Stiahnuť PDF</strong></button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

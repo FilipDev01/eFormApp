@@ -42,10 +42,6 @@
   margin-top: 10px;
 }
 
-.pdf-table-wrapper {
-  position: fixed;
-  left: -9999px;
-}
 
 .table> :not(caption)>*>* {
   border-color: black;

@@ -1,0 +1,76 @@
+<app-spinner *ngIf="processing"></app-spinner>
+
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <a mat-raised-button color="primary" (click)="goBackToAgent()">Späť</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="card card-plain bg-white">
+          <div class="card-header card-header-primary">
+            <h3 class="m-0">Monitoring Covid</h3>
+          </div>
+
+          <div class="card-body table-responsivep pb-1">
+
+            <!-- AGENT DETAILS START -->
+            <div class="form-details-wrapper">
+              <h3>Základné informácie</h3>
+              <mat-divider></mat-divider>
+
+              <p *ngIf="agentIsAdmin" class="details-grid mt-3">
+                <strong>Agent:</strong><span>{{agentName || '-'}}</span>
+              </p>
+              <p class="details-grid mt-3">
+                <strong>Aktuálny deň:</strong><span> {{dateToday | date:'dd/MM/yyyy'}}</span>
+              </p>
+              <p class="details-grid">
+                <strong>Aktuálny mesiac:</strong><span style="text-transform: capitalize;">
+                  {{dateToday | date:'LLLL'}}</span>
+              </p>
+            </div>
+            <!-- AGENT DETAILS END -->
+
+            <mat-divider class="my-4"></mat-divider>
+
+            <!-- CALENDAR START -->
+            <div class="calendar-wrapper">
+              <app-calendar *ngIf="covidData && !processing" [data]="covidData" (dateSelected)="openDialog($event)">
+              </app-calendar>
+
+              <div class="form-details-wrapper legend">
+                <p class="d-flex align-items-center gap-1">
+                  <span class="dot green"></span>
+                  <strong>Deň Zaznamenaný</strong>
+                </p>
+                <p class="d-flex align-items-center gap-1">
+                  <span class="dot red"></span>
+                  <strong>Deň Nezaznamenaný</strong>
+                </p>
+              </div>
+            </div>
+            <!-- CALENDAR END -->
+
+            <mat-divider class="table-footer-divider mt-2"></mat-divider>
+
+            <!-- FORM FOOTER START -->
+            <div class="form-footer">
+              <div class="table-footer justify-content-between align-items-center" style="padding: 10px 10px 0 15px;">
+                <img src="../../../assets/img/form/healthy-regions/picture_3.png" width="auto" height="44">
+                <img src="../../../assets/img/form/healthy-regions/picture_1.png" width="200">
+                <img src="../../../assets/img/form/healthy-regions/picture_2.png" width="200">
+              </div>
+            </div>
+            <!-- FORM FOOTER END -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

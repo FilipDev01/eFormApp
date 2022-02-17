@@ -1,0 +1,58 @@
+.report-name {
+  font-size: 14pt;
+  font-weight: 300;
+}
+
+.col-btn-report {
+  width: 70px;
+}
+
+.col-btn-report button {
+  width: 68px;
+}
+
+.col-index {
+  width: 45px;
+}
+
+:host ::ng-deep .bg-blue {
+  background-color: aqua;
+}
+
+:host ::ng-deep .bg-green {
+  background-color: green;
+}
+
+:host ::ng-deep .bg-yellow {
+  background-color: yellow;
+}
+
+:host ::ng-deep .bg-danger {
+  background-color: red;
+}
+
+:host ::ng-deep .bg-info {
+  background-color: orange;
+}
+
+:host ::ng-deep .bg-gray {
+  background-color: gainsboro;
+}
+
+@media screen and (max-width: 767px) {
+  .report-name {
+    font-size: 11pt;
+  }
+
+  .btn-generate-all {
+    width: 100%;
+  }
+
+  .col-btn-report button {
+    width: 100%;
+  }
+
+  .col-hide-mob {
+    display: none;
+  }
+}

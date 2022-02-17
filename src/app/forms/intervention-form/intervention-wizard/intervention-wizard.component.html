@@ -1,10 +1,15 @@
-<div class="mat-dialog-wrapper">
+<div class="mat-dialog-wrapper" style="position: relative;">
 
-  <button class="close" mat-button (click)="onNoClick()">X</button>
+
+  <div class="d-flex justify-content-between" style="margin: -15px -15px 5px -30px;">
+    <button mat-button (click)="onNoClick()" class="dialog-close">X</button>
+    <button class="btn btn-primary py-0 px-3" style="line-height: 1;" (click)="saveWizard()">Uložiť</button>
+  </div>
+
   <h3 class="mt-0 mb-2 text-center"><strong>Intervencie Formulár</strong></h3>
 
   <div class="mat-dialog-content">
-    <mat-vertical-stepper [linear]="true">
+    <mat-vertical-stepper [linear]="false">
       <mat-step [stepControl]="sectionA" label="A: Podpora preventívnych zdravotných programov ">
         <form [formGroup]="sectionA">
           <mat-form-field>
@@ -58,7 +63,7 @@
           </mat-form-field>
 
           <div class="d-flex justify-content-between">
-            <button mat-raised-button matStepperPrevious>Späť</button>
+
             <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
           </div>
         </form>

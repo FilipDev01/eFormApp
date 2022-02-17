@@ -1,11 +1,11 @@
-<div class="main-content">
+<div *ngIf="!!agent" class="main-content">
   <div class="container-fluid">
 
     <div class="row">
       <div class="col-lg-12 col-md-12">
-        <a *ngIf="isAdmin" mat-raised-button color="primary" (click)="goBack();">Späť na zoznam agentov</a>
+        <a *ngIf="agent.is_admin" mat-raised-button color="primary" (click)="goBack();">Späť na zoznam agentov</a>
 
-        <div class="row" [class.mt-4]="isAdmin">
+        <div class="row" [class.mt-4]="agent.is_admin">
           <div class="col-md-12">
             <div class="card">
 
@@ -24,8 +24,26 @@
                   </div>
                   <div class="col-md-12 col-lg-4">
                     <div class="mb-3 d-flex align-items-end gap-3">
-                      <p class="form-label m-0">Email:</p>
-                      <p class="form-label m-0"><strong>{{agent.email}}</strong></p>
+                      <p class="form-label m-0">Koordinátor:</p>
+                      <p class="form-label m-0"><strong>{{agent.coordinator_name || '-'}}</strong></p>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-lg-4">
+                    <div class="mb-3 d-flex align-items-end gap-3">
+                      <p class="form-label m-0">Lokalita:</p>
+                      <p class="form-label m-0"><strong>{{agent.location || '-'}}</strong></p>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-lg-4">
+                    <div class="mb-1 d-flex align-items-end gap-3">
+                      <p class="form-label m-0">Status:</p>
+                      <mat-select *ngIf="agent.status" class="eform-mat-select"
+                        [class]="'eform-mat-' + agent.status.value" [(value)]="agent.status.value"
+                        (selectionChange)="statusChanged($event)" placeholder="Zvoľ Status" style="max-width: 100px;">
+                        <mat-option value="active">V Práci</mat-option>
+                        <mat-option value="break">Prestávka</mat-option>
+                        <mat-option value="inactive" [disabled]="canDeactivate()">Neaktívny</mat-option>
+                      </mat-select>
                     </div>
                   </div>
 

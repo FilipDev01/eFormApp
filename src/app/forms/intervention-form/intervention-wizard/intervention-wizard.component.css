@@ -4,10 +4,14 @@
 
 :host ::ng-deep .close.mat-button {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 10px;
+  top: 0px;
+  right: 0px;
+  padding: 0px;
   line-height: 15px;
   min-width: auto;
   font-size: 20px;
+}
+
+:host ::ng-deep .dialog-close .mat-button-focus-overlay {
+  display: none;
 }

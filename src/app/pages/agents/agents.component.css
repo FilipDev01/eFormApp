@@ -30,8 +30,28 @@ table.table-custom tbody tr {
   cursor: pointer;
 }
 
+::ng-deep .table> :not(:first-child) {
+  border-top: 1px solid #bbbbbb;
+}
+
 .badge {
   font-size: .85em;
   line-height: 1.2;
-  width: 70px;
+  width: 120px;
+}
+
+.col-btn-download {
+  width: 100px;
+  text-align: center;
+}
+
+.col-btn-download button {
+  min-width: 80px;
+}
+
+
+@media screen and (max-width: 767px) {
+  .col-hide-mob {
+    display: none;
+  }
 }

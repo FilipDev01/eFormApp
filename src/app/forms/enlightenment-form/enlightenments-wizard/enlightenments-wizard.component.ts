@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { EnlightenmentsFormService } from '../../../services/forms/enlightenment.form.service';
 
 @Component({
   selector: 'app-enlightenments-wizard',
@@ -10,24 +10,27 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
   styleUrls: ['./enlightenments-wizard.component.css']
 })
 export class EnlightenmentstionWizardComponent implements OnInit {
-  public sectionA: FormGroup;
-  public sectionB: FormGroup;
-  public sectionC: FormGroup;
-  public sectionD: FormGroup;
+  public sectionA: any;
+  public sectionB: any;
+  public sectionC: any;
+  public sectionD: any;
 
   @ViewChild('matSelectA') matSelectA: any = null;
   @ViewChild('matSelectB') matSelectB: any = null;
   @ViewChild('matSelectC') matSelectC: any = null;
   @ViewChild('matSelectD') matSelectD: any = null;
 
-  public enlightenmentOptions: Array<any>;
   public selected: any;
+  public enlightenmentOptions: Array<any>;
   public dropdownSettings: IDropdownSettings;
 
+  private enlightenmentId: string;
+  private savedEnlightenment: any;
+
   constructor(
-    private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
-    public dialogRef: MatDialogRef<EnlightenmentstionWizardComponent>
+    public dialogRef: MatDialogRef<EnlightenmentstionWizardComponent>,
+    private _enlightenmentsFormService: EnlightenmentsFormService
   ) {
     this.dropdownSettings = {
       singleSelection: false,
@@ -42,8 +45,7 @@ export class EnlightenmentstionWizardComponent implements OnInit {
 
   ngOnInit(): void {
     this._setEnlightenmentOptions();
-    this._setForm(this.dialogData);
-
+    this._setFormAsync(this.dialogData);
   }
 
   onNoClick(): void {
@@ -56,20 +58,14 @@ export class EnlightenmentstionWizardComponent implements OnInit {
 
   getWizardFormData() {
     const formData: any = {};
-    [this.sectionA, this.sectionB, this.sectionC, this.sectionD].forEach((group: FormGroup) => {
-      Object.assign(formData, group.getRawValue());
+    [this.sectionA, this.sectionB, this.sectionC, this.sectionD].forEach((group: any) => {
+      Object.assign(formData, group);
     });
 
-    if (!!formData) {
-      const keys = Object.keys(formData);
-      keys.forEach((key: string) => {
-        if (Array.isArray(formData[key])) {
-          formData[key] = formData[key].join(',');
-        }
-      });
-    }
-
     formData.date = this.dialogData.date;
+    formData.id = !!this.enlightenmentId ? this.enlightenmentId : null;
+    formData.version = !!this.savedEnlightenment && this.savedEnlightenment._version ? this.savedEnlightenment._version : null;
+
     return formData;
   }
 
@@ -85,36 +81,96 @@ export class EnlightenmentstionWizardComponent implements OnInit {
     }
   }
 
-  private _setForm(data: any) {
-    let savedData = null;
+  private async _setFormAsync(data: any) {
+    let savedData: any = null;
     if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
       var dateISOstr = data.date.toISOString();
       savedData = data.form_data.find((x: any) => x.date === dateISOstr);
     }
 
-    this.sectionA = this._formBuilder.group({
-      a1: [(!!savedData ? savedData.a1 : 0), Validators.required],
-      a2: [((!!savedData && !!savedData.a2) ? savedData.a2.split(',') : ''), Validators.required],
-    });
+    // Check if enlightenments codes exits
+    // -------------------------------------------------------------------------------------------------------------------
+    let codes;
+    if (!!savedData && !!savedData.id) {
+      this.enlightenmentId = savedData.id;
 
-    this.sectionB = this._formBuilder.group({
-      b1: [(!!savedData ? savedData.b1 : 0), Validators.required],
-      b2: [(!!savedData ? savedData.b2 : 0), Validators.required],
-      b3: [((!!savedData && !!savedData.b3) ? savedData.b3.split(',') : ''), Validators.required],
-    });
+      savedData = await this._enlightenmentsFormService.getEnlightenmentCodeAsync(this.enlightenmentId);
+      codes = savedData.enlightenmentCodes?.items ?? [];
 
-    this.sectionC = this._formBuilder.group({
-      c1: [(!!savedData ? savedData.c1 : ''), Validators.required],
-      c2: [(!!savedData ? savedData.c2 : 0), Validators.required],
-      c3: [(!!savedData ? savedData.c3 : 0), Validators.required],
-      c4: [((!!savedData && !!savedData.c4) ? savedData.c4.split(',') : ''), Validators.required],
-    });
+      this.savedEnlightenment = savedData;
+    }
 
-    this.sectionD = this._formBuilder.group({
-      d1: [(!!savedData ? savedData.d1 : ''), Validators.required],
-      d2: [(!!savedData ? savedData.d2 : 0), Validators.required],
-      d3: [((!!savedData && savedData.d3) ? savedData.d3.split(',') : ''), Validators.required],
-    });
+    const sectionACodes = this._setEnlightenmentCodes(0, codes);
+    this.sectionA = {
+      no_individuals: savedData?.no_individuals ?? 0,
+      individual_codes_id: sectionACodes?.id ?? null,
+      individual_codes_version: sectionACodes?.version ?? null,
+      individual_codes: sectionACodes?.codes ?? null
+    };
+
+    const sectionBCodes = this._setEnlightenmentCodes(1, codes);
+    this.sectionB = {
+      no_families: savedData?.no_families ?? 0, no_people_in_families: savedData?.no_people_in_families ?? 0,
+      family_codes_id: sectionBCodes?.id ?? null,
+      family_codes_version: sectionBCodes?.version ?? null,
+      family_codes: sectionBCodes?.codes ?? null
+    };
+
+    const sectionCCodes = this._setEnlightenmentCodes(2, codes);
+    this.sectionC = {
+      school_name: savedData?.school_name ?? '',
+      no_students: savedData?.no_students ?? 0,
+      school_codes_id: sectionCCodes?.id ?? null,
+      school_codes_version: sectionCCodes?.version ?? null,
+      school_codes: sectionCCodes?.codes ?? null
+    };
+
+    const sectionDCodes = this._setEnlightenmentCodes(3, codes);
+    this.sectionD = {
+      community_center_name: savedData?.community_center_name ?? '',
+      no_community_center_members: savedData?.no_community_center_members ?? 0,
+      community_center_codes_id: sectionDCodes?.id ?? null,
+      community_center_codes_version: sectionDCodes?.version ?? null,
+      community_center_codes: sectionDCodes?.codes ?? null
+    };
+  }
+
+  public addCode(section: any, type: string) {
+    section[type] = !section[type] ? new Array<any>() : section[type];
+    section[type].push({ code: '', count: null, description: '' });
+  }
+
+  public removeCode(sectionCodes: any, item: any) {
+    const ind = sectionCodes.indexOf(item);
+    if (ind > -1) {
+      sectionCodes.splice(ind, 1);
+    }
+  }
+
+  private _setEnlightenmentCodes(type: number, codes: Array<any>) {
+    if (!codes) {
+      return null;
+    }
+
+    const sectionCodes = codes.find((x: any) => x.type === type);
+    if (!sectionCodes) {
+      return null;
+    }
+
+    const sectionWizardCodeObject = new Array<any>();
+    const sectionWizardCodeKeys = Object.keys(sectionCodes);
+
+    sectionWizardCodeKeys.forEach((key: string) => {
+      if (key.includes('f') && sectionCodes[key]) {
+        const code = key.toUpperCase();
+        let description = this.enlightenmentOptions.find(x => x.code === code);
+        description = description?.description ?? '';
+
+        sectionWizardCodeObject.push({ code: code, description: code, count: sectionCodes[key] });
+      }
+    })
+
+    return { id: sectionCodes.id, version: sectionCodes._version, codes: sectionWizardCodeObject.length > 0 ? sectionWizardCodeObject : null };
   }
 
   private _setEnlightenmentOptions() {

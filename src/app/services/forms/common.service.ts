@@ -9,8 +9,9 @@ import { EnlightenmentstionWizardComponent } from '../../forms/enlightenment-for
 import { InterventionWizardComponent } from '../../forms/intervention-form/intervention-wizard/intervention-wizard.component';
 import { InterventionsFormService } from './interventions.form.service';
 import { EnlightenmentsFormService } from './enlightenment.form.service';
-import { Enlightenments, Interventions } from '../graphql/graphql.service';
 import { GlobalConstants } from '../../common/global-constants';
+import { MonitoringCovidWizardComponent } from '../../forms/covid-monitoring/wizard/covid-wizard.component';
+import { CovidMonitoringFormService } from './covid-monitoring.service';
 
 @Injectable({ providedIn: 'root', })
 export class FormCommonService {
@@ -19,6 +20,7 @@ export class FormCommonService {
         public dialog: MatDialog,
         private _enlightenmentsFormService: EnlightenmentsFormService,
         private _interventionsFormService: InterventionsFormService,
+        private _covidMonitoringFormService: CovidMonitoringFormService,
         private _router: Router
     ) { }
 
@@ -36,8 +38,9 @@ export class FormCommonService {
             return await this._enlightenmentsFormService.getEnlightenmentsAsync(agentId, fromDate);
         } else if (type === 'interventions') {
             return await this._interventionsFormService.getInterventionsAsync(agentId, fromDate);
+        } else if (type === 'covid_monitoring') {
+            return await this._covidMonitoringFormService.getCovidMonitoringAsync(agentId, fromDate);
         }
-
         return null;
     }
 
@@ -49,13 +52,13 @@ export class FormCommonService {
 
         const wizardType: any = this._selectFormWizardType(type);
         const wizarConfig: any = {
-            panelClass: 'my-dialog-enlightenments', data: { form_data: wizardData.data, date: wizardData.date }
+            panelClass: 'my-dialog-enlightenments', disableClose: true, data: { form_data: wizardData.data, date: wizardData.date }
         }
 
         const dialogRef = this.dialog.open(wizardType, wizarConfig);
         const dialogRes = await dialogRef.afterClosed().toPromise()
         if (!dialogRes?.data) {
-            return null;
+            return wizardData;
         }
 
         return this._handleWizardResponseAsync(type, dialogRes, agentId);
@@ -66,6 +69,8 @@ export class FormCommonService {
             return EnlightenmentstionWizardComponent;
         } else if (type === 'interventions') {
             return InterventionWizardComponent;
+        } else if (type === 'covid_monitoring') {
+            return MonitoringCovidWizardComponent;
         }
         return null;
     }
@@ -73,42 +78,18 @@ export class FormCommonService {
     private async _handleWizardResponseAsync(type: string, wizardData: any, agentId: string) {
         let response: any;
         if (type === 'enlightenments') {
-            response = await this._enlightenmentsFormService.createEnlightenmentAsync(wizardData, agentId);
+            response = await this._enlightenmentsFormService.handleEnlightenmentAsync(type, wizardData, agentId);
         } else if (type === 'interventions') {
-            response = await this._interventionsFormService.createInterventionAsync(wizardData, agentId);
+            response = await this._interventionsFormService.handleInterventionAsync(wizardData, agentId);
+        } else if (type === 'covid_monitoring') {
+            response = await this._covidMonitoringFormService.handleCovidMonitoringAsync(wizardData, agentId);
         }
 
-        if (!response) {
-            return new Array<any>();
-        }
-
-        return this.getFormData(type, agentId, wizardData.date);
+        const date = !!wizardData.date ? wizardData.date : (!!wizardData && !!wizardData.data && wizardData.data.date ? wizardData.data.date : new Date());
+        return this.getFormData(type, agentId, date);
     }
 
 
-    // GENEREATE PDF METHODS
-    generatePdfData(formType: string, data: Array<any>) {
-        if (!data) { return null; }
-
-        const daysInMonth = this._getDaysInCurrentMonth();
-        const rows: Array<any> = new Array<any>();
-
-        daysInMonth.forEach((date: any) => {
-            let int = data.find((x: any) => x.date === date);
-            int = !!int ? int : this._populateEmptyFormRow(formType);
-            rows.push(int);
-        });
-
-        rows.forEach((row: any, i: number) => {
-            row.day_int = (i + 1);
-        });
-
-        const pdfData = new Array<any>();
-        pdfData.push(rows.slice(0, 16));
-        pdfData.push(rows.slice(16));
-
-        return pdfData;
-    }
 
     generatePdfTotals(formType: string, data: Array<any>) {
         if (!data) { return {}; }
@@ -187,44 +168,6 @@ export class FormCommonService {
         }
 
         return null;
-    }
-
-    private _populateEmptyFormRow(type: string) {
-        if (type === 'interventions') {
-            const intervention: Interventions = {
-                __typename: "Interventions",
-                id: 'dummy',
-                createdAt: 'dummy',
-                updatedAt: 'dummy'
-            };
-
-            return intervention;
-        } else if (type === 'enlightenments') {
-            const enlightenment: Enlightenments = {
-                __typename: "Enlightenments",
-                id: 'dummy',
-                createdAt: 'dummy',
-                updatedAt: 'dummy'
-            };
-
-            return enlightenment;
-        }
-
-        return {};
-    }
-
-    private _getDaysInCurrentMonth() {
-        const currentDate = new Date();
-        const month = currentDate.getMonth();
-        const year = currentDate.getFullYear();
-
-        var date = new Date(year, month, 1);
-        var days = [];
-        while (date.getMonth() === month) {
-            days.push(new Date(date).toISOString());
-            date.setDate(date.getDate() + 1);
-        }
-        return days;
     }
 
     // SET AGENT DETAILS 

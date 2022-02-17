@@ -41,6 +41,31 @@
   font-size: 12pt;
 }
 
+:host .gap-3 p:first-child {
+  width: 90px;
+}
+
+::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  line-height: 1;
+}
+
+.eform-mat-select {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+::ng-deep .eform-mat-inactive #mat-select-value-1 {
+  color: #dc3545;
+}
+
+::ng-deep .eform-mat-break #mat-select-value-1 {
+  color: #ffc107;
+}
+
+::ng-deep .eform-mat-active #mat-select-value-1 {
+  color: #28a745;
+}
+
 @media screen and (max-width: 767px) {
   .td-index {
     display: none;

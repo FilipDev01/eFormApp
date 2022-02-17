@@ -4,10 +4,64 @@
 
 :host ::ng-deep .close.mat-button {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 10px;
+  top: 0px;
+  right: 0px;
+  padding: 0px;
   line-height: 15px;
   min-width: auto;
   font-size: 20px;
+}
+
+:host ::ng-deep .mat-form-field {
+  max-height: 55px;
+}
+
+:host ::ng-deep .mat-step-header {
+  padding-bottom: 0;
+  padding-top: 0;
+  height: 45px;
+}
+
+:host ::ng-deep .mat-vertical-content:last-child {
+  padding-right: 0 !important;
+}
+
+.enlightenment-table th,
+.enlightenment-table td {
+  border: unset;
+}
+
+.enlightenment-table td {
+  padding: 0 5px;
+  width: 100%;
+}
+
+.enlightenment-table tr td:first-child {
+  padding-left: 0;
+}
+
+.enlightenment-table .table-row-action {
+  width: 50px;
+  text-align: center;
+}
+
+.enlightenment-table .table-colum-code {
+  max-width: 150px;
+  text-align: center;
+}
+
+.enlightenment-table .table-column-action {
+  text-align: end;
+}
+
+.enlightenment-table .table-column-action p {
+  width: 15px;
+  font-weight: 600;
+  padding-top: 10px;
+  text-align: end;
+  cursor: pointer;
+}
+
+:host ::ng-deep .dialog-close .mat-button-focus-overlay {
+  display: none;
 }

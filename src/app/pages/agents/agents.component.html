@@ -2,6 +2,8 @@
 
 <div class="main-content">
   <div class="container-fluid">
+
+    <!-- AGENTS -->
     <div class="row">
       <div class="col-md-12">
         <div class="card">
@@ -15,24 +17,27 @@
             <div class="table-responsive">
               <table class="table table-hover">
                 <thead class=" text-primary">
-                  <th>ID</th>
+                  <th class="col-hide-mob"></th>
                   <th class="d-none"></th>
-                  <th>Meno</th>
-                  <th>Email</th>
+                  <th>Asistent</th>
+                  <th>Koordinátor</th>
+                  <th class="col-hide-mob">Lokalita</th>
                   <th>Status</th>
-                  <th>Vytvorený</th>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let agent of agents; let ind = index" (click)="goToAgentDetails(agent)">
-                    <td>{{ind + 1}}</td>
-                    <td class="d-none">{{agent.Username}}</td>
-                    <td>{{(agent.Attributes[2]?.Value) || '-'}}</td>
-                    <td>{{(agent.Attributes[3]?.Value) || '-'}}</td>
-                    <td>
-                      <span *ngIf="agent.UserStatus === 'UNCONFIRMED'" class="badge bg-danger">Neaktívny</span>
-                      <span *ngIf="agent.UserStatus !== 'UNCONFIRMED'" class="badge bg-success">Aktívny</span>
+                  <tr *ngFor="let agent of agents; let ind = index">
+                    <td (click)="goToAgentDetails(agent)" class="col-hide-mob">{{ind + 1}}</td>
+                    <td (click)="goToAgentDetails(agent)">{{(agent.coordinator_name) || '-'}}</td>
+                    <td (click)="goToAgentDetails(agent)" class="d-none">{{agent.user_id}}</td>
+                    <td (click)="goToAgentDetails(agent)">{{(agent.name) || '-'}}</td>
+                    <td (click)="goToAgentDetails(agent)" class="col-hide-mob">{{(agent.location) || '-'}}</td>
+                    <td (click)="goToAgentDetails(agent)" class="pl-0 col-btn-download">
+                      <container-element [ngSwitch]="agent.status?.value">
+                        <span *ngSwitchCase="'active'" class="badge bg-success">V PRÁCI</span>
+                        <span *ngSwitchCase="'break'" class="badge bg-primary">NA PRESTÁVKE</span>
+                        <span *ngSwitchCase="'inactive'" class="badge bg-danger">NEAKTÍVNY</span>
+                      </container-element>
                     </td>
-                    <td>{{agent.UserCreateDate | date: 'dd/MM/yyyy'}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -41,5 +46,8 @@
         </div>
       </div>
     </div>
+
+    <!-- REPORTS -->
+    <app-reports [agents]="agents"></app-reports>
   </div>
 </div>

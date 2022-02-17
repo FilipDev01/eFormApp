@@ -36,16 +36,6 @@
   height: 2em;
 }
 
-.my-dialog-enlightenments,
-.cdk-overlay-connected-position-bounding-box .cdk-overlay-pane {
-  width: min(500px, 93vw);
-  right: 0;
-  left: 0 !important;
-  transform: unset !important;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
 .cdk-overlay-pane .custom-panel {
   max-height: 235px;
   overflow-y: auto;
@@ -92,4 +82,60 @@
     width: max(90%, 350px);
   }
 
+}
+
+/* DIALOG */
+.mat-vertical-stepper-content h3 {
+  border-bottom: 1px solid #ebebeb;
+  padding-bottom: 5px;
+}
+
+.mat-vertical-stepper-content button {
+  width: 120px;
+  height: 25px;
+  padding: 14px 0 !important;
+  font-size: 10pt;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-dialog-container {
+  padding-bottom: 10px !important;
+}
+
+.mat-dialog-container button:last-child {
+  float: right;
+}
+
+
+/* .cdk-overlay-connected-position-bounding-box .cdk-overlay-pane */
+.my-dialog-reports,
+.my-dialog-pdf-excel,
+.my-dialog-enlightenments {
+  width: min(500px, 93vw);
+  right: 0;
+  left: 0 !important;
+  transform: unset !important;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.mat-datepicker-popup {
+  overflow: hidden !important;
+  min-height: 370px;
+}
+
+.pdf-table-wrapper {
+  /* position: fixed;
+  left: -9999px; */
+}
+
+.pdf-table-wrapper table thead th {
+  text-align: center;
+}
+
+.pdf-table-wrapper table thead th,
+.pdf-table-wrapper table tbody td {
+  font-size: 15pt !important;
 }

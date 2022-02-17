@@ -31,6 +31,9 @@ mutation CreateInterventions(
     e1
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateInterventions(
@@ -65,6 +68,9 @@ mutation UpdateInterventions(
     e1
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteInterventions(
@@ -99,6 +105,9 @@ mutation DeleteInterventions(
     e1
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateEnlightenments(
@@ -109,20 +118,63 @@ mutation CreateEnlightenments(
     id
     user_id
     date
-    a1
-    a2
-    b1
-    b2
-    b3
-    c1
-    c2
-    c3
-    c4
-    d1
-    d2
-    d3
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        enlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        enlightenmentsEnlightenmentCodesId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateEnlightenments(
@@ -133,20 +185,63 @@ mutation UpdateEnlightenments(
     id
     user_id
     date
-    a1
-    a2
-    b1
-    b2
-    b3
-    c1
-    c2
-    c3
-    c4
-    d1
-    d2
-    d3
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        enlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        enlightenmentsEnlightenmentCodesId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteEnlightenments(
@@ -157,20 +252,264 @@ mutation DeleteEnlightenments(
     id
     user_id
     date
-    a1
-    a2
-    b1
-    b2
-    b3
-    c1
-    c2
-    c3
-    c4
-    d1
-    d2
-    d3
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        enlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        enlightenmentsEnlightenmentCodesId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateEnlightenmentCode(
+  $input: CreateEnlightenmentCodeInput!
+  $condition: ModelEnlightenmentCodeConditionInput
+) {
+  createEnlightenmentCode(input: $input, condition: $condition) {
+    id
+    enlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    enlightenment {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    enlightenmentsEnlightenmentCodesId
+  }
+}
+mutation UpdateEnlightenmentCode(
+  $input: UpdateEnlightenmentCodeInput!
+  $condition: ModelEnlightenmentCodeConditionInput
+) {
+  updateEnlightenmentCode(input: $input, condition: $condition) {
+    id
+    enlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    enlightenment {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    enlightenmentsEnlightenmentCodesId
+  }
+}
+mutation DeleteEnlightenmentCode(
+  $input: DeleteEnlightenmentCodeInput!
+  $condition: ModelEnlightenmentCodeConditionInput
+) {
+  deleteEnlightenmentCode(input: $input, condition: $condition) {
+    id
+    enlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    enlightenment {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    enlightenmentsEnlightenmentCodesId
   }
 }
 mutation CreateActivities(
@@ -186,6 +525,9 @@ mutation CreateActivities(
     done
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateActivities(
@@ -201,6 +543,9 @@ mutation UpdateActivities(
     done
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteActivities(
@@ -216,5 +561,545 @@ mutation DeleteActivities(
     done
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateAgentEnlightenment(
+  $input: CreateAgentEnlightenmentInput!
+  $condition: ModelAgentEnlightenmentConditionInput
+) {
+  createAgentEnlightenment(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        agentEnlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateAgentEnlightenment(
+  $input: UpdateAgentEnlightenmentInput!
+  $condition: ModelAgentEnlightenmentConditionInput
+) {
+  updateAgentEnlightenment(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        agentEnlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteAgentEnlightenment(
+  $input: DeleteAgentEnlightenmentInput!
+  $condition: ModelAgentEnlightenmentConditionInput
+) {
+  deleteAgentEnlightenment(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        agentEnlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateAgentEnlightenmentCode(
+  $input: CreateAgentEnlightenmentCodeInput!
+  $condition: ModelAgentEnlightenmentCodeConditionInput
+) {
+  createAgentEnlightenmentCode(input: $input, condition: $condition) {
+    id
+    agentEnlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateAgentEnlightenmentCode(
+  $input: UpdateAgentEnlightenmentCodeInput!
+  $condition: ModelAgentEnlightenmentCodeConditionInput
+) {
+  updateAgentEnlightenmentCode(input: $input, condition: $condition) {
+    id
+    agentEnlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteAgentEnlightenmentCode(
+  $input: DeleteAgentEnlightenmentCodeInput!
+  $condition: ModelAgentEnlightenmentCodeConditionInput
+) {
+  deleteAgentEnlightenmentCode(input: $input, condition: $condition) {
+    id
+    agentEnlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateCovidMonitoring(
+  $input: CreateCovidMonitoringInput!
+  $condition: ModelCovidMonitoringConditionInput
+) {
+  createCovidMonitoring(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    a1
+    a2
+    a3
+    a4
+    a5
+    b1
+    b2
+    b3
+    b4
+    b5
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    d4
+    e1
+    e2
+    e3
+    e4
+    e5
+    e6
+    e7
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    g1
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateCovidMonitoring(
+  $input: UpdateCovidMonitoringInput!
+  $condition: ModelCovidMonitoringConditionInput
+) {
+  updateCovidMonitoring(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    a1
+    a2
+    a3
+    a4
+    a5
+    b1
+    b2
+    b3
+    b4
+    b5
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    d4
+    e1
+    e2
+    e3
+    e4
+    e5
+    e6
+    e7
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    g1
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteCovidMonitoring(
+  $input: DeleteCovidMonitoringInput!
+  $condition: ModelCovidMonitoringConditionInput
+) {
+  deleteCovidMonitoring(input: $input, condition: $condition) {
+    id
+    user_id
+    date
+    a1
+    a2
+    a3
+    a4
+    a5
+    b1
+    b2
+    b3
+    b4
+    b5
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    d4
+    e1
+    e2
+    e3
+    e4
+    e5
+    e6
+    e7
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    g1
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateAgent(
+  $input: CreateAgentInput!
+  $condition: ModelAgentConditionInput
+) {
+  createAgent(input: $input, condition: $condition) {
+    id
+    user_id
+    name
+    coordinator_name
+    location
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateAgent(
+  $input: UpdateAgentInput!
+  $condition: ModelAgentConditionInput
+) {
+  updateAgent(input: $input, condition: $condition) {
+    id
+    user_id
+    name
+    coordinator_name
+    location
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteAgent(
+  $input: DeleteAgentInput!
+  $condition: ModelAgentConditionInput
+) {
+  deleteAgent(input: $input, condition: $condition) {
+    id
+    user_id
+    name
+    coordinator_name
+    location
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }

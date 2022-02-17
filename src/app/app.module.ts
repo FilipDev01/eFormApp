@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './services/auth/auth.gard';
 import { AuthService } from './services/auth/auth.guard.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { AuthService } from './services/auth/auth.guard.service';
   ],
   imports: [
     BrowserAnimationsModule,
+    HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     RouterModule

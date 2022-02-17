@@ -15,14 +15,10 @@ export class InterventionFormComponent implements OnInit {
   public isAdmin: boolean;
 
   public dateToday: Date;
-
-  public dataProcessing: boolean;
   public processing: boolean;
 
+  public dataProcessing: boolean;
   public interventions: any;
-
-  public pdfData: Array<any> | null;
-  public pdfTotals: any;
 
   constructor(
     private _formService: FormCommonService,
@@ -37,9 +33,7 @@ export class InterventionFormComponent implements OnInit {
 
     this.isAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
     if (this.isAdmin) {
-      this.agentName = this._formService.setAgentDetails();
-      this.pdfData = this._formService.generatePdfData('interventions', this.interventions);
-      this.pdfTotals = this._formService.generatePdfTotals('interventions', this.interventions);
+      this.agentName = this._formService.setAgentDetails();    
     }
   }
 
@@ -48,17 +42,25 @@ export class InterventionFormComponent implements OnInit {
   }
 
   public async openDialog(date: any): Promise<any> {
-    const temp = this.interventions;
-
-    this.interventions = null;
-    this.interventions = await this._formService.openFormWizardAsync(this.agentId, 'interventions', { data: this.interventions, date: date })
-    if (!this.interventions) {
-      this.interventions = temp;
+    try {
+      this.processing = true;
+      const response = await this._formService.openFormWizardAsync(this.agentId, 'interventions', { data: this.interventions, date: date });
+      this._handleResponse(response);
+    } catch (err: any) {
+      console.error(err);
+      this.processing = false;
     }
   }
 
-  public async generatePdfFileAsync() {
-    this.processing = true;
-    this.processing = await this._formService.generatePdfFileAsync(this.pdfData, 'apz_intervencie');
+  private _handleResponse(response: any) {
+    if (!!response && Array.isArray(response)) {
+      this.interventions = null;
+      setTimeout(() => {
+        this.interventions = response;
+        this.processing = false;
+      }, 250);
+    } else {
+      this.processing = false;
+    }
   }
 }

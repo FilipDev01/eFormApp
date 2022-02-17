@@ -1,0 +1,50 @@
+<div class="mat-dialog-wrapper" style="position: relative;">
+
+  <div class="dialog-header-action position-absolute">
+    <button mat-button (click)="onNoClick()" class="dialog-close">X</button>
+  </div>
+
+  <h3 class="mt-0 mb-2 text-center"> <strong>PDF</strong> </h3>
+
+  <div class="mat-dialog-content">
+
+    <div class="col-md-12">
+      <div class="card-body">
+
+        <section class="agent-details">
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Meno</h6>
+            </div>
+            <div class="col-sm-9"><span>{{agent.name || '-'}}</span></div>
+          </div>
+          <hr class="mt-2">
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Email</h6>
+            </div>
+            <div class="col-sm-9"><span>{{agent.email || '-'}}</span></div>
+          </div>
+          <hr class="mt-2">
+        </section>
+
+        <section class="pdf-generate-wrapper">
+          <div class="row d-flex align-baseline" style="align-items: baseline !important;">
+            <div class="col-sm-3">
+              <h6 class="m-0">Formulár</h6>
+            </div>
+            <div class="col-sm-9">
+              <mat-select [(value)]="selectedForm">
+                <mat-option value="1">Intervencie</mat-option>
+                <mat-option value="2">Zdravotná Osveta</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <hr class="mt-2 mb-4">
+          <button class="btn btn-primary w-100" (click)="generatePDF();"><strong>Stiahnuť PDF</strong></button>
+        </section>
+      </div>
+    </div>
+
+  </div>
+</div>

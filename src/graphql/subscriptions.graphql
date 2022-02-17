@@ -28,6 +28,9 @@ subscription OnCreateInterventions {
     e1
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateInterventions {
@@ -59,6 +62,9 @@ subscription OnUpdateInterventions {
     e1
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteInterventions {
@@ -90,6 +96,9 @@ subscription OnDeleteInterventions {
     e1
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnCreateEnlightenments {
@@ -97,20 +106,63 @@ subscription OnCreateEnlightenments {
     id
     user_id
     date
-    a1
-    a2
-    b1
-    b2
-    b3
-    c1
-    c2
-    c3
-    c4
-    d1
-    d2
-    d3
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        enlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        enlightenmentsEnlightenmentCodesId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateEnlightenments {
@@ -118,20 +170,63 @@ subscription OnUpdateEnlightenments {
     id
     user_id
     date
-    a1
-    a2
-    b1
-    b2
-    b3
-    c1
-    c2
-    c3
-    c4
-    d1
-    d2
-    d3
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        enlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        enlightenmentsEnlightenmentCodesId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteEnlightenments {
@@ -139,20 +234,255 @@ subscription OnDeleteEnlightenments {
     id
     user_id
     date
-    a1
-    a2
-    b1
-    b2
-    b3
-    c1
-    c2
-    c3
-    c4
-    d1
-    d2
-    d3
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        enlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        enlightenmentsEnlightenmentCodesId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateEnlightenmentCode {
+  onCreateEnlightenmentCode {
+    id
+    enlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    enlightenment {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    enlightenmentsEnlightenmentCodesId
+  }
+}
+subscription OnUpdateEnlightenmentCode {
+  onUpdateEnlightenmentCode {
+    id
+    enlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    enlightenment {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    enlightenmentsEnlightenmentCodesId
+  }
+}
+subscription OnDeleteEnlightenmentCode {
+  onDeleteEnlightenmentCode {
+    id
+    enlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    enlightenment {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    enlightenmentsEnlightenmentCodesId
   }
 }
 subscription OnCreateActivities {
@@ -165,6 +495,9 @@ subscription OnCreateActivities {
     done
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateActivities {
@@ -177,6 +510,9 @@ subscription OnUpdateActivities {
     done
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteActivities {
@@ -189,5 +525,509 @@ subscription OnDeleteActivities {
     done
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateAgentEnlightenment {
+  onCreateAgentEnlightenment {
+    id
+    user_id
+    date
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        agentEnlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateAgentEnlightenment {
+  onUpdateAgentEnlightenment {
+    id
+    user_id
+    date
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        agentEnlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteAgentEnlightenment {
+  onDeleteAgentEnlightenment {
+    id
+    user_id
+    date
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        agentEnlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateAgentEnlightenmentCode {
+  onCreateAgentEnlightenmentCode {
+    id
+    agentEnlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateAgentEnlightenmentCode {
+  onUpdateAgentEnlightenmentCode {
+    id
+    agentEnlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteAgentEnlightenmentCode {
+  onDeleteAgentEnlightenmentCode {
+    id
+    agentEnlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateCovidMonitoring {
+  onCreateCovidMonitoring {
+    id
+    user_id
+    date
+    a1
+    a2
+    a3
+    a4
+    a5
+    b1
+    b2
+    b3
+    b4
+    b5
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    d4
+    e1
+    e2
+    e3
+    e4
+    e5
+    e6
+    e7
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    g1
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateCovidMonitoring {
+  onUpdateCovidMonitoring {
+    id
+    user_id
+    date
+    a1
+    a2
+    a3
+    a4
+    a5
+    b1
+    b2
+    b3
+    b4
+    b5
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    d4
+    e1
+    e2
+    e3
+    e4
+    e5
+    e6
+    e7
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    g1
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteCovidMonitoring {
+  onDeleteCovidMonitoring {
+    id
+    user_id
+    date
+    a1
+    a2
+    a3
+    a4
+    a5
+    b1
+    b2
+    b3
+    b4
+    b5
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    d4
+    e1
+    e2
+    e3
+    e4
+    e5
+    e6
+    e7
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    g1
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateAgent {
+  onCreateAgent {
+    id
+    user_id
+    name
+    coordinator_name
+    location
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateAgent {
+  onUpdateAgent {
+    id
+    user_id
+    name
+    coordinator_name
+    location
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteAgent {
+  onDeleteAgent {
+    id
+    user_id
+    name
+    coordinator_name
+    location
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }

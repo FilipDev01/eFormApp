@@ -41,8 +41,11 @@ export class CalendarComponent implements OnInit {
   }
 
   dateChanged(event: any) {
-    // this.calendar.activeDate = this.selectedDate;
     this.selectedDate = event;
+    // this.dateSelected.emit(this.selectedDate);
+  }
+
+  onClick() {
     this.dateSelected.emit(this.selectedDate);
   }
 

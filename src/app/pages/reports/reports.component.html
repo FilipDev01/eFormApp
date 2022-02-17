@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Reporty</h4>
+        <p class="card-category d-none"></p>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive mb-0">
+          <table class="table w-100">
+            <thead class="text-primary">
+              <th class="col-index col-hide-mob"></th>
+              <th>Názov</th>
+              <th class="col-btn-report"></th>
+              <th class="col-btn-report"></th> 
+            </thead>
+            <tbody *ngIf="!!reports">
+              <tr *ngFor="let report of reports; let ind = index">
+                <td class="align-middle col-index col-hide-mob">
+                  <span>{{(ind + 1)}}</span>
+                </td>
+                <td class="align-middle">
+                  <p class="m-0 report-name"><strong>{{report.name}}</strong></p>
+                </td>
+
+                <td class="text-end align-middle col-btn-report">
+                  <button *ngIf="report.type !== 'covid_monitoring' && report.type !== 'activity'" class="btn btn-success bg-info py-1 px-3"
+                    (click)="populatePdfReportDataAsync(report.type)">
+                    <span>PDF</span>
+                  </button>
+                </td>
+                <td class="text-end align-middle col-btn-report">
+                  <button class="btn btn-success py-1 px-3" (click)="populateExcelReportDataAsync(report.type)">
+                    <span>Excel</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="w-100 text-end">
+            <button class="btn btn-primary py-1 px-3 btn-generate-all" (click)="populateSummaryReportAsync()">
+              <span>Vygenerovať Súhrný Report</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

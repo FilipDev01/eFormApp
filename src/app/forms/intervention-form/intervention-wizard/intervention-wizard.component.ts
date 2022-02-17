@@ -15,6 +15,9 @@ export class InterventionWizardComponent implements OnInit {
   public sectionD: FormGroup;
   public sectionE: FormGroup;
 
+  private interventionId: string;
+  private savedIntervention: any;
+
   constructor(
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -38,6 +41,11 @@ export class InterventionWizardComponent implements OnInit {
     if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
       var dateISOstr = data.date.toISOString();
       savedData = data.form_data.find((x: any) => x.date === dateISOstr);
+    }
+
+    if (!!savedData && !!savedData.id) {
+      this.interventionId = savedData.id;
+      this.savedIntervention = savedData;
     }
 
     this.sectionA = this._formBuilder.group({
@@ -84,8 +92,10 @@ export class InterventionWizardComponent implements OnInit {
       Object.assign(formData, group.getRawValue());
     });
 
-    // Object.assign(formData, this.dialogData);
     formData.date = this.dialogData.date;
+    formData.id = !!this.interventionId ? this.interventionId : null;
+    formData.version = !!this.savedIntervention && this.savedIntervention._version ? this.savedIntervention._version : null;
+
     return formData;
   }
 

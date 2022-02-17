@@ -28,6 +28,9 @@ query GetInterventions($id: ID!) {
     e1
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 query ListInterventions(
@@ -64,8 +67,60 @@ query ListInterventions(
       e1
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     nextToken
+    startedAt
+  }
+}
+query SyncInterventions(
+  $filter: ModelInterventionsFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncInterventions(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      user_id
+      date
+      a1
+      a2
+      a3
+      a4
+      b1
+      b2
+      b3
+      b4
+      c1
+      c2
+      c3
+      c4
+      c5
+      d1
+      d2
+      d3
+      d4
+      d5
+      d6
+      d7
+      d8
+      e1
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
   }
 }
 query GetEnlightenments($id: ID!) {
@@ -73,20 +128,63 @@ query GetEnlightenments($id: ID!) {
     id
     user_id
     date
-    a1
-    a2
-    b1
-    b2
-    b3
-    c1
-    c2
-    c3
-    c4
-    d1
-    d2
-    d3
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        enlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        enlightenmentsEnlightenmentCodesId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 query ListEnlightenments(
@@ -99,22 +197,272 @@ query ListEnlightenments(
       id
       user_id
       date
-      a1
-      a2
-      b1
-      b2
-      b3
-      c1
-      c2
-      c3
-      c4
-      d1
-      d2
-      d3
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     nextToken
+    startedAt
+  }
+}
+query SyncEnlightenments(
+  $filter: ModelEnlightenmentsFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncEnlightenments(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetEnlightenmentCode($id: ID!) {
+  getEnlightenmentCode(id: $id) {
+    id
+    enlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    enlightenment {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    enlightenmentsEnlightenmentCodesId
+  }
+}
+query ListEnlightenmentCodes(
+  $filter: ModelEnlightenmentCodeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEnlightenmentCodes(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      enlightenmentID
+      type
+      f1
+      f2
+      f3
+      f4
+      f5
+      f6
+      f7
+      f8
+      f9
+      f10
+      f11
+      f12
+      f13
+      f14
+      f15
+      f16
+      f17
+      f18
+      f19
+      f20
+      f21
+      f22
+      f23
+      f24
+      f25
+      f26
+      f27
+      f28
+      f29
+      f30
+      enlightenment {
+        id
+        user_id
+        date
+        no_individuals
+        no_families
+        no_people_in_families
+        school_name
+        no_students
+        community_center_name
+        no_community_center_members
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      enlightenmentsEnlightenmentCodesId
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncEnlightenmentCodes(
+  $filter: ModelEnlightenmentCodeFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncEnlightenmentCodes(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      enlightenmentID
+      type
+      f1
+      f2
+      f3
+      f4
+      f5
+      f6
+      f7
+      f8
+      f9
+      f10
+      f11
+      f12
+      f13
+      f14
+      f15
+      f16
+      f17
+      f18
+      f19
+      f20
+      f21
+      f22
+      f23
+      f24
+      f25
+      f26
+      f27
+      f28
+      f29
+      f30
+      enlightenment {
+        id
+        user_id
+        date
+        no_individuals
+        no_families
+        no_people_in_families
+        school_name
+        no_students
+        community_center_name
+        no_community_center_members
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      enlightenmentsEnlightenmentCodesId
+    }
+    nextToken
+    startedAt
   }
 }
 query GetActivities($id: ID!) {
@@ -127,6 +475,9 @@ query GetActivities($id: ID!) {
     done
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 query ListActivities(
@@ -144,7 +495,557 @@ query ListActivities(
       done
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     nextToken
+    startedAt
+  }
+}
+query SyncActivities(
+  $filter: ModelActivitiesFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncActivities(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      user_id
+      date
+      time
+      activity
+      done
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetAgentEnlightenment($id: ID!) {
+  getAgentEnlightenment(id: $id) {
+    id
+    user_id
+    date
+    no_individuals
+    no_families
+    no_people_in_families
+    school_name
+    no_students
+    community_center_name
+    no_community_center_members
+    enlightenmentCodes {
+      items {
+        id
+        agentEnlightenmentID
+        type
+        f1
+        f2
+        f3
+        f4
+        f5
+        f6
+        f7
+        f8
+        f9
+        f10
+        f11
+        f12
+        f13
+        f14
+        f15
+        f16
+        f17
+        f18
+        f19
+        f20
+        f21
+        f22
+        f23
+        f24
+        f25
+        f26
+        f27
+        f28
+        f29
+        f30
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListAgentEnlightenments(
+  $filter: ModelAgentEnlightenmentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAgentEnlightenments(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncAgentEnlightenments(
+  $filter: ModelAgentEnlightenmentFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncAgentEnlightenments(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      user_id
+      date
+      no_individuals
+      no_families
+      no_people_in_families
+      school_name
+      no_students
+      community_center_name
+      no_community_center_members
+      enlightenmentCodes {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetAgentEnlightenmentCode($id: ID!) {
+  getAgentEnlightenmentCode(id: $id) {
+    id
+    agentEnlightenmentID
+    type
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    f11
+    f12
+    f13
+    f14
+    f15
+    f16
+    f17
+    f18
+    f19
+    f20
+    f21
+    f22
+    f23
+    f24
+    f25
+    f26
+    f27
+    f28
+    f29
+    f30
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListAgentEnlightenmentCodes(
+  $filter: ModelAgentEnlightenmentCodeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAgentEnlightenmentCodes(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      agentEnlightenmentID
+      type
+      f1
+      f2
+      f3
+      f4
+      f5
+      f6
+      f7
+      f8
+      f9
+      f10
+      f11
+      f12
+      f13
+      f14
+      f15
+      f16
+      f17
+      f18
+      f19
+      f20
+      f21
+      f22
+      f23
+      f24
+      f25
+      f26
+      f27
+      f28
+      f29
+      f30
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncAgentEnlightenmentCodes(
+  $filter: ModelAgentEnlightenmentCodeFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncAgentEnlightenmentCodes(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      agentEnlightenmentID
+      type
+      f1
+      f2
+      f3
+      f4
+      f5
+      f6
+      f7
+      f8
+      f9
+      f10
+      f11
+      f12
+      f13
+      f14
+      f15
+      f16
+      f17
+      f18
+      f19
+      f20
+      f21
+      f22
+      f23
+      f24
+      f25
+      f26
+      f27
+      f28
+      f29
+      f30
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetCovidMonitoring($id: ID!) {
+  getCovidMonitoring(id: $id) {
+    id
+    user_id
+    date
+    a1
+    a2
+    a3
+    a4
+    a5
+    b1
+    b2
+    b3
+    b4
+    b5
+    c1
+    c2
+    c3
+    c4
+    d1
+    d2
+    d3
+    d4
+    e1
+    e2
+    e3
+    e4
+    e5
+    e6
+    e7
+    f1
+    f2
+    f3
+    f4
+    f5
+    f6
+    f7
+    f8
+    f9
+    f10
+    g1
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListCovidMonitorings(
+  $filter: ModelCovidMonitoringFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCovidMonitorings(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user_id
+      date
+      a1
+      a2
+      a3
+      a4
+      a5
+      b1
+      b2
+      b3
+      b4
+      b5
+      c1
+      c2
+      c3
+      c4
+      d1
+      d2
+      d3
+      d4
+      e1
+      e2
+      e3
+      e4
+      e5
+      e6
+      e7
+      f1
+      f2
+      f3
+      f4
+      f5
+      f6
+      f7
+      f8
+      f9
+      f10
+      g1
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncCovidMonitorings(
+  $filter: ModelCovidMonitoringFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncCovidMonitorings(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      user_id
+      date
+      a1
+      a2
+      a3
+      a4
+      a5
+      b1
+      b2
+      b3
+      b4
+      b5
+      c1
+      c2
+      c3
+      c4
+      d1
+      d2
+      d3
+      d4
+      e1
+      e2
+      e3
+      e4
+      e5
+      e6
+      e7
+      f1
+      f2
+      f3
+      f4
+      f5
+      f6
+      f7
+      f8
+      f9
+      f10
+      g1
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetAgent($id: ID!) {
+  getAgent(id: $id) {
+    id
+    user_id
+    name
+    coordinator_name
+    location
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListAgents(
+  $filter: ModelAgentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAgents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      user_id
+      name
+      coordinator_name
+      location
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncAgents(
+  $filter: ModelAgentFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncAgents(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      user_id
+      name
+      coordinator_name
+      location
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
   }
 }

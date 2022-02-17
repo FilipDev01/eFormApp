@@ -17,7 +17,8 @@
         [maxDate]="maxDate" 
         [dateClass]="dateClass()" 
         [selected]="selectedDate" 
-        (selectedChange)="dateChanged($event)">
+        (selectedChange)="dateChanged($event)"
+        (click)="onClick()">
     </mat-calendar>
 
   <!-- <button (click)="setMinDate()">Set min date</button> -->

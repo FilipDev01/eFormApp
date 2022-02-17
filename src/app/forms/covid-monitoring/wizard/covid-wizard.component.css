@@ -1,0 +1,46 @@
+::ng-deep .cdk-overlay-pane.my-dialog {
+  position: relative !important;
+}
+
+:host ::ng-deep .close.mat-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 0px;
+  line-height: 15px;
+  min-width: auto;
+  font-size: 20px;
+}
+
+:host .table {
+  margin-top: -10px;
+}
+
+:host ::ng-deep table mat-form-field {
+  max-width: 50px;
+  max-height: 50px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+:host ::ng-deep table tbody {
+  border-top: unset !important;
+}
+
+.col-vac-head {
+  width: 120px !important;
+  text-align: center;
+  font-size: 11pt;
+}
+
+.col-no-vac {
+  width: 50px;
+  max-height: 50px;
+  padding: 0px 5px;
+  vertical-align: bottom;
+  text-align: center;
+}
+
+:host ::ng-deep .dialog-close .mat-button-focus-overlay {
+  display: none;
+}
