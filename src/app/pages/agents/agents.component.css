@@ -54,4 +54,8 @@ table.table-custom tbody tr {
   .col-hide-mob {
     display: none;
   }
+
+  .col-btn-download {
+    text-align: center;
+  }
 }

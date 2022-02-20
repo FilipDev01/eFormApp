@@ -20,16 +20,16 @@
                   <th class="col-hide-mob"></th>
                   <th class="d-none"></th>
                   <th>Asistent</th>
-                  <th>Koordinátor</th>
+                  <th class="col-hide-mob">Koordinátor</th>
                   <th class="col-hide-mob">Lokalita</th>
                   <th>Status</th>
                 </thead>
                 <tbody>
                   <tr *ngFor="let agent of agents; let ind = index">
                     <td (click)="goToAgentDetails(agent)" class="col-hide-mob">{{ind + 1}}</td>
-                    <td (click)="goToAgentDetails(agent)">{{(agent.coordinator_name) || '-'}}</td>
                     <td (click)="goToAgentDetails(agent)" class="d-none">{{agent.user_id}}</td>
                     <td (click)="goToAgentDetails(agent)">{{(agent.name) || '-'}}</td>
+                    <td (click)="goToAgentDetails(agent)" class="col-hide-mob">{{(agent.coordinator_name) || '-'}}</td>
                     <td (click)="goToAgentDetails(agent)" class="col-hide-mob">{{(agent.location) || '-'}}</td>
                     <td (click)="goToAgentDetails(agent)" class="pl-0 col-btn-download">
                       <container-element [ngSwitch]="agent.status?.value">
