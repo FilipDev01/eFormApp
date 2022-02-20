@@ -769,9 +769,6 @@ export type CreateCovidMonitoringInput = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -794,6 +791,16 @@ export type CreateCovidMonitoringInput = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   _version?: number | null;
 };
 
@@ -811,9 +818,6 @@ export type ModelCovidMonitoringConditionInput = {
   b4?: ModelIntInput | null;
   b5?: ModelIntInput | null;
   c1?: ModelIntInput | null;
-  c2?: ModelIntInput | null;
-  c3?: ModelIntInput | null;
-  c4?: ModelIntInput | null;
   d1?: ModelIntInput | null;
   d2?: ModelIntInput | null;
   d3?: ModelIntInput | null;
@@ -836,6 +840,16 @@ export type ModelCovidMonitoringConditionInput = {
   f9?: ModelIntInput | null;
   f10?: ModelIntInput | null;
   g1?: ModelStringInput | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   and?: Array<ModelCovidMonitoringConditionInput | null> | null;
   or?: Array<ModelCovidMonitoringConditionInput | null> | null;
   not?: ModelCovidMonitoringConditionInput | null;
@@ -857,9 +871,6 @@ export type CovidMonitoring = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -882,6 +893,16 @@ export type CovidMonitoring = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -904,9 +925,6 @@ export type UpdateCovidMonitoringInput = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -929,6 +947,16 @@ export type UpdateCovidMonitoringInput = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   _version?: number | null;
 };
 
@@ -1181,9 +1209,6 @@ export type ModelCovidMonitoringFilterInput = {
   b4?: ModelIntInput | null;
   b5?: ModelIntInput | null;
   c1?: ModelIntInput | null;
-  c2?: ModelIntInput | null;
-  c3?: ModelIntInput | null;
-  c4?: ModelIntInput | null;
   d1?: ModelIntInput | null;
   d2?: ModelIntInput | null;
   d3?: ModelIntInput | null;
@@ -1206,6 +1231,16 @@ export type ModelCovidMonitoringFilterInput = {
   f9?: ModelIntInput | null;
   f10?: ModelIntInput | null;
   g1?: ModelStringInput | null;
+  h1?: ModelIntInput | null;
+  h2?: ModelIntInput | null;
+  h3?: ModelIntInput | null;
+  h4?: ModelIntInput | null;
+  h5?: ModelIntInput | null;
+  h6?: ModelIntInput | null;
+  h7?: ModelIntInput | null;
+  h8?: ModelIntInput | null;
+  h9?: ModelIntInput | null;
+  h10?: ModelIntInput | null;
   and?: Array<ModelCovidMonitoringFilterInput | null> | null;
   or?: Array<ModelCovidMonitoringFilterInput | null> | null;
   not?: ModelCovidMonitoringFilterInput | null;
@@ -2116,9 +2151,6 @@ export type CreateCovidMonitoringMutation = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -2141,6 +2173,16 @@ export type CreateCovidMonitoringMutation = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2164,9 +2206,6 @@ export type UpdateCovidMonitoringMutation = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -2189,6 +2228,16 @@ export type UpdateCovidMonitoringMutation = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2212,9 +2261,6 @@ export type DeleteCovidMonitoringMutation = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -2237,6 +2283,16 @@ export type DeleteCovidMonitoringMutation = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -3050,9 +3106,6 @@ export type GetCovidMonitoringQuery = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -3075,6 +3128,16 @@ export type GetCovidMonitoringQuery = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -3100,9 +3163,6 @@ export type ListCovidMonitoringsQuery = {
     b4?: number | null;
     b5?: number | null;
     c1?: number | null;
-    c2?: number | null;
-    c3?: number | null;
-    c4?: number | null;
     d1?: number | null;
     d2?: number | null;
     d3?: number | null;
@@ -3125,6 +3185,16 @@ export type ListCovidMonitoringsQuery = {
     f9?: number | null;
     f10?: number | null;
     g1?: string | null;
+    h1?: number | null;
+    h2?: number | null;
+    h3?: number | null;
+    h4?: number | null;
+    h5?: number | null;
+    h6?: number | null;
+    h7?: number | null;
+    h8?: number | null;
+    h9?: number | null;
+    h10?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -3153,9 +3223,6 @@ export type SyncCovidMonitoringsQuery = {
     b4?: number | null;
     b5?: number | null;
     c1?: number | null;
-    c2?: number | null;
-    c3?: number | null;
-    c4?: number | null;
     d1?: number | null;
     d2?: number | null;
     d3?: number | null;
@@ -3178,6 +3245,16 @@ export type SyncCovidMonitoringsQuery = {
     f9?: number | null;
     f10?: number | null;
     g1?: string | null;
+    h1?: number | null;
+    h2?: number | null;
+    h3?: number | null;
+    h4?: number | null;
+    h5?: number | null;
+    h6?: number | null;
+    h7?: number | null;
+    h8?: number | null;
+    h9?: number | null;
+    h10?: number | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -4120,9 +4197,6 @@ export type OnCreateCovidMonitoringSubscription = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -4145,6 +4219,16 @@ export type OnCreateCovidMonitoringSubscription = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -4168,9 +4252,6 @@ export type OnUpdateCovidMonitoringSubscription = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -4193,6 +4274,16 @@ export type OnUpdateCovidMonitoringSubscription = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -4216,9 +4307,6 @@ export type OnDeleteCovidMonitoringSubscription = {
   b4?: number | null;
   b5?: number | null;
   c1?: number | null;
-  c2?: number | null;
-  c3?: number | null;
-  c4?: number | null;
   d1?: number | null;
   d2?: number | null;
   d3?: number | null;
@@ -4241,6 +4329,16 @@ export type OnDeleteCovidMonitoringSubscription = {
   f9?: number | null;
   f10?: number | null;
   g1?: string | null;
+  h1?: number | null;
+  h2?: number | null;
+  h3?: number | null;
+  h4?: number | null;
+  h5?: number | null;
+  h6?: number | null;
+  h7?: number | null;
+  h8?: number | null;
+  h9?: number | null;
+  h10?: number | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -5485,9 +5583,6 @@ export class APIService {
           b4
           b5
           c1
-          c2
-          c3
-          c4
           d1
           d2
           d3
@@ -5510,6 +5605,16 @@ export class APIService {
           f9
           f10
           g1
+          h1
+          h2
+          h3
+          h4
+          h5
+          h6
+          h7
+          h8
+          h9
+          h10
           createdAt
           updatedAt
           _version
@@ -5549,9 +5654,6 @@ export class APIService {
           b4
           b5
           c1
-          c2
-          c3
-          c4
           d1
           d2
           d3
@@ -5574,6 +5676,16 @@ export class APIService {
           f9
           f10
           g1
+          h1
+          h2
+          h3
+          h4
+          h5
+          h6
+          h7
+          h8
+          h9
+          h10
           createdAt
           updatedAt
           _version
@@ -5613,9 +5725,6 @@ export class APIService {
           b4
           b5
           c1
-          c2
-          c3
-          c4
           d1
           d2
           d3
@@ -5638,6 +5747,16 @@ export class APIService {
           f9
           f10
           g1
+          h1
+          h2
+          h3
+          h4
+          h5
+          h6
+          h7
+          h8
+          h9
+          h10
           createdAt
           updatedAt
           _version
@@ -6856,9 +6975,6 @@ export class APIService {
           b4
           b5
           c1
-          c2
-          c3
-          c4
           d1
           d2
           d3
@@ -6881,6 +6997,16 @@ export class APIService {
           f9
           f10
           g1
+          h1
+          h2
+          h3
+          h4
+          h5
+          h6
+          h7
+          h8
+          h9
+          h10
           createdAt
           updatedAt
           _version
@@ -6920,9 +7046,6 @@ export class APIService {
             b4
             b5
             c1
-            c2
-            c3
-            c4
             d1
             d2
             d3
@@ -6945,6 +7068,16 @@ export class APIService {
             f9
             f10
             g1
+            h1
+            h2
+            h3
+            h4
+            h5
+            h6
+            h7
+            h8
+            h9
+            h10
             createdAt
             updatedAt
             _version
@@ -6995,9 +7128,6 @@ export class APIService {
             b4
             b5
             c1
-            c2
-            c3
-            c4
             d1
             d2
             d3
@@ -7020,6 +7150,16 @@ export class APIService {
             f9
             f10
             g1
+            h1
+            h2
+            h3
+            h4
+            h5
+            h6
+            h7
+            h8
+            h9
+            h10
             createdAt
             updatedAt
             _version
@@ -8271,9 +8411,6 @@ export class APIService {
           b4
           b5
           c1
-          c2
-          c3
-          c4
           d1
           d2
           d3
@@ -8296,6 +8433,16 @@ export class APIService {
           f9
           f10
           g1
+          h1
+          h2
+          h3
+          h4
+          h5
+          h6
+          h7
+          h8
+          h9
+          h10
           createdAt
           updatedAt
           _version
@@ -8333,9 +8480,6 @@ export class APIService {
           b4
           b5
           c1
-          c2
-          c3
-          c4
           d1
           d2
           d3
@@ -8358,6 +8502,16 @@ export class APIService {
           f9
           f10
           g1
+          h1
+          h2
+          h3
+          h4
+          h5
+          h6
+          h7
+          h8
+          h9
+          h10
           createdAt
           updatedAt
           _version
@@ -8395,9 +8549,6 @@ export class APIService {
           b4
           b5
           c1
-          c2
-          c3
-          c4
           d1
           d2
           d3
@@ -8420,6 +8571,16 @@ export class APIService {
           f9
           f10
           g1
+          h1
+          h2
+          h3
+          h4
+          h5
+          h6
+          h7
+          h8
+          h9
+          h10
           createdAt
           updatedAt
           _version

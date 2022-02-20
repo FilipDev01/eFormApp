@@ -1331,27 +1331,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "c2": {
-                    "name": "c2",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "c3": {
-                    "name": "c3",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "c4": {
-                    "name": "c4",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "d1": {
                     "name": "d1",
                     "isArray": false,
@@ -1503,6 +1482,76 @@ export const schema = {
                     "name": "g1",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h1": {
+                    "name": "h1",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h2": {
+                    "name": "h2",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h3": {
+                    "name": "h3",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h4": {
+                    "name": "h4",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h5": {
+                    "name": "h5",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h6": {
+                    "name": "h6",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h7": {
+                    "name": "h7",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h8": {
+                    "name": "h8",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h9": {
+                    "name": "h9",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "h10": {
+                    "name": "h10",
+                    "isArray": false,
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -1660,5 +1709,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "a8455f79cdf60f96421562cc0e58b7a0"
+    "version": "9bb2f98ca61c834f4ef549bae65e5965"
 };

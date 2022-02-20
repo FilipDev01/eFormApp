@@ -213,9 +213,6 @@ export declare class CovidMonitoring {
   readonly b4?: number;
   readonly b5?: number;
   readonly c1?: number;
-  readonly c2?: number;
-  readonly c3?: number;
-  readonly c4?: number;
   readonly d1?: number;
   readonly d2?: number;
   readonly d3?: number;
@@ -238,6 +235,16 @@ export declare class CovidMonitoring {
   readonly f9?: number;
   readonly f10?: number;
   readonly g1?: string;
+  readonly h1?: number;
+  readonly h2?: number;
+  readonly h3?: number;
+  readonly h4?: number;
+  readonly h5?: number;
+  readonly h6?: number;
+  readonly h7?: number;
+  readonly h8?: number;
+  readonly h9?: number;
+  readonly h10?: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<CovidMonitoring, CovidMonitoringMetaData>);

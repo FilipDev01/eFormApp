@@ -288,7 +288,7 @@ export class ExcelService {
         }
     }
 
-    private _getDateRange(dateRange: any) {
+    public _getDateRange(dateRange: any) {
         if (!dateRange || !dateRange.fromDate || !dateRange.toDate) {
             return '';
         }
@@ -407,17 +407,14 @@ export class ExcelService {
             { header: '18-49 rokov', key: 'b4', width: 8 },
             { header: 'Nad 50', key: 'b5', width: 8 },
 
-            { header: 'Počet Celkovo', key: 'c1', width: 8 },
-            { header: 'Do 17 rokov', key: 'c2', width: 8 },
-            { header: '18-49 rokov', key: 'c3', width: 8 },
-            { header: 'Nad 50', key: 'c4', width: 8 },
+            { header: 'V Karanténe', key: 'c1', width: 8 },
 
-            { header: 'Počet Celkovo', key: 'd1', width: 8 },
+            { header: 'HOSPITALIZÁCIE', key: 'd1', width: 8 },
             { header: 'Do 17 rokov', key: 'd2', width: 8 },
             { header: '18-49 rokov', key: 'd3', width: 8 },
             { header: 'Nad 50', key: 'd4', width: 8 },
 
-            { header: 'Počet Celkovo', key: 'e1', width: 8 },
+            { header: 'ÚMRTIA', key: 'e1', width: 8 },
             { header: 'Do 17 rokov', key: 'e2', width: 8 },
             { header: 'Do 17 rokov - Očkovanie', key: 'e3', width: 8 },
             { header: '18-49 rokov', key: 'e4', width: 8 },
@@ -425,7 +422,7 @@ export class ExcelService {
             { header: 'Nad 50', key: 'e6', width: 8 },
             { header: 'Nad 50 - Očkovanie', key: 'e7', width: 8 },
 
-            { header: 'Počet Celkovo', key: 'f1', width: 8 },
+            { header: 'Počet Očkovaní', key: 'f1', width: 8 },
             { header: 'Do 17 rokov - 1. Dávka', key: 'f2', width: 8 },
             { header: 'Do 17 rokov - 2. Dávka', key: 'f3', width: 8 },
             { header: 'Do 17 rokov - 3. Dávka', key: 'f4', width: 8 },
@@ -433,10 +430,21 @@ export class ExcelService {
             { header: '18-49 rokov - 2. Dávka', key: 'f6', width: 8 },
             { header: '18-49 rokov - 3. Dávka', key: 'f7', width: 8 },
             { header: 'Nad 50 rokov - 1. Dávka', key: 'f8', width: 8 },
-            { header: 'Nad 50 rokov - 2. Dávka', key: 'f8', width: 8 },
+            { header: 'Nad 50 rokov - 2. Dávka', key: 'f9', width: 8 },
             { header: 'Nad 50 rokov - 3. Dávka', key: 'f10', width: 8 },
 
-            { header: 'Doplňujúce Informácie', key: 'g1', width: 20 }
+            { header: 'Počet Registrácií Na Očkovanie', key: 'h1', width: 8 },
+            { header: 'Do 17 rokov - 1. Dávka', key: 'h2', width: 8 },
+            { header: 'Do 17 rokov - 2. Dávka', key: 'h3', width: 8 },
+            { header: 'Do 17 rokov - 3. Dávka', key: 'h4', width: 8 },
+            { header: '18-49 rokov - 1. Dávka', key: 'h5', width: 8 },
+            { header: '18-49 rokov - 2. Dávka', key: 'h6', width: 8 },
+            { header: '18-49 rokov - 3. Dávka', key: 'h7', width: 8 },
+            { header: 'Nad 50 rokov - 1. Dávka', key: 'h8', width: 8 },
+            { header: 'Nad 50 rokov - 2. Dávka', key: 'h9', width: 8 },
+            { header: 'Nad 50 rokov - 3. Dávka', key: 'h10', width: 8 },
+
+            { header: 'Doplňujúce Informácie', key: 'g1', width: 20 },
         ];
         return codes;
     }
@@ -610,6 +618,17 @@ export class CovidMonitoringExcelReportModel {
 
     g1: string;
 
+    h1: number;
+    h2: number;
+    h3: number;
+    h4: number;
+    h5: number;
+    h6: number;
+    h7: number;
+    h8: number;
+    h9: number;
+    h10: number;
+
     constructor(dateRange: any, agent: any, intervention: any) {
         this._setData(dateRange, agent, intervention);
     }
@@ -635,9 +654,6 @@ export class CovidMonitoringExcelReportModel {
         this.b5 = !!covidMonitoring.b5 ? covidMonitoring.b5 : 0;
 
         this.c1 = !!covidMonitoring.c1 ? covidMonitoring.c1 : 0;
-        this.c2 = !!covidMonitoring.c2 ? covidMonitoring.c2 : 0;
-        this.c3 = !!covidMonitoring.c3 ? covidMonitoring.c3 : 0;
-        this.c4 = !!covidMonitoring.c4 ? covidMonitoring.c4 : 0;
 
         this.d1 = !!covidMonitoring.d1 ? covidMonitoring.d1 : 0;
         this.d2 = !!covidMonitoring.d2 ? covidMonitoring.d2 : 0;
@@ -664,6 +680,17 @@ export class CovidMonitoringExcelReportModel {
         this.f10 = !!covidMonitoring.f10 ? covidMonitoring.f10 : 0;
 
         this.g1 = !!covidMonitoring.g1 ? covidMonitoring.g1 : '-';
+
+        this.h1 = !!covidMonitoring.h1 ? covidMonitoring.h1 : 0;
+        this.h2 = !!covidMonitoring.h2 ? covidMonitoring.h2 : 0;
+        this.h3 = !!covidMonitoring.h3 ? covidMonitoring.h3 : 0;
+        this.h4 = !!covidMonitoring.h4 ? covidMonitoring.h4 : 0;
+        this.h5 = !!covidMonitoring.h5 ? covidMonitoring.h5 : 0;
+        this.h6 = !!covidMonitoring.h6 ? covidMonitoring.h6 : 0;
+        this.h7 = !!covidMonitoring.h7 ? covidMonitoring.h7 : 0;
+        this.h8 = !!covidMonitoring.h8 ? covidMonitoring.h8 : 0;
+        this.h9 = !!covidMonitoring.h9 ? covidMonitoring.h9 : 0;
+        this.h10 = !!covidMonitoring.h10 ? covidMonitoring.h10 : 0;
     };
 }
 

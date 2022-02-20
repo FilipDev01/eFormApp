@@ -176,9 +176,6 @@ type CovidMonitoring @model @auth(rules: [
   b4: Int
   b5: Int
   c1: Int
-  c2: Int
-  c3: Int
-  c4: Int
   d1: Int
   d2: Int
   d3: Int
@@ -201,6 +198,16 @@ type CovidMonitoring @model @auth(rules: [
   f9: Int
   f10: Int
   g1: String
+  h1: Int
+  h2: Int
+  h3: Int
+  h4: Int
+  h5: Int
+  h6: Int
+  h7: Int
+  h8: Int
+  h9: Int
+  h10: Int
 }
 
 

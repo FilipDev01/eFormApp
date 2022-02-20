@@ -39,23 +39,6 @@ export class ReportsComponent implements OnInit {
         this._router.navigate(['/agent', agent.username]);
     }
 
-    async generateReport(type: string, event: ElementRef) {
-        try {
-            this.processing = true;
-            if (this.generateSummaryReport) {
-                this.reports.find((x: any) => x.type === type).tableEl = event;
-                if (this.reports.every((x: any) => !!x.tableEl)) {
-                    this._service.generateSummaryReport(this.reports);
-                }
-            } else {
-                this._service.generateSingleReport(event.nativeElement, type);
-            }
-        } catch (err: any) {
-            this.processing = false;
-            console.error(err);
-        }
-    }
-
     async populateSummaryReportAsync() {
         try {
             this.processing = true;
