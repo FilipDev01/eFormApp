@@ -55,6 +55,14 @@
   width: 75px;
 }
 
+/* DIALOG ACTIONS ROW */
+.dialog-actions-row {
+  margin: -10px 0 10px;
+}
+
+.dialog-actions-row button:first-child {
+  display: flex;
+}
 
 @media screen and (max-width: 767px) {
 
@@ -82,6 +90,10 @@
     width: max(90%, 350px);
   }
 
+  .dialog-actions-row {
+    margin: -10px 0 10px;
+    max-width: 90vw;
+  }
 }
 
 /* DIALOG */
@@ -138,4 +150,8 @@
 .pdf-table-wrapper table thead th,
 .pdf-table-wrapper table tbody td {
   font-size: 15pt !important;
+}
+
+.txt-transform-uppercase {
+  text-transform: capitalize;
 }

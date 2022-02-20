@@ -4,15 +4,6 @@
   margin: 0 auto;
 }
 
-/* :host ::ng-deep .form-non-filled {
-  background-color: #ff00001f;
-  border-radius: 50px;
-} */
-
-:host ::ng-deep mat-calendar-header {
-  display: none;
-}
-
 :host ::ng-deep .form-non-filled .mat-calendar-body-cell-content {
   background-color: #ff00001f;
   border-radius: 50px;
@@ -23,11 +14,20 @@
   border-radius: 50px;
 }
 
+:host ::ng-deep mat-calendar-header {}
 
-:host ::ng-deep .mat-calendar-arrow,
-:host ::ng-deep .mat-calendar-previous-button,
-:host ::ng-deep .mat-calendar-next-button {
+:host ::ng-deep .mat-calendar-arrow {
   display: none;
+}
+
+:host ::ng-deep .mat-calendar-controls {
+  margin: 0 0 10px !important;
+}
+
+:host ::ng-deep .mat-calendar-previous-button,
+:host ::ng-deep .mat-calendar-next-button,
+:host ::ng-deep .mat-calendar-arrow {
+  color: #121212;
 }
 
 :host ::ng-deep .mat-calendar-body-selected,
