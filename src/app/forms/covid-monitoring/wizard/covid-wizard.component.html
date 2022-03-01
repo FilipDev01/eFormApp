@@ -205,97 +205,6 @@
         </form>
       </mat-step>
 
-      <!-- VACTINATIONS -->
-      <mat-step [stepControl]="sectionF" label="OČKOVANIE">
-        <form [formGroup]="sectionF" class="m-0">
-          <!-- <mat-form-field>
-            <mat-label>Počet Očkovaní</mat-label>
-            <input matInput type="number" min="0" formControlName="f1" required>
-          </mat-form-field> -->
-
-          <table class="table mt-2">
-            <thead>
-              <tr>
-                <th class="py-1 col-vac-head" style="visibility: visible;">Vakcína Dávka</th>
-                <th class="py-1 col-no-vac">1.</th>
-                <th class="py-1 col-no-vac">2.</th>
-                <th class="py-1 col-no-vac">3.</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="col-no-vac col-vac-head pb-2">Do 17 Rokov</td>
-                <td class="col-no-vac">
-                  <mat-form-field>
-                    <mat-label class="d-none">Počet Prvá Dávka</mat-label>
-                    <input matInput type="number" min="0" formControlName="f2">
-                  </mat-form-field>
-                </td>
-                <td class="col-no-vac">
-                  <mat-form-field>
-                    <mat-label class="d-none">Počet Druhá Dávka</mat-label>
-                    <input matInput type="number" min="0" formControlName="f3">
-                  </mat-form-field>
-                </td>
-                <td class="col-no-vac">
-                  <mat-form-field>
-                    <mat-label class="d-none">Počet Tretia Dávka</mat-label>
-                    <input matInput type="number" min="0" formControlName="f4">
-                  </mat-form-field>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-no-vac col-vac-head pb-2">18-49 Rokov</td>
-                <td class="col-no-vac">
-                  <mat-form-field>
-                    <mat-label class="d-none">Počet Prvá Dávka</mat-label>
-                    <input matInput type="number" min="0" formControlName="f5">
-                  </mat-form-field>
-                </td>
-                <td class="col-no-vac">
-                  <mat-form-field>
-                    <mat-label class="d-none">Počet Druhá Dávka</mat-label>
-                    <input matInput type="number" min="0" formControlName="f6">
-                  </mat-form-field>
-                </td>
-                <td class="col-no-vac">
-                  <mat-form-field>
-                    <mat-label class="d-none">Počet Tretia Dávka</mat-label>
-                    <input matInput type="number" min="0" formControlName="f7">
-                  </mat-form-field>
-                </td>
-              </tr>
-              <tr>
-                <td class="col-no-vac col-vac-head pb-2">Nad 50 Rokov</td>
-                <td class="col-no-vac">
-                  <mat-form-field>
-                    <mat-label class="d-none">Počet Prvá Dávka</mat-label>
-                    <input matInput type="number" min="0" formControlName="f8">
-                  </mat-form-field>
-                </td>
-                <td class="col-no-vac">
-                  <mat-form-field>
-                    <mat-label class="d-none">Počet Druhá Dávka</mat-label>
-                    <input matInput type="number" min="0" formControlName="f9">
-                  </mat-form-field>
-                </td>
-                <td class="col-no-vac">
-                  <mat-form-field>
-                    <mat-label class="d-none">Počet Tretia Dávka</mat-label>
-                    <input matInput type="number" min="0" formControlName="f10">
-                  </mat-form-field>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="text-end d-flex justify-content-between mt-2">
-            <button mat-raised-button matStepperPrevious>Späť</button>
-            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
-          </div>
-        </form>
-      </mat-step>
-
       <!-- REG VACTIONTIONS -->
       <mat-step [stepControl]="sectionH" label="REGISTRÁCIA OČKOVANIE">
         <form [formGroup]="sectionH" class="m-0">
@@ -374,6 +283,97 @@
                   <mat-form-field>
                     <mat-label class="d-none">Počet Tretia Dávka</mat-label>
                     <input matInput type="number" min="0" formControlName="h10">
+                  </mat-form-field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="text-end d-flex justify-content-between mt-2">
+            <button mat-raised-button matStepperPrevious>Späť</button>
+            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- VACTINATIONS -->
+      <mat-step [stepControl]="sectionF" label="OČKOVANIE">
+        <form [formGroup]="sectionF" class="m-0">
+          <!-- <mat-form-field>
+            <mat-label>Počet Očkovaní</mat-label>
+            <input matInput type="number" min="0" formControlName="f1" required>
+          </mat-form-field> -->
+
+          <table class="table mt-2">
+            <thead>
+              <tr>
+                <th class="py-1 col-vac-head" style="visibility: visible;">Vakcína Dávka</th>
+                <th class="py-1 col-no-vac">1.</th>
+                <th class="py-1 col-no-vac">2.</th>
+                <th class="py-1 col-no-vac">3.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-no-vac col-vac-head pb-2">Do 17 Rokov</td>
+                <td class="col-no-vac">
+                  <mat-form-field>
+                    <mat-label class="d-none">Počet Prvá Dávka</mat-label>
+                    <input matInput type="number" min="0" formControlName="f2">
+                  </mat-form-field>
+                </td>
+                <td class="col-no-vac">
+                  <mat-form-field>
+                    <mat-label class="d-none">Počet Druhá Dávka</mat-label>
+                    <input matInput type="number" min="0" formControlName="f3">
+                  </mat-form-field>
+                </td>
+                <td class="col-no-vac">
+                  <mat-form-field>
+                    <mat-label class="d-none">Počet Tretia Dávka</mat-label>
+                    <input matInput type="number" min="0" formControlName="f4">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-no-vac col-vac-head pb-2">18-49 Rokov</td>
+                <td class="col-no-vac">
+                  <mat-form-field>
+                    <mat-label class="d-none">Počet Prvá Dávka</mat-label>
+                    <input matInput type="number" min="0" formControlName="f5">
+                  </mat-form-field>
+                </td>
+                <td class="col-no-vac">
+                  <mat-form-field>
+                    <mat-label class="d-none">Počet Druhá Dávka</mat-label>
+                    <input matInput type="number" min="0" formControlName="f6">
+                  </mat-form-field>
+                </td>
+                <td class="col-no-vac">
+                  <mat-form-field>
+                    <mat-label class="d-none">Počet Tretia Dávka</mat-label>
+                    <input matInput type="number" min="0" formControlName="f7">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-no-vac col-vac-head pb-2">Nad 50 Rokov</td>
+                <td class="col-no-vac">
+                  <mat-form-field>
+                    <mat-label class="d-none">Počet Prvá Dávka</mat-label>
+                    <input matInput type="number" min="0" formControlName="f8">
+                  </mat-form-field>
+                </td>
+                <td class="col-no-vac">
+                  <mat-form-field>
+                    <mat-label class="d-none">Počet Druhá Dávka</mat-label>
+                    <input matInput type="number" min="0" formControlName="f9">
+                  </mat-form-field>
+                </td>
+                <td class="col-no-vac">
+                  <mat-form-field>
+                    <mat-label class="d-none">Počet Tretia Dávka</mat-label>
+                    <input matInput type="number" min="0" formControlName="f10">
                   </mat-form-field>
                 </td>
               </tr>

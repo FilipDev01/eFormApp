@@ -222,6 +222,7 @@ export type CreateEnlightenmentsInput = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -235,6 +236,7 @@ export type ModelEnlightenmentsConditionInput = {
   no_families?: ModelIntInput | null;
   no_people_in_families?: ModelIntInput | null;
   school_name?: ModelStringInput | null;
+  school_year?: ModelStringInput | null;
   no_students?: ModelIntInput | null;
   community_center_name?: ModelStringInput | null;
   no_community_center_members?: ModelIntInput | null;
@@ -252,6 +254,7 @@ export type Enlightenments = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -322,6 +325,7 @@ export type UpdateEnlightenmentsInput = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -528,6 +532,7 @@ export type CreateAgentEnlightenmentInput = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -541,6 +546,7 @@ export type ModelAgentEnlightenmentConditionInput = {
   no_families?: ModelIntInput | null;
   no_people_in_families?: ModelIntInput | null;
   school_name?: ModelStringInput | null;
+  school_year?: ModelStringInput | null;
   no_students?: ModelIntInput | null;
   community_center_name?: ModelStringInput | null;
   no_community_center_members?: ModelIntInput | null;
@@ -558,6 +564,7 @@ export type AgentEnlightenment = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -626,6 +633,7 @@ export type UpdateAgentEnlightenmentInput = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -840,16 +848,16 @@ export type ModelCovidMonitoringConditionInput = {
   f9?: ModelIntInput | null;
   f10?: ModelIntInput | null;
   g1?: ModelStringInput | null;
-  h1?: number | null;
-  h2?: number | null;
-  h3?: number | null;
-  h4?: number | null;
-  h5?: number | null;
-  h6?: number | null;
-  h7?: number | null;
-  h8?: number | null;
-  h9?: number | null;
-  h10?: number | null;
+  h1?: ModelIntInput | null;
+  h2?: ModelIntInput | null;
+  h3?: ModelIntInput | null;
+  h4?: ModelIntInput | null;
+  h5?: ModelIntInput | null;
+  h6?: ModelIntInput | null;
+  h7?: ModelIntInput | null;
+  h8?: ModelIntInput | null;
+  h9?: ModelIntInput | null;
+  h10?: ModelIntInput | null;
   and?: Array<ModelCovidMonitoringConditionInput | null> | null;
   or?: Array<ModelCovidMonitoringConditionInput | null> | null;
   not?: ModelCovidMonitoringConditionInput | null;
@@ -1058,6 +1066,7 @@ export type ModelEnlightenmentsFilterInput = {
   no_families?: ModelIntInput | null;
   no_people_in_families?: ModelIntInput | null;
   school_name?: ModelStringInput | null;
+  school_year?: ModelStringInput | null;
   no_students?: ModelIntInput | null;
   community_center_name?: ModelStringInput | null;
   no_community_center_members?: ModelIntInput | null;
@@ -1140,6 +1149,7 @@ export type ModelAgentEnlightenmentFilterInput = {
   no_families?: ModelIntInput | null;
   no_people_in_families?: ModelIntInput | null;
   school_name?: ModelStringInput | null;
+  school_year?: ModelStringInput | null;
   no_students?: ModelIntInput | null;
   community_center_name?: ModelStringInput | null;
   no_community_center_members?: ModelIntInput | null;
@@ -1382,6 +1392,7 @@ export type CreateEnlightenmentsMutation = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -1448,6 +1459,7 @@ export type UpdateEnlightenmentsMutation = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -1514,6 +1526,7 @@ export type DeleteEnlightenmentsMutation = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -1615,6 +1628,7 @@ export type CreateEnlightenmentCodeMutation = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -1681,6 +1695,7 @@ export type UpdateEnlightenmentCodeMutation = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -1747,6 +1762,7 @@ export type DeleteEnlightenmentCodeMutation = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -1823,6 +1839,7 @@ export type CreateAgentEnlightenmentMutation = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -1888,6 +1905,7 @@ export type UpdateAgentEnlightenmentMutation = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -1953,6 +1971,7 @@ export type DeleteAgentEnlightenmentMutation = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -2463,6 +2482,7 @@ export type GetEnlightenmentsQuery = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -2531,6 +2551,7 @@ export type ListEnlightenmentsQuery = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -2560,6 +2581,7 @@ export type SyncEnlightenmentsQuery = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -2622,6 +2644,7 @@ export type GetEnlightenmentCodeQuery = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -2690,6 +2713,7 @@ export type ListEnlightenmentCodesQuery = {
       no_families?: number | null;
       no_people_in_families?: number | null;
       school_name?: string | null;
+      school_year?: string | null;
       no_students?: number | null;
       community_center_name?: string | null;
       no_community_center_members?: number | null;
@@ -2756,6 +2780,7 @@ export type SyncEnlightenmentCodesQuery = {
       no_families?: number | null;
       no_people_in_families?: number | null;
       school_name?: string | null;
+      school_year?: string | null;
       no_students?: number | null;
       community_center_name?: string | null;
       no_community_center_members?: number | null;
@@ -2840,6 +2865,7 @@ export type GetAgentEnlightenmentQuery = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -2907,6 +2933,7 @@ export type ListAgentEnlightenmentsQuery = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -2936,6 +2963,7 @@ export type SyncAgentEnlightenmentsQuery = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -3428,6 +3456,7 @@ export type OnCreateEnlightenmentsSubscription = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -3494,6 +3523,7 @@ export type OnUpdateEnlightenmentsSubscription = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -3560,6 +3590,7 @@ export type OnDeleteEnlightenmentsSubscription = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -3661,6 +3692,7 @@ export type OnCreateEnlightenmentCodeSubscription = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -3727,6 +3759,7 @@ export type OnUpdateEnlightenmentCodeSubscription = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -3793,6 +3826,7 @@ export type OnDeleteEnlightenmentCodeSubscription = {
     no_families?: number | null;
     no_people_in_families?: number | null;
     school_name?: string | null;
+    school_year?: string | null;
     no_students?: number | null;
     community_center_name?: string | null;
     no_community_center_members?: number | null;
@@ -3869,6 +3903,7 @@ export type OnCreateAgentEnlightenmentSubscription = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -3934,6 +3969,7 @@ export type OnUpdateAgentEnlightenmentSubscription = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -3999,6 +4035,7 @@ export type OnDeleteAgentEnlightenmentSubscription = {
   no_families?: number | null;
   no_people_in_families?: number | null;
   school_name?: string | null;
+  school_year?: string | null;
   no_students?: number | null;
   community_center_name?: string | null;
   no_community_center_members?: number | null;
@@ -4556,6 +4593,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -4638,6 +4676,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -4720,6 +4759,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -4837,6 +4877,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -4921,6 +4962,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -5005,6 +5047,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -5147,6 +5190,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -5230,6 +5274,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -5313,6 +5358,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -6044,6 +6090,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -6126,6 +6173,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -6177,6 +6225,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -6259,6 +6308,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -6341,6 +6391,7 @@ export class APIService {
               no_families
               no_people_in_families
               school_name
+              school_year
               no_students
               community_center_name
               no_community_center_members
@@ -6429,6 +6480,7 @@ export class APIService {
               no_families
               no_people_in_families
               school_name
+              school_year
               no_students
               community_center_name
               no_community_center_members
@@ -6589,6 +6641,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -6670,6 +6723,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -6721,6 +6775,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -7444,6 +7499,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -7524,6 +7580,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -7604,6 +7661,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -7719,6 +7777,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -7799,6 +7858,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -7879,6 +7939,7 @@ export class APIService {
             no_families
             no_people_in_families
             school_name
+            school_year
             no_students
             community_center_name
             no_community_center_members
@@ -7999,6 +8060,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -8078,6 +8140,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members
@@ -8157,6 +8220,7 @@ export class APIService {
           no_families
           no_people_in_families
           school_name
+          school_year
           no_students
           community_center_name
           no_community_center_members

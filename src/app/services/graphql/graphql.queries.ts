@@ -14,6 +14,7 @@ export const listAllAgentEnlightenments = /* GraphQL */ `
         no_families
         no_people_in_families
         school_name
+        school_year
         no_students
         community_center_name
         no_community_center_members

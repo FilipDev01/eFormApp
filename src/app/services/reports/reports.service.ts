@@ -67,7 +67,7 @@ export class ReportsService {
             if (report.summary_work_book) {
                 const range = this._excelService._getDateRange(dateRange);
                 const fileName = `${range}_EVIDENCIA.xlsx`;
-                
+
                 const xlsxData = await report.summary_work_book.xlsx.writeBuffer();
                 let blob = new Blob([xlsxData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
                 fs.saveAs(blob, fileName);
@@ -95,10 +95,20 @@ export class ReportsService {
             let data: any;
             if (type === 'intervention') {
                 data = await this._interventionService.getInterventionsAsync(response.agentId, new Date());
-                await this._pdfService.generateInterventionExcelFileAsync(selectedAgent, data);
+                if (!!data)
+                    await this._pdfService.generateInterventionExcelFileAsync(selectedAgent, data);
             } else if (type === 'enlightenment') {
                 data = await this._enlightenmentsFormService.getEnlightenmentsReportAsync(new Date(), undefined, response.agentId);
-                await this._pdfService.generateEnlightenmentExcelFileAsync(selectedAgent, data);
+                if (!!data)
+                    await this._pdfService.generateEnlightenmentExcelFileAsync(selectedAgent, data);
+            } else if (type === 'activity') {
+                data = await this._activitiesService.getActivitiesByUserIdAsync(new Date(), response.agentId);
+                if (!!data)
+                    await this._pdfService.generateActivityExcelFileAsync(selectedAgent, data);
+            }
+
+            if (!data) {
+                console.warn('Dáta Nenájdené');
             }
         } catch (err: any) {
             console.error(err);

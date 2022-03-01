@@ -110,6 +110,7 @@ subscription OnCreateEnlightenments {
     no_families
     no_people_in_families
     school_name
+    school_year
     no_students
     community_center_name
     no_community_center_members
@@ -174,6 +175,7 @@ subscription OnUpdateEnlightenments {
     no_families
     no_people_in_families
     school_name
+    school_year
     no_students
     community_center_name
     no_community_center_members
@@ -238,6 +240,7 @@ subscription OnDeleteEnlightenments {
     no_families
     no_people_in_families
     school_name
+    school_year
     no_students
     community_center_name
     no_community_center_members
@@ -336,6 +339,7 @@ subscription OnCreateEnlightenmentCode {
       no_families
       no_people_in_families
       school_name
+      school_year
       no_students
       community_center_name
       no_community_center_members
@@ -400,6 +404,7 @@ subscription OnUpdateEnlightenmentCode {
       no_families
       no_people_in_families
       school_name
+      school_year
       no_students
       community_center_name
       no_community_center_members
@@ -464,6 +469,7 @@ subscription OnDeleteEnlightenmentCode {
       no_families
       no_people_in_families
       school_name
+      school_year
       no_students
       community_center_name
       no_community_center_members
@@ -539,6 +545,7 @@ subscription OnCreateAgentEnlightenment {
     no_families
     no_people_in_families
     school_name
+    school_year
     no_students
     community_center_name
     no_community_center_members
@@ -602,6 +609,7 @@ subscription OnUpdateAgentEnlightenment {
     no_families
     no_people_in_families
     school_name
+    school_year
     no_students
     community_center_name
     no_community_center_members
@@ -665,6 +673,7 @@ subscription OnDeleteAgentEnlightenment {
     no_families
     no_people_in_families
     school_name
+    school_year
     no_students
     community_center_name
     no_community_center_members
@@ -861,9 +870,6 @@ subscription OnCreateCovidMonitoring {
     b4
     b5
     c1
-    c2
-    c3
-    c4
     d1
     d2
     d3
@@ -886,6 +892,16 @@ subscription OnCreateCovidMonitoring {
     f9
     f10
     g1
+    h1
+    h2
+    h3
+    h4
+    h5
+    h6
+    h7
+    h8
+    h9
+    h10
     createdAt
     updatedAt
     _version
@@ -909,9 +925,6 @@ subscription OnUpdateCovidMonitoring {
     b4
     b5
     c1
-    c2
-    c3
-    c4
     d1
     d2
     d3
@@ -934,6 +947,16 @@ subscription OnUpdateCovidMonitoring {
     f9
     f10
     g1
+    h1
+    h2
+    h3
+    h4
+    h5
+    h6
+    h7
+    h8
+    h9
+    h10
     createdAt
     updatedAt
     _version
@@ -957,9 +980,6 @@ subscription OnDeleteCovidMonitoring {
     b4
     b5
     c1
-    c2
-    c3
-    c4
     d1
     d2
     d3
@@ -982,6 +1002,16 @@ subscription OnDeleteCovidMonitoring {
     f9
     f10
     g1
+    h1
+    h2
+    h3
+    h4
+    h5
+    h6
+    h7
+    h8
+    h9
+    h10
     createdAt
     updatedAt
     _version

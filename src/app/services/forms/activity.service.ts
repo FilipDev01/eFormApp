@@ -39,7 +39,7 @@ export class ActivitiesService {
             const dateStr: ModelStringInput = { ge: date.toISOString() }
             const filter: ModelActivitiesFilterInput = { date: dateStr };
 
-            if (!!fromDate && !!toDate) {              
+            if (!!fromDate && !!toDate) {
                 const date1: ModelStringInput = { ge: fromDate.toISOString(), le: toDate.toISOString() };
                 filter.date = date1;
             }
@@ -50,6 +50,29 @@ export class ActivitiesService {
             console.error("Activities", err);
             return null;
         }
+    }
+
+    async getActivitiesByUserIdAsync(date: Date, agentId: string) {
+        try {
+            const filter: ModelActivitiesFilterInput = {};
+            // Add Query Start From Limit
+            if (!!date) {
+                const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+                filter.date = { ge: firstDayOfMonth?.toISOString() };
+            }
+
+            if (!!agentId) {
+                const uid: ModelStringInput = { eq: agentId }
+                filter.user_id = uid;
+            }
+
+            const activities: any = await this._activityService.ListActivities(filter);
+            return !!activities ? activities.items : null;
+        } catch (err: any) {
+            console.error("Activities", err);
+            return null;
+        }
+
     }
 
     async createActvityAsync(userId: string | null, status: string) {

@@ -21,6 +21,8 @@ export class ExcelService {
                 { header: 'Meno APZ', key: 'nameAssitant', width: 10.35 },
                 { header: 'Lokalita', key: 'location', width: 10.35 },
 
+                { header: 'Dátum', key: 'createdAt', width: 8.45 },
+
                 { header: 'A1: Preventívna prehliadka', key: 'a1', width: 9.91 },
                 { header: 'A2: Očkovanie', key: 'a2', width: 8.36 },
                 { header: 'A3: Materská poradnňa', key: 'a3', width: 7.55 },
@@ -144,7 +146,8 @@ export class ExcelService {
                 { header: 'Meno APZ', key: 'nameAssitant', width: 10.35 },
                 { header: 'Lokalita', key: 'location', width: 10.35 },
                 { header: 'Aktivita', key: 'activity', width: 10.35 },
-                { header: 'Nastavená', key: 'updatedAt', width: 10.35 },
+                { header: 'Dátum', key: 'updatedAtDate', width: 10.35 },
+                { header: 'Čas', key: 'updatedAtTime', width: 10.35 },
             ]
 
             const rows = worksheet.addRows(data);
@@ -311,6 +314,7 @@ export class ExcelService {
                 { header: 'Meno koordinátora', key: 'nameCoordinator', width: 10.35 },
                 { header: 'Meno APZ', key: 'nameAssitant', width: 10.35 },
                 { header: 'Lokalita', key: 'location', width: 10.35 },
+                { header: 'Dátum', key: 'createdAt', width: 8.45 },
             ]
 
         // A 
@@ -330,6 +334,7 @@ export class ExcelService {
 
         // C
         columns.push({ header: 'Navštívená MŠ', key: 'school_name', width: 9.91 });
+        columns.push({ header: 'Ročník', key: 'school_year', width: 9.91 });
         columns.push({ header: 'Počet žiakov MŠ', key: 'no_students', width: 9.91 });
         const cCodes = this._enlightenmentCodes('c');
         cCodes.forEach((cCode: any) => {
@@ -395,6 +400,8 @@ export class ExcelService {
             { header: 'Meno APZ', key: 'nameAssitant', width: 10.35 },
             { header: 'Lokalita', key: 'location', width: 10.35 },
 
+            { header: 'Dátum', key: 'createdAt', width: 8.45 },
+
             { header: 'Počet Vykonaných Testov', key: 'a1', width: 8 },
             { header: 'Pozitívne Testy Celkovo', key: 'a2', width: 8 },
             { header: 'Do 17 rokov', key: 'a3', width: 8 },
@@ -455,6 +462,7 @@ export class InterventionExcelReportModel {
     nameCoordinator: string;
     nameAssitant: string;
     location: string;
+    createdAt: string;
 
     a1: number;
     a2: number;
@@ -491,6 +499,8 @@ export class InterventionExcelReportModel {
         this.nameAssitant = !!agent.name ? agent.name : '-';
         this.location = !!agent.location ? agent.location : '-';
 
+        this.createdAt = this._setDate(intervention.createdAt);
+
         this.a1 = !!intervention.a1 ? intervention.a1 : 0;
         this.a2 = !!intervention.a2 ? intervention.a2 : 0;
         this.a3 = !!intervention.a3 ? intervention.a3 : 0;
@@ -514,6 +524,16 @@ export class InterventionExcelReportModel {
         this.d8 = !!intervention.d8 ? intervention.d8 : 0;
         this.e1 = !!intervention.e1 ? intervention.e1 : 0;
     };
+
+    private _setDate(date: string) {
+        if (!date) {
+            return '-';
+        }
+
+        const d = new Date(date);
+        return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
+            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+    }
 }
 
 export class EnlightenmentExcelReportModel {
@@ -522,10 +542,13 @@ export class EnlightenmentExcelReportModel {
     nameAssitant: string;
     location: string;
 
+    createdAt: string;
+
     no_individuals: number;
     no_families: number;
     no_people_in_families: number;
     school_name: string;
+    school_year: string;
     no_students: number;
     community_center_name: string;
     no_community_center_members: number;
@@ -542,6 +565,8 @@ export class EnlightenmentExcelReportModel {
         this.nameAssitant = !!agent.name ? agent.name : '-';
         this.location = !!agent.location ? agent.location : '-';
 
+        this.createdAt = this._setDate(enlightenment.createdAt);
+
         this.no_individuals = !!enlightenment.no_individuals ? enlightenment.no_individuals : 0;
         this._setCodes(enlightenment, this, 0, 'a', {});
 
@@ -550,6 +575,7 @@ export class EnlightenmentExcelReportModel {
         this._setCodes(enlightenment, this, 1, 'b', {});
 
         this.school_name = !!enlightenment.school_name ? enlightenment.school_name : '-';
+        this.school_year = !!enlightenment.school_year ? enlightenment.school_year : '-';
         this.no_students = !!enlightenment.no_students ? enlightenment.no_students : 0;
         this._setCodes(enlightenment, this, 2, 'c', {});
 
@@ -567,6 +593,16 @@ export class EnlightenmentExcelReportModel {
             obj[`${type}${c}`] = !!enlightenmentCodeSection[`f${c}`] ? enlightenmentCodeSection[`f${c}`] : 0;
         }
     }
+
+    private _setDate(date: string) {
+        if (!date) {
+            return '-';
+        }
+
+        const d = new Date(date);
+        return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
+            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+    }
 }
 
 export class CovidMonitoringExcelReportModel {
@@ -574,6 +610,8 @@ export class CovidMonitoringExcelReportModel {
     nameCoordinator: string;
     nameAssitant: string;
     location: string;
+
+    createdAt: string;
 
     a1: number;
     a2: number;
@@ -641,6 +679,8 @@ export class CovidMonitoringExcelReportModel {
         this.nameAssitant = !!agent.name ? agent.name : '-';
         this.location = !!agent.location ? agent.location : '-';
 
+        this.createdAt = this._setDate(covidMonitoring.createdAt);
+
         this.a1 = !!covidMonitoring.a1 ? covidMonitoring.a1 : 0;
         this.a2 = !!covidMonitoring.a2 ? covidMonitoring.a2 : 0;
         this.a3 = !!covidMonitoring.a3 ? covidMonitoring.a3 : 0;
@@ -692,6 +732,16 @@ export class CovidMonitoringExcelReportModel {
         this.h9 = !!covidMonitoring.h9 ? covidMonitoring.h9 : 0;
         this.h10 = !!covidMonitoring.h10 ? covidMonitoring.h10 : 0;
     };
+
+    private _setDate(date: string) {
+        if (!date) {
+            return '-';
+        }
+
+        const d = new Date(date);
+        return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
+            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+    }
 }
 
 
@@ -702,7 +752,8 @@ export class ActivityExcelReportModel {
     location: string;
 
     activity: string;
-    updatedAt: string;
+    updatedAtDate: string;
+    updatedAtTime: string;
 
     constructor(dateRange: any, agent: any, activity: any) {
         this._setData(dateRange, agent, activity);
@@ -717,7 +768,8 @@ export class ActivityExcelReportModel {
         this.location = !!agent.location ? agent.location : '-';
 
         this.activity = this._setActivity(data.activity);
-        this.updatedAt = !!data.updatedAt ? data.updatedAt : '-';
+        this.updatedAtDate = this._setDate('date', data.updatedAt);
+        this.updatedAtTime = this._setDate('time', data.updatedAt);
     }
 
     private _setActivity(activity: string) {
@@ -725,11 +777,24 @@ export class ActivityExcelReportModel {
         if (activity === 'active') {
             label = 'V Práci';
         } else if (activity === 'break') {
-            label = 'V Práci';
+            label = 'Na Prestávke';
         } else {
             label = 'Neaktívny';
         }
 
         return label;
+    }
+
+    private _setDate(type: string, date: string) {
+        if (!date) {
+            return '-';
+        }
+
+        const d = new Date(date);
+        if (type === 'date') {
+            return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+        } else {
+            return ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        }
     }
 }

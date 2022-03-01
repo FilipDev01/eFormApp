@@ -132,6 +132,7 @@ query GetEnlightenments($id: ID!) {
     no_families
     no_people_in_families
     school_name
+    school_year
     no_students
     community_center_name
     no_community_center_members
@@ -201,6 +202,7 @@ query ListEnlightenments(
       no_families
       no_people_in_families
       school_name
+      school_year
       no_students
       community_center_name
       no_community_center_members
@@ -238,6 +240,7 @@ query SyncEnlightenments(
       no_families
       no_people_in_families
       school_name
+      school_year
       no_students
       community_center_name
       no_community_center_members
@@ -298,6 +301,7 @@ query GetEnlightenmentCode($id: ID!) {
       no_families
       no_people_in_families
       school_name
+      school_year
       no_students
       community_center_name
       no_community_center_members
@@ -371,6 +375,7 @@ query ListEnlightenmentCodes(
         no_families
         no_people_in_families
         school_name
+        school_year
         no_students
         community_center_name
         no_community_center_members
@@ -445,6 +450,7 @@ query SyncEnlightenmentCodes(
         no_families
         no_people_in_families
         school_name
+        school_year
         no_students
         community_center_name
         no_community_center_members
@@ -541,6 +547,7 @@ query GetAgentEnlightenment($id: ID!) {
     no_families
     no_people_in_families
     school_name
+    school_year
     no_students
     community_center_name
     no_community_center_members
@@ -613,6 +620,7 @@ query ListAgentEnlightenments(
       no_families
       no_people_in_families
       school_name
+      school_year
       no_students
       community_center_name
       no_community_center_members
@@ -650,6 +658,7 @@ query SyncAgentEnlightenments(
       no_families
       no_people_in_families
       school_name
+      school_year
       no_students
       community_center_name
       no_community_center_members
@@ -835,9 +844,6 @@ query GetCovidMonitoring($id: ID!) {
     b4
     b5
     c1
-    c2
-    c3
-    c4
     d1
     d2
     d3
@@ -860,6 +866,16 @@ query GetCovidMonitoring($id: ID!) {
     f9
     f10
     g1
+    h1
+    h2
+    h3
+    h4
+    h5
+    h6
+    h7
+    h8
+    h9
+    h10
     createdAt
     updatedAt
     _version
@@ -888,9 +904,6 @@ query ListCovidMonitorings(
       b4
       b5
       c1
-      c2
-      c3
-      c4
       d1
       d2
       d3
@@ -913,6 +926,16 @@ query ListCovidMonitorings(
       f9
       f10
       g1
+      h1
+      h2
+      h3
+      h4
+      h5
+      h6
+      h7
+      h8
+      h9
+      h10
       createdAt
       updatedAt
       _version
@@ -950,9 +973,6 @@ query SyncCovidMonitorings(
       b4
       b5
       c1
-      c2
-      c3
-      c4
       d1
       d2
       d3
@@ -975,6 +995,16 @@ query SyncCovidMonitorings(
       f9
       f10
       g1
+      h1
+      h2
+      h3
+      h4
+      h5
+      h6
+      h7
+      h8
+      h9
+      h10
       createdAt
       updatedAt
       _version

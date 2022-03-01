@@ -33,7 +33,7 @@ export class PdfService {
             const data: any = this._generatePdfData('interventions', intervetions);
 
             const workbook = new Workbook();
-            const worksheet = this._setWorksheetConfiguration(workbook);
+            const worksheet = this._setWorksheetConfiguration('Intervencie', workbook);
 
             worksheet.columns = [
                 { header: 'Deň', key: 'day_int', width: 10.35, style: this._cellStyle },
@@ -202,7 +202,6 @@ export class PdfService {
         }
     }
 
-
     public async generateEnlightenmentExcelFileAsync(agent: any, enlightenments: any) {
         try {
             if (!enlightenments) {
@@ -211,7 +210,7 @@ export class PdfService {
             const data: any = this._generatePdfData('enlightenments', enlightenments);
 
             const workbook = new Workbook();
-            const worksheet: Worksheet = this._setWorksheetConfiguration(workbook);
+            const worksheet: Worksheet = this._setWorksheetConfiguration('Osveta', workbook);
 
             worksheet.pageSetup.printArea = "A1:M45";
             worksheet.pageSetup.scale = 51;
@@ -334,6 +333,50 @@ export class PdfService {
         }
     }
 
+    public async generateActivityExcelFileAsync(agent: any, activities: any) {
+        try {
+            if (!activities) {
+                return;
+            }
+
+            const rows: Array<any> = new Array<any>();
+            activities.forEach((int: any) => {
+                rows.push(new ActivityPdfReportModel(int));
+            });
+
+            const workbook = new Workbook();
+            const worksheet: Worksheet = this._setWorksheetConfiguration('Aktivity', workbook);
+
+            worksheet.pageSetup.printArea = "A1:M45";
+            worksheet.pageSetup.scale = 51;
+
+            worksheet.columns = [
+                { header: 'Deň', key: 'updatedAtDate', width: 10, style: this._cellStyle },
+                { header: 'Čas', key: 'updatedAtTime', width: 10, style: this._cellStyle },
+                { header: 'Aktivita', key: 'activity', width: 12, style: this._cellStyle },
+            ];
+
+            const rows0 = worksheet.addRows(rows);
+            rows0.forEach((row: Row) => {
+                row.height = 23;
+                row.eachCell((cell: Cell) => { cell.style = this._dataRowStyle });
+            });
+
+
+            const xlsxData = await workbook.xlsx.writeBuffer();
+            let blob = new Blob([xlsxData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+            const agentName = agent.name.replace(' ', '_');
+            const fileName = `Aktivity_${this._getCurrentMonth()}_${agentName}.xlsx`;
+            fs.saveAs(blob, fileName);
+
+            return true;
+        } catch (err: any) {
+            console.error(err);
+            return null;
+        }
+    }
+
     // GENEREATE PDF METHODS
     private _generatePdfData(formType: string, data: Array<any>) {
         if (!data) { return null; }
@@ -350,6 +393,10 @@ export class PdfService {
             row.day_int = (i + 1);
         });
 
+        if (formType === 'activities') {
+            return rows;
+        }
+
         // Split date to two array as pdf object will have two pages
         const pdfData = new Array<any>();
         pdfData.push(rows.slice(0, 16));
@@ -357,7 +404,6 @@ export class PdfService {
 
         return pdfData;
     }
-
 
     private _setRowData(formType: string, date: any, data: any) {
         const int = !!data && Array.isArray(data) ? data.find((x: any) => x.date === date) : null;
@@ -386,8 +432,8 @@ export class PdfService {
         return days;
     }
 
-    private _setWorksheetConfiguration(workbook: Workbook) {
-        const worksheet: Worksheet = workbook.addWorksheet('intervencie',
+    private _setWorksheetConfiguration(type: string, workbook: Workbook) {
+        const worksheet: Worksheet = workbook.addWorksheet(type,
             {
                 pageSetup: {
                     horizontalCentered: true,
@@ -452,7 +498,7 @@ export class PdfService {
         let totalArray = ['Spolu'];
         function sum(type: string) {
             const sum = (data.map((item: any) => item[type]).reduce((prev: any, next: any) => (!!prev ? prev : 0) + (!!next ? next : 0)));
-            return !!sum ? sum : 0;
+            return !!sum ? sum : '';
         }
 
         if (type === 'enlightenments') {
@@ -509,7 +555,7 @@ export class EnlightenmentPdfReportModel {
     public b_codes: string;
 
     public c1: string;
-    public c2: number;
+    public c2: any;
     public c3: number;
     public c_codes: string;
 
@@ -522,20 +568,20 @@ export class EnlightenmentPdfReportModel {
     }
 
     private _setData(enlightenment: any) {
-        this.a1 = !!enlightenment ? enlightenment.no_individuals : 0;
+        this.a1 = !!enlightenment ? enlightenment.no_individuals : '';
         this.a_codes = !!enlightenment ? this._setCodes(0, enlightenment.enlightenmentCodes) : '-';
 
-        this.b1 = !!enlightenment ? enlightenment.no_families : 0;
-        this.b2 = !!enlightenment ? enlightenment.no_people_in_families : 0;
+        this.b1 = !!enlightenment ? enlightenment.no_families : '';
+        this.b2 = !!enlightenment ? enlightenment.no_people_in_families : '';
         this.b_codes = !!enlightenment ? this._setCodes(1, enlightenment.enlightenmentCodes) : '-';
 
         this.c1 = !!enlightenment ? enlightenment.school_name : '-';
-        this.c2 = !!enlightenment ? 0 : 0; // TODO
-        this.c3 = !!enlightenment ? enlightenment.no_students : 0;
+        this.c2 = !!enlightenment ? enlightenment.school_year : '-';
+        this.c3 = !!enlightenment ? enlightenment.no_students : '';
         this.c_codes = !!enlightenment ? this._setCodes(2, enlightenment.enlightenmentCodes) : '-';
 
         this.d1 = !!enlightenment ? enlightenment.community_center_name : '-';
-        this.d2 = !!enlightenment ? enlightenment.no_community_center_members : 0;
+        this.d2 = !!enlightenment ? enlightenment.no_community_center_members : '';
         this.d_codes = !!enlightenment ? this._setCodes(3, enlightenment.enlightenmentCodes) : '-';
     };
 
@@ -565,7 +611,6 @@ export class EnlightenmentPdfReportModel {
         }
     }
 }
-
 
 export class InterventionPdfReportModel {
     a1: number;
@@ -598,27 +643,69 @@ export class InterventionPdfReportModel {
     private _setData(intervention: any) {
         intervention = !!intervention ? intervention : {};
 
-        this.a1 = !!intervention.a1 ? intervention.a1 : 0;
-        this.a2 = !!intervention.a2 ? intervention.a2 : 0;
-        this.a3 = !!intervention.a3 ? intervention.a3 : 0;
-        this.a4 = !!intervention.a4 ? intervention.a4 : 0;
-        this.b1 = !!intervention.b1 ? intervention.b1 : 0;
-        this.b2 = !!intervention.b2 ? intervention.b2 : 0;
-        this.b3 = !!intervention.b3 ? intervention.b3 : 0;
-        this.b4 = !!intervention.b4 ? intervention.b4 : 0;
-        this.c1 = !!intervention.c1 ? intervention.c1 : 0;
-        this.c2 = !!intervention.c2 ? intervention.c2 : 0;
-        this.c3 = !!intervention.c3 ? intervention.c3 : 0;
-        this.c4 = !!intervention.c4 ? intervention.c4 : 0;
-        this.c5 = !!intervention.c5 ? intervention.c5 : 0;
-        this.d1 = !!intervention.d1 ? intervention.d1 : 0;
-        this.d2 = !!intervention.d2 ? intervention.d2 : 0;
-        this.d3 = !!intervention.d3 ? intervention.d3 : 0;
-        this.d4 = !!intervention.d4 ? intervention.d4 : 0;
-        this.d5 = !!intervention.d5 ? intervention.d5 : 0;
-        this.d6 = !!intervention.d6 ? intervention.d6 : 0;
-        this.d7 = !!intervention.d7 ? intervention.d7 : 0;
-        this.d8 = !!intervention.d8 ? intervention.d8 : 0;
-        this.e1 = !!intervention.e1 ? intervention.e1 : 0;
+        this.a1 = !!intervention.a1 ? intervention.a1 : '';
+        this.a2 = !!intervention.a2 ? intervention.a2 : '';
+        this.a3 = !!intervention.a3 ? intervention.a3 : '';
+        this.a4 = !!intervention.a4 ? intervention.a4 : '';
+        this.b1 = !!intervention.b1 ? intervention.b1 : '';
+        this.b2 = !!intervention.b2 ? intervention.b2 : '';
+        this.b3 = !!intervention.b3 ? intervention.b3 : '';
+        this.b4 = !!intervention.b4 ? intervention.b4 : '';
+        this.c1 = !!intervention.c1 ? intervention.c1 : '';
+        this.c2 = !!intervention.c2 ? intervention.c2 : '';
+        this.c3 = !!intervention.c3 ? intervention.c3 : '';
+        this.c4 = !!intervention.c4 ? intervention.c4 : '';
+        this.c5 = !!intervention.c5 ? intervention.c5 : '';
+        this.d1 = !!intervention.d1 ? intervention.d1 : '';
+        this.d2 = !!intervention.d2 ? intervention.d2 : '';
+        this.d3 = !!intervention.d3 ? intervention.d3 : '';
+        this.d4 = !!intervention.d4 ? intervention.d4 : '';
+        this.d5 = !!intervention.d5 ? intervention.d5 : '';
+        this.d6 = !!intervention.d6 ? intervention.d6 : '';
+        this.d7 = !!intervention.d7 ? intervention.d7 : '';
+        this.d8 = !!intervention.d8 ? intervention.d8 : '';
+        this.e1 = !!intervention.e1 ? intervention.e1 : '';
     };
+}
+
+export class ActivityPdfReportModel {
+    public activity: string;
+    public updatedAtDate: string;
+    public updatedAtTime: string;
+
+    constructor(data: any) {
+        this._setData(data);
+    }
+
+    private _setData(data: any) {
+        this.activity = this._setActivity(data.activity);
+        this.updatedAtDate = this._setDate('date', data.updatedAt);
+        this.updatedAtTime = this._setDate('time', data.updatedAt);
+    };
+
+    private _setActivity(activity: string) {
+        let label = '-';
+        if (activity === 'active') {
+            label = 'V Práci';
+        } else if (activity === 'break') {
+            label = 'Na Prestávke';
+        } else {
+            label = 'Neaktívny';
+        }
+
+        return label;
+    }
+
+    private _setDate(type: string, date: string) {
+        if (!date) {
+            return '-';
+        }
+
+        const d = new Date(date);
+        if (type === 'date') {
+            return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+        } else {
+            return ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        }
+    }
 }

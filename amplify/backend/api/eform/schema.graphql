@@ -44,6 +44,7 @@ type Enlightenments @model @auth(rules: [
   no_families: Int
   no_people_in_families: Int
   school_name: String
+  school_year: String
   no_students: Int
   community_center_name: String
   no_community_center_members: Int
@@ -113,6 +114,7 @@ type AgentEnlightenment @model @auth(rules: [
   no_families: Int
   no_people_in_families: Int
   school_name: String
+  school_year: String
   no_students: Int
   community_center_name: String
   no_community_center_members: Int

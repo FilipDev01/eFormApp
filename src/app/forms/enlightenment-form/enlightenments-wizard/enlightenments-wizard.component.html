@@ -7,7 +7,8 @@
 
   <div class="text-center">
     <h3 class="my-0"><strong>Osveta Formulár</strong></h3>
-    <small><span class="txt-transform-uppercase">{{dialogData.date | date:'EEEE'}}</span> - {{dialogData.date | date:'dd/MM/yyyy'}}</small>
+    <small><span class="txt-transform-uppercase">{{dialogData.date | date:'EEEE'}}</span> -
+      {{dialogData.date | date:'dd/MM/yyyy'}}</small>
   </div>
 
   <div class="mat-dialog-content">
@@ -154,6 +155,11 @@
         <mat-form-field>
           <mat-label>Škola Názov</mat-label>
           <input matInput type="text" placeholder="Názov" [(ngModel)]="sectionC.school_name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Ročník</mat-label>
+          <input matInput type="text" placeholder="Ročník" [(ngModel)]="sectionC.school_year">
         </mat-form-field>
 
         <mat-form-field>

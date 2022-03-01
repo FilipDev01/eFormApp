@@ -76,6 +76,7 @@ export declare class Enlightenments {
   readonly no_families?: number;
   readonly no_people_in_families?: number;
   readonly school_name?: string;
+  readonly school_year?: string;
   readonly no_students?: number;
   readonly community_center_name?: string;
   readonly no_community_center_members?: number;
@@ -148,6 +149,7 @@ export declare class AgentEnlightenment {
   readonly no_families?: number;
   readonly no_people_in_families?: number;
   readonly school_name?: string;
+  readonly school_year?: string;
   readonly no_students?: number;
   readonly community_center_name?: string;
   readonly no_community_center_members?: number;

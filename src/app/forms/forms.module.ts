@@ -13,6 +13,7 @@ import { EnlightenmentstionWizardComponent } from './enlightenment-form/enlighte
 import { CalendarModule } from '../common/calendar/calendar.module';
 import { CustomDateAdapter } from '../common/customDateAdapter/customDateAdapter';
 import { SpinnerModule } from '../common/spinner/spinner.module'
+import { EnlightenmentsPipeModule } from '../common/pipes/enlightenments-pipe/enlightenments-pipe.module';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -58,6 +59,7 @@ registerLocaleData(sk);
         MatTableModule,
         CalendarModule,
         SpinnerModule,
+        EnlightenmentsPipeModule,
         NgMultiSelectDropDownModule.forRoot()
     ],
     declarations: [

@@ -287,6 +287,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "school_year": {
+                    "name": "school_year",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "no_students": {
                     "name": "no_students",
                     "isArray": false,
@@ -832,6 +839,13 @@ export const schema = {
                 },
                 "school_name": {
                     "name": "school_name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "school_year": {
+                    "name": "school_year",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -1709,5 +1723,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "9bb2f98ca61c834f4ef549bae65e5965"
+    "version": "0beb5481308e44a825306c28eca5601c"
 };

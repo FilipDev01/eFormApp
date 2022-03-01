@@ -14,7 +14,7 @@
               <th class="col-index col-hide-mob"></th>
               <th>Názov</th>
               <th class="col-btn-report"></th>
-              <th class="col-btn-report"></th> 
+              <th class="col-btn-report"></th>
             </thead>
             <tbody *ngIf="!!reports">
               <tr *ngFor="let report of reports; let ind = index">
@@ -26,7 +26,7 @@
                 </td>
 
                 <td class="text-end align-middle col-btn-report">
-                  <button *ngIf="report.type !== 'covid_monitoring' && report.type !== 'activity'" class="btn btn-success bg-info py-1 px-3"
+                  <button *ngIf="report.type !== 'covid_monitoring'" class="btn btn-success bg-info py-1 px-3"
                     (click)="populatePdfReportDataAsync(report.type)">
                     <span>PDF</span>
                   </button>

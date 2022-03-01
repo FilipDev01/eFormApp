@@ -119,6 +119,7 @@ export class EnlightenmentstionWizardComponent implements OnInit {
     const sectionCCodes = this._setEnlightenmentCodes(2, codes);
     this.sectionC = {
       school_name: savedData?.school_name ?? '',
+      school_year: savedData?.school_year ?? '',
       no_students: savedData?.no_students ?? 0,
       school_codes_id: sectionCCodes?.id ?? null,
       school_codes_version: sectionCCodes?.version ?? null,

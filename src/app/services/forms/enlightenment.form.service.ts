@@ -130,6 +130,7 @@ export class EnlightenmentsFormService {
                 no_families: !!data.no_families ? data.no_families : 0,
                 no_people_in_families: !!data.no_people_in_families ? data.no_people_in_families : 0,
                 school_name: !!data.school_name ? data.school_name : '',
+                school_year: !!data.school_year ? data.school_year : '',
                 no_students: !!data.no_students ? data.no_students : 0,
                 community_center_name: !!data.community_center_name ? data.community_center_name : '',
                 no_community_center_members: !!data.no_community_center_members ? data.no_community_center_members : 0
@@ -157,6 +158,7 @@ export class EnlightenmentsFormService {
                 no_families: !!data.no_families ? data.no_families : 0,
                 no_people_in_families: !!data.no_people_in_families ? data.no_people_in_families : 0,
                 school_name: !!data.school_name ? data.school_name : '',
+                school_year: !!data.school_year ? data.school_year : '',
                 no_students: !!data.no_students ? data.no_students : 0,
                 community_center_name: !!data.community_center_name ? data.community_center_name : '',
                 no_community_center_members: !!data.no_community_center_members ? data.no_community_center_members : 0,
