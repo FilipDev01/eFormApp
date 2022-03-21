@@ -1,0 +1,32 @@
+{
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-eform-prod-101413-authRole",
+      "UnauthRoleArn": "arn:aws:iam::845604589409:role/amplify-eform-prod-101413-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::845604589409:role/amplify-eform-prod-101413-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-eform-prod-101413-deployment",
+      "UnauthRoleName": "amplify-eform-prod-101413-unauthRole",
+      "StackName": "amplify-eform-prod-101413",
+      "StackId": "arn:aws:cloudformation:eu-central-1:845604589409:stack/amplify-eform-prod-101413/da51d200-9235-11ec-b051-069621884bfa",
+      "AmplifyAppId": "d3fd9496ceckoj",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eform-prod-101413-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "function": {
+        "AdminQueriese99241ab": {
+          "deploymentBucketName": "amplify-eform-prod-101413-deployment",
+          "s3Key": "amplify-builds/AdminQueriese99241ab-31686950535149516861-build.zip"
+        },
+        "eformdb1712f8PostConfirmation": {
+          "deploymentBucketName": "amplify-eform-prod-101413-deployment",
+          "s3Key": "amplify-builds/eformdb1712f8PostConfirmation-4e5a793956382f474579-build.zip"
+        }
+      },
+      "auth": {
+        "eformdb1712f8": {},
+        "userPoolGroups": {}
+      }
+    }
+  }
+}
