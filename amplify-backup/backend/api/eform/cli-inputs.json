@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "eform",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "D:\\Projects\\Angular\\eForm\\amplify\\backend\\api\\eform\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "autheformdb1712f8"
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 100,
+        "apiKeyExpirationDate": "2022-05-09T13:20:57.388Z",
+        "keyDescription": "eFormApiKey"
+      }
+    ],
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "AUTOMERGE"
+      },
+      "perModelResolutionStrategy": [
+        {
+          "resolutionStrategy": {
+            "type": "AUTOMERGE"
+          },
+          "entityName": "Interventions"
+        },
+        {
+          "resolutionStrategy": {
+            "type": "AUTOMERGE"
+          },
+          "entityName": "Enlightenment"
+        },
+        {
+          "resolutionStrategy": {
+            "type": "AUTOMERGE"
+          },
+          "entityName": "EnlightenmentCode"
+        },
+        {
+          "resolutionStrategy": {
+            "type": "AUTOMERGE"
+          },
+          "entityName": "Activities"
+        }
+      ]
+    }
+  }
+}

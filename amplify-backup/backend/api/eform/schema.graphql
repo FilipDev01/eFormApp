@@ -1,0 +1,225 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+
+
+type Interventions @model @auth(rules: [
+  { allow: groups, groups: ["admin", "agent"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  user_id: String
+  date: String
+  a1: Int
+  a2: Int
+  a3: Int
+  a4: Int
+  b1: Int
+  b2: Int
+  b3: Int
+  b4: Int
+  c1: Int
+  c2: Int
+  c3: Int
+  c4: Int
+  c5: Int
+  d1: Int
+  d2: Int
+  d3: Int
+  d4: Int
+  d5: Int
+  d6: Int
+  d7: Int
+  d8: Int
+  e1: Int
+}
+
+type Enlightenments @model @auth(rules: [
+  { allow: groups, groups: ["admin", "agent"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  user_id: String
+  date: String
+  no_individuals: Int
+  no_families: Int
+  no_people_in_families: Int
+  school_name: String
+  school_year: String
+  no_students: Int
+  community_center_name: String
+  no_community_center_members: Int
+  enlightenmentCodes: [EnlightenmentCode] @hasMany
+}
+
+type EnlightenmentCode @model @auth(rules: [
+  { allow: groups, groups: ["admin", "agent"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  enlightenmentID: ID!
+  type: Int
+  f1: Int
+  f2: Int
+  f3: Int
+  f4: Int
+  f5: Int
+  f6: Int
+  f7: Int
+  f8: Int
+  f9: Int
+  f10: Int
+  f11: Int
+  f12: Int
+  f13: Int
+  f14: Int
+  f15: Int
+  f16: Int
+  f17: Int
+  f18: Int
+  f19: Int
+  f20: Int
+  f21: Int
+  f22: Int
+  f23: Int
+  f24: Int
+  f25: Int
+  f26: Int
+  f27: Int
+  f28: Int
+  f29: Int
+  f30: Int
+  enlightenment: Enlightenments @belongsTo
+}
+
+type Activities @model @auth(rules: [
+  { allow: groups, groups: ["admin", "agent"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  user_id: String
+  date: String
+  time: String
+  activity: String
+  done: Int
+}
+
+type AgentEnlightenment @model @auth(rules: [
+  { allow: groups, groups: ["admin", "agent"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  user_id: String
+  date: String
+  no_individuals: Int
+  no_families: Int
+  no_people_in_families: Int
+  school_name: String
+  school_year: String
+  no_students: Int
+  community_center_name: String
+  no_community_center_members: Int
+  enlightenmentCodes: [AgentEnlightenmentCode] @hasMany(indexName: "byAgentEnlightenment", fields: ["id"])
+}
+
+type AgentEnlightenmentCode @model @auth(rules: [
+  { allow: groups, groups: ["admin", "agent"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  agentEnlightenmentID: ID! @index(name: "byAgentEnlightenment", sortKeyFields: ["id"])
+  type: Int
+  f1: Int
+  f2: Int
+  f3: Int
+  f4: Int
+  f5: Int
+  f6: Int
+  f7: Int
+  f8: Int
+  f9: Int
+  f10: Int
+  f11: Int
+  f12: Int
+  f13: Int
+  f14: Int
+  f15: Int
+  f16: Int
+  f17: Int
+  f18: Int
+  f19: Int
+  f20: Int
+  f21: Int
+  f22: Int
+  f23: Int
+  f24: Int
+  f25: Int
+  f26: Int
+  f27: Int
+  f28: Int
+  f29: Int
+  f30: Int
+}
+
+type CovidMonitoring @model @auth(rules: [
+  { allow: groups, groups: ["admin", "agent"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  user_id: String
+  date: String
+  a1: Int
+  a2: Int
+  a3: Int
+  a4: Int
+  a5: Int
+  b1: Int
+  b2: Int
+  b3: Int
+  b4: Int
+  b5: Int
+  c1: Int
+  d1: Int
+  d2: Int
+  d3: Int
+  d4: Int
+  e1: Int
+  e2: Int
+  e3: Int
+  e4: Int
+  e5: Int
+  e6: Int
+  e7: Int
+  f1: Int
+  f2: Int
+  f3: Int
+  f4: Int
+  f5: Int
+  f6: Int
+  f7: Int
+  f8: Int
+  f9: Int
+  f10: Int
+  g1: String
+  h1: Int
+  h2: Int
+  h3: Int
+  h4: Int
+  h5: Int
+  h6: Int
+  h7: Int
+  h8: Int
+  h9: Int
+  h10: Int
+}
+
+
+type Agent @model @auth(rules: [
+  { allow: groups, groups: ["admin"] },
+  { allow: public, operations: [read, create, update, delete] }
+  ]) {
+  id: ID!
+  user_id: String
+  name: String
+  coordinator_name: String
+  location: String
+}
