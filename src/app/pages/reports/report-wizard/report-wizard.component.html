@@ -45,10 +45,19 @@
                 <h6 class="m-0">APZ</h6>
               </div>
               <div *ngIf="agents" class="col-sm-9">
-                <mat-select formControlName="agentId">
+                <!-- <mat-select formControlName="agentId">
                   <mat-option *ngFor="let a of agents" [value]="a.user_id">{{a.name || '-'}}
                   </mat-option>
+                </mat-select> -->
+                <mat-select [disableOptionCentering]="true" #select1 formControlName="agentId" placeholder="Auto Focus">
+                  <mat-select-filter *ngIf="select1.focused" [array]="agents" [displayMember]="'name'"
+                    (filteredReturn)="filteredAgents = $event" placeholder="Vyhľadať">
+                  </mat-select-filter>
+                  <mat-option *ngFor="let a of filteredAgents" [value]="a.user_id">
+                    {{a.name || '-'}}
+                  </mat-option>
                 </mat-select>
+
               </div>
             </div>
             <hr class="mt-2 mb-4">

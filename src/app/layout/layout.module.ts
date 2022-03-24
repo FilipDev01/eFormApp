@@ -38,6 +38,7 @@ import { CovidMonitoringFormService } from '../services/forms/covid-monitoring.s
 
 import { PdfService } from '../services/reports/pdf.service';
 import { ExcelService } from '../services/reports/excel.service';
+import { MatSelectFilterModule } from 'mat-select-filter';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { ExcelService } from '../services/reports/excel.service';
     MatButtonToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectFilterModule,
     RouterModule.forChild(AppLayoutRoutes),
   ],
   declarations: [

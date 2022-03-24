@@ -16,6 +16,7 @@ export class ReportWizardComponent {
     public reportType: string;
     public reportName: any;
     public agents: any;
+    public filteredAgents: any;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -23,6 +24,8 @@ export class ReportWizardComponent {
         private formBuilder: FormBuilder,
     ) {
         this.agents = this.dialogData.agents;
+        this.filteredAgents = this.agents.slice();
+        
         this.reportType = "excel";
         if (!!this.dialogData && this.dialogData.report_type === 'pdf') {
             this.reportType = "pdf";

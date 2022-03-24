@@ -38,3 +38,7 @@
 :host ::ng-deep mat-datepicker-toggle button {
   top: 10px;
 }
+
+.mat-filter {
+  padding: 16px 16px 5px 16px;
+}

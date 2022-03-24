@@ -46,6 +46,7 @@
     "jquery": "^3.6.0",
     "jspdf": "^2.5.0",
     "jspdf-autotable": "^3.5.23",
+    "mat-select-filter": "^2.4.1",
     "ng-multiselect-dropdown": "^0.3.8",
     "rxjs": "~6.6.0",
     "sass-loader": "^12.4.0",
