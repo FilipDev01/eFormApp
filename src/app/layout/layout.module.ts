@@ -39,6 +39,9 @@ import { CovidMonitoringFormService } from '../services/forms/covid-monitoring.s
 import { PdfService } from '../services/reports/pdf.service';
 import { ExcelService } from '../services/reports/excel.service';
 import { MatSelectFilterModule } from 'mat-select-filter';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   imports: [
@@ -61,6 +64,9 @@ import { MatSelectFilterModule } from 'mat-select-filter';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectFilterModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatTableModule,
     RouterModule.forChild(AppLayoutRoutes),
   ],
   declarations: [

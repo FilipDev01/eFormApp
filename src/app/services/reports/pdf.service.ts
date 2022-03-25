@@ -406,9 +406,14 @@ export class PdfService {
     }
 
     private _setRowData(formType: string, date: any, data: any) {
-        const int = !!data && Array.isArray(data) ? data.find((x: any) => x.date === date) : null;
+        if (!data || !Array.isArray(data)) {
+            return {};
+        }
 
-        let rowData;
+        let int = data.find((x: any) => x.date === date);
+        int = !!int ? int : data.find((x: any) => x.date.includes(date.split('T')[0]));
+
+        let rowData: any;
         if (formType === 'interventions') {
             rowData = new InterventionPdfReportModel(int);
         } else if (formType === 'enlightenments') {

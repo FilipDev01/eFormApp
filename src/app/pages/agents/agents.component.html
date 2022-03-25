@@ -14,33 +14,63 @@
           </div>
 
           <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead class=" text-primary">
-                  <th class="col-hide-mob"></th>
-                  <th class="d-none"></th>
-                  <th>Asistent</th>
-                  <th class="col-hide-mob">Koordinátor</th>
-                  <th class="col-hide-mob">Lokalita</th>
-                  <th>Status</th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let agent of agents; let ind = index">
-                    <td (click)="goToAgentDetails(agent)" class="col-hide-mob">{{ind + 1}}</td>
-                    <td (click)="goToAgentDetails(agent)" class="d-none">{{agent.user_id}}</td>
-                    <td (click)="goToAgentDetails(agent)">{{(agent.name) || '-'}}</td>
-                    <td (click)="goToAgentDetails(agent)" class="col-hide-mob">{{(agent.coordinator_name) || '-'}}</td>
-                    <td (click)="goToAgentDetails(agent)" class="col-hide-mob">{{(agent.location) || '-'}}</td>
-                    <td (click)="goToAgentDetails(agent)" class="pl-0 col-btn-download">
-                      <container-element [ngSwitch]="agent.status?.value">
+            <div class="table-mat-t">
+              <mat-form-field appearance="standard">
+                <mat-label>Začni písať pre vyhľadanie asistenta</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+              </mat-form-field>
+
+              <div class="mat-table-wrapper">
+                <table mat-table [dataSource]="dataSource" matSort class="w-100 table table-hover">
+
+                  <!-- ID Column -->
+                  <ng-container matColumnDef="id">
+                    <th class="col-hide-mob" mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td class="col-hide-mob" mat-cell *matCellDef="let element; let i = index">{{i + 1}}</td>
+                    <!-- <td mat-cell *matCellDef="let row"> {{row.id}} </td> -->
+                  </ng-container>
+
+                  <!-- Asistent -->
+                  <ng-container matColumnDef="name">
+                    <th class="text-primary" mat-header-cell *matHeaderCellDef mat-sort-header>Asistent</th>
+                    <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+                  </ng-container>
+
+                  <!-- Coordinator name -->
+                  <ng-container matColumnDef="coordinator_name">
+                    <th class="col-hide-mob" mat-header-cell *matHeaderCellDef mat-sort-header>Koordinátor</th>
+                    <td class="col-hide-mob" mat-cell *matCellDef="let row"> {{row.coordinator_name}} </td>
+                  </ng-container>
+
+                  <!-- Location -->
+                  <ng-container matColumnDef="location">
+                    <th class="col-hide-mob" mat-header-cell *matHeaderCellDef mat-sort-header>Lokalita</th>
+                    <td class="col-hide-mob" mat-cell *matCellDef="let row"> {{row.location}} </td>
+                  </ng-container>
+
+                  <!-- Status -->
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td class="pl-0 col-btn-download" mat-cell *matCellDef="let row">
+                      <container-element [ngSwitch]="row.status?.value">
                         <span *ngSwitchCase="'active'" class="badge bg-success">V PRÁCI</span>
                         <span *ngSwitchCase="'break'" class="badge bg-primary">NA PRESTÁVKE</span>
                         <span *ngSwitchCase="'inactive'" class="badge bg-danger">NEAKTÍVNY</span>
                       </container-element>
                     </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></tr>
+
+                  <!-- Row shown when there is no matching data. -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">Žiadny asistent nenájdený pre: "{{input.value}}"</td>
                   </tr>
-                </tbody>
-              </table>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+              </div>
             </div>
           </div>
         </div>

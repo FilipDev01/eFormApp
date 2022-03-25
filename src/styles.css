@@ -159,3 +159,17 @@
 .mat-select-panel {
   overflow-y: auto !important;
 }
+
+.mat-sort-header-content {
+  font-size: 13pt;
+  color: #9c27b0;
+  font-weight: 500;
+}
+
+tr.mat-header-row {
+  height: 40px !important;
+}
+
+.table-hover tr {
+  cursor: pointer !important;
+}
