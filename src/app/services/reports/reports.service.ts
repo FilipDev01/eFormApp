@@ -42,7 +42,7 @@ export class ReportsService {
                 }
             }
 
-            const dateRange: any = await this.openDialogAsync('excel', report.type);
+            const dateRange: any = await this.openDialogAsync('excel', report.type, agents);
             if (!dateRange) {
                 return null;
             }
