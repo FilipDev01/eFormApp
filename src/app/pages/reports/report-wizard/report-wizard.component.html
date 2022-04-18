@@ -6,10 +6,10 @@
 
   <h3 class="mt-0 mb-2 text-center"> <strong>{{reportName}}</strong> </h3>
 
-  <div class="mat-dialog-content">
+    <div class="mat-dialog-content">
 
-    <div class="col-md-12">
-      <div class="card-body">
+      <div class="col-md-12">
+        <div class="card-body">
         <section *ngIf="reportType === 'excel'" class="agent-details excel-report">
           <form [formGroup]="dateRangeForm" (ngSubmit)="confirm()">
             <mat-form-field appearance="standard">
@@ -25,7 +25,6 @@
             <button class="btn btn-primary w-100" type="submit"><strong>Generuj Report</strong></button>
           </form>
         </section>
-
 
         <section *ngIf="reportType === 'pdf'" class="agent-details excel-report">
           <form [formGroup]="pdfDataForm" (ngSubmit)="confirmPdf()">

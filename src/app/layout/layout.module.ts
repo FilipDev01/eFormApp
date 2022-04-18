@@ -43,6 +43,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 
+import { ConfirmActionModal } from '../common/modals/confirm-action/confirm-action.modal';
+import { UpdateStatusModal } from '../pages/agent-detail/modal/update-status.modal';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -76,7 +79,9 @@ import { MatTableModule } from '@angular/material/table';
     AgentWizardComponent,
     AgentDetailComponent,
     ReportsComponent,
-    ReportWizardComponent
+    ReportWizardComponent,
+    ConfirmActionModal,
+    UpdateStatusModal
   ],
   providers: [
     InterventionsFormService,

@@ -41,7 +41,7 @@ export class AgentDetailComponent implements OnInit {
         this._router.navigate(['/agents']);
     }
 
-    statusChanged(event: any) {
+    updateStatus(event: any) {
         this._service.createAgentActivityAsync(this.agentId, this.agent.status);
     }
 

@@ -30,6 +30,7 @@ export class ReportWizardComponent {
         if (!!this.dialogData && this.dialogData.report_type === 'pdf') {
             this.reportType = "pdf";
         }
+        
         this._setHeaderName();
 
         if (this.reportType === 'excel') {

@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CognitoUser } from '@aws-amplify/auth';
 
-import { APIService, ListAgentsQuery, ModelAgentFilterInput } from 'src/app/services/graphql/graphql.service';
+import { APIService, ListAgentsQuery, ModelAgentFilterInput } from '../../services/graphql/graphql.service';
 import { ActivitiesService } from '../../services/forms/activity.service'
 import { GlobalConstants } from '../../common/global-constants';
 import { AuthService } from '../../services/auth/auth.guard.service';
+import { UpdateStatusModal } from '../agent-detail/modal/update-status.modal';
 
 @Injectable({ providedIn: 'root', })
 
@@ -95,10 +96,18 @@ export class AgentsService {
                 return null;
             }
 
-            const res = await this._activityService.createActvityAsync(agentId, status.value);
-            if (!!res) {
-                GlobalConstants.selectedAgent.status = status;
+            const wizarConfig: any = { panelClass: 'my-dialog-reports', disableClose: true, data: { status: status } };
+            const dialogRef = this.dialog.open(UpdateStatusModal, wizarConfig);
+            const dialogRes = await dialogRef.afterClosed().toPromise()
+
+            if (!!dialogRes && !!dialogRes.status && status && dialogRes.status !== status.value) {
+                const res = await this._activityService.createActvityAsync(agentId, dialogRes.status);
+                if (!!res) {
+                    status.value = dialogRes.status;
+                    GlobalConstants.selectedAgent.status = status;
+                }
             }
+
             return null;
         } catch (err: any) {
             console.error("Save Activity");

@@ -1,0 +1,48 @@
+.eb {
+    opacity: .4;
+    color: #333333;
+    background-color: transparent;
+    border-color: #333333;
+    border-style: solid;
+    border-width: 1px;
+    min-width: 127px;
+}
+
+.e-btn-danger {
+    opacity: 1;
+    color: #fff;
+    background-color: #f44336;
+    border-color: #f44336;
+    box-shadow: 0 2px 2px 0 rgb(244 67 54 / 14%), 0 3px 1px -2px rgb(244 67 54 / 20%), 0 1px 5px 0 rgb(244 67 54 / 12%);
+}
+
+.e-btn-success {
+    opacity: 1;
+    color: #fff;
+    background-color: #4caf50;
+    border-color: #4caf50;
+    box-shadow: 0 2px 2px 0 rgb(76 175 80 / 14%), 0 3px 1px -2px rgb(76 175 80 / 20%), 0 1px 5px 0 rgb(76 175 80 / 12%);
+}
+
+.e-btn-warning {
+    opacity: 1;
+    color: #fff;
+    background-color: #ff9800;
+    border-color: #ff9800;
+    box-shadow: 0 2px 2px 0 rgb(255 152 0 / 14%), 0 3px 1px -2px rgb(255 152 0 / 20%), 0 1px 5px 0 rgb(255 152 0 / 12%);
+}
+
+@media screen and (max-width: 767px) {
+    .ecb {
+        margin: 0 15px;
+        text-align: center;
+    }
+
+    .ebtn-wrap {
+        flex-direction: column;
+    }
+
+    .dialog-header-action.position-absolute {
+        right: 0 !important;
+    }
+}
