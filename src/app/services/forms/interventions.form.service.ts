@@ -20,12 +20,12 @@ export class InterventionsFormService {
             // Add Query Start From Limit
             if (!!fromDate) {
                 const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
-                const date: ModelStringInput = { ge: firstDayOfMonth?.toISOString() };
+                const date: ModelStringInput = { ge: this._toLocalIsoString(firstDayOfMonth, true) };
                 filter.date = date;
             }
 
             if (!!fromDate && !!toDate) {
-                const date: ModelStringInput = { ge: fromDate.toISOString(), le: toDate.toISOString() };
+                const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
                 filter.date = date;
             }
 
@@ -45,7 +45,7 @@ export class InterventionsFormService {
         try {
             const filter: ModelInterventionsFilterInput = {};
             if (!!fromDate && !!toDate) {
-                const date: ModelStringInput = { ge: fromDate.toISOString(), le: toDate.toISOString() };
+                const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
                 filter.date = date;
             }
 
@@ -140,6 +140,22 @@ export class InterventionsFormService {
             return null;
         }
     }
+
+    private _toLocalIsoString(date: Date, includeSeconds: boolean) {
+        if (!date) {
+            return '';
+        }
+
+        function pad(n: any) { return n < 10 ? '0' + n : n }
+        var localIsoString = date.getFullYear() + '-'
+            + pad(date.getMonth() + 1) + '-'
+            + pad(date.getDate()) + 'T'
+            + pad(date.getHours()) + ':'
+            + pad(date.getMinutes()) + ':'
+            + pad(date.getSeconds());
+        if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+        return localIsoString;
+    };
 }
 
 export class InterventionFormModel {

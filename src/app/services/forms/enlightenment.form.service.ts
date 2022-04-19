@@ -65,13 +65,13 @@ export class EnlightenmentsFormService {
         // Add Query Start From Limit
         if (!!fromDate) {
             const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
-            const date: ModelStringInput = { ge: firstDayOfMonth?.toISOString() };
+            const date: ModelStringInput = { ge: this._toLocalIsoString(firstDayOfMonth, true) };
             filter.date = date;
         }
 
         // Add Query Start To Limit
         if (!!fromDate && !!toDate) {
-            const date: ModelStringInput = { ge: fromDate.toISOString(), le: toDate?.toISOString() };
+            const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
             filter.date = date;
         }
 
@@ -90,13 +90,13 @@ export class EnlightenmentsFormService {
             // Add Query Start From Limit
             if (!!fromDate) {
                 const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
-                const date: ModelStringInput = { ge: firstDayOfMonth?.toISOString() };
+                const date: ModelStringInput = { ge: this._toLocalIsoString(firstDayOfMonth, true) };
                 filter.date = date;
             }
 
             // Add Query Start To Limit
             if (!!fromDate && !!toDate) {
-                const date: ModelStringInput = { ge: fromDate.toISOString(), le: toDate?.toISOString() };
+                const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
                 filter.date = date;
             }
 
@@ -125,7 +125,7 @@ export class EnlightenmentsFormService {
         try {
             const request: CreateAgentEnlightenmentInput = {
                 user_id: userId,
-                date: (!!data.date ? data.date.toISOString() : null),
+                date: (!!data.date ? this._toLocalIsoString(data.date, true) : null),
                 no_individuals: !!data.no_individuals ? data.no_individuals : 0,
                 no_families: !!data.no_families ? data.no_families : 0,
                 no_people_in_families: !!data.no_people_in_families ? data.no_people_in_families : 0,
@@ -153,7 +153,7 @@ export class EnlightenmentsFormService {
             const request: UpdateAgentEnlightenmentInput = {
                 id: data.id,
                 user_id: userId,
-                date: (!!data.date ? data.date.toISOString() : null),
+                date: (!!data.date ? this._toLocalIsoString(data.date, true) : null),
                 no_individuals: !!data.no_individuals ? data.no_individuals : 0,
                 no_families: !!data.no_families ? data.no_families : 0,
                 no_people_in_families: !!data.no_people_in_families ? data.no_people_in_families : 0,
@@ -244,5 +244,21 @@ export class EnlightenmentsFormService {
         });
 
         return request;
+    };
+
+    private _toLocalIsoString(date: Date, includeSeconds: boolean) {
+        if (!date) {
+            return '';
+        }
+
+        function pad(n: any) { return n < 10 ? '0' + n : n }
+        var localIsoString = date.getFullYear() + '-'
+            + pad(date.getMonth() + 1) + '-'
+            + pad(date.getDate()) + 'T'
+            + pad(date.getHours()) + ':'
+            + pad(date.getMinutes()) + ':'
+            + pad(date.getSeconds());
+        if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+        return localIsoString;
     };
 }

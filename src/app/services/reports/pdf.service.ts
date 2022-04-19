@@ -431,7 +431,7 @@ export class PdfService {
         var date = new Date(year, month, 1);
         var days = [];
         while (date.getMonth() === month) {
-            days.push(new Date(date).toISOString());
+            days.push(this._toLocalIsoString(new Date(date), true));
             date.setDate(date.getDate() + 1);
         }
         return days;
@@ -549,6 +549,22 @@ export class PdfService {
                 return '';
         }
     }
+
+    private _toLocalIsoString(date: Date, includeSeconds: boolean) {
+        if (!date) {
+            return '';
+        }
+
+        function pad(n: any) { return n < 10 ? '0' + n : n }
+        var localIsoString = date.getFullYear() + '-'
+            + pad(date.getMonth() + 1) + '-'
+            + pad(date.getDate()) + 'T'
+            + pad(date.getHours()) + ':'
+            + pad(date.getMinutes()) + ':'
+            + pad(date.getSeconds());
+        if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+        return localIsoString;
+    };
 }
 
 export class EnlightenmentPdfReportModel {

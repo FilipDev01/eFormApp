@@ -15,7 +15,7 @@ export class ActivitiesService {
         try {
             if (!date) { return null; }
 
-            const dateStr: ModelStringInput = { ge: date.toISOString() };
+            const dateStr: ModelStringInput = { ge: this._toLocalIsoString(date, true) };
             const agentIdStr: ModelStringInput = { eq: agentId };
 
             const filter: ModelActivitiesFilterInput =
@@ -24,7 +24,7 @@ export class ActivitiesService {
                 date: dateStr
             };
 
-            const activities: ListActivitiesQuery = await this._activityService.ListActivities(filter);
+            const activities: ListActivitiesQuery = await this._activityService.ListActivities(filter, 9999999);
             return !!activities ? activities.items : null;
         } catch (err: any) {
             console.error("Get Activity", err);
@@ -36,15 +36,15 @@ export class ActivitiesService {
         try {
             if (!date) { return null; }
 
-            const dateStr: ModelStringInput = { ge: date.toISOString() }
+            const dateStr: ModelStringInput = { ge: this._toLocalIsoString(date, true) }
             const filter: ModelActivitiesFilterInput = { date: dateStr };
 
             if (!!fromDate && !!toDate) {
-                const date1: ModelStringInput = { ge: fromDate.toISOString(), le: toDate.toISOString() };
+                const date1: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
                 filter.date = date1;
             }
 
-            const activities: any = await this._activityService.ListActivities(filter);
+            const activities: any = await this._activityService.ListActivities(filter, 9999999);
             return !!activities ? activities.items : null;
         } catch (err: any) {
             console.error("Activities", err);
@@ -58,7 +58,7 @@ export class ActivitiesService {
             // Add Query Start From Limit
             if (!!date) {
                 const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-                filter.date = { ge: firstDayOfMonth?.toISOString() };
+                filter.date = { ge: this._toLocalIsoString(firstDayOfMonth, true) };
             }
 
             if (!!agentId) {
@@ -66,7 +66,7 @@ export class ActivitiesService {
                 filter.user_id = uid;
             }
 
-            const activities: any = await this._activityService.ListActivities(filter);
+            const activities: any = await this._activityService.ListActivities(filter, 99999);
             return !!activities ? activities.items : null;
         } catch (err: any) {
             console.error("Activities", err);
@@ -79,7 +79,7 @@ export class ActivitiesService {
         const request: CreateActivitiesInput = {
             user_id: userId,
             activity: status,
-            date: new Date().toISOString()
+            date: this._toLocalIsoString(new Date(), true)
         }
 
         if (!request.activity) {
@@ -89,4 +89,20 @@ export class ActivitiesService {
 
         return await this._activityService.CreateActivities(request);
     }
+
+    private _toLocalIsoString(date: Date, includeSeconds: boolean) {
+        if (!date) {
+            return '';
+        }
+
+        function pad(n: any) { return n < 10 ? '0' + n : n }
+        var localIsoString = date.getFullYear() + '-'
+            + pad(date.getMonth() + 1) + '-'
+            + pad(date.getDate()) + 'T'
+            + pad(date.getHours()) + ':'
+            + pad(date.getMinutes()) + ':'
+            + pad(date.getSeconds());
+        if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+        return localIsoString;
+    };
 }

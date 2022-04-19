@@ -84,7 +84,7 @@ export class EnlightenmentstionWizardComponent implements OnInit {
   private async _setFormAsync(data: any) {
     let savedData: any = null;
     if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
-      var dateISOstr = data.date.toISOString();
+      var dateISOstr = this._toLocalIsoString(data.date, true);
       savedData = data.form_data.find((x: any) => x.date === dateISOstr);
     }
 
@@ -216,4 +216,16 @@ export class EnlightenmentstionWizardComponent implements OnInit {
       this.enlightenmentOptions.push({ code: `F${index}`, description: option, value: index });
     });
   }
+
+  private _toLocalIsoString(date: Date, includeSeconds: boolean) {
+    function pad(n: any) { return n < 10 ? '0' + n : n }
+    var localIsoString = date.getFullYear() + '-'
+      + pad(date.getMonth() + 1) + '-'
+      + pad(date.getDate()) + 'T'
+      + pad(date.getHours()) + ':'
+      + pad(date.getMinutes()) + ':'
+      + pad(date.getSeconds());
+    if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+    return localIsoString;
+  };
 }

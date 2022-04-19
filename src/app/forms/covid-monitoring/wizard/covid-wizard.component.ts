@@ -92,7 +92,7 @@ export class MonitoringCovidWizardComponent implements OnInit {
   private _setForm(data: any) {
     let savedData = null;
     if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
-      var dateISOstr = data.date.toISOString();
+      var dateISOstr = this._toLocalIsoString(data.date, true);
       savedData = data.form_data.find((x: any) => x.date === dateISOstr);
     }
 
@@ -177,4 +177,16 @@ export class MonitoringCovidWizardComponent implements OnInit {
     formData.f1 = formData.f2 + formData.f3 + formData.f4 + formData.f5 + formData.f6 + formData.f7 + formData.f8 + formData.f9 + formData.f10; // VACTINATIONS
     formData.h1 = formData.h2 + formData.h3 + formData.h4 + formData.h5 + formData.h6 + formData.h7 + formData.h8 + formData.h9 + formData.h10; // REG VACTIONTIONS
   }
+
+  private _toLocalIsoString(date: Date, includeSeconds: boolean) {
+    function pad(n: any) { return n < 10 ? '0' + n : n }
+    var localIsoString = date.getFullYear() + '-'
+      + pad(date.getMonth() + 1) + '-'
+      + pad(date.getDate()) + 'T'
+      + pad(date.getHours()) + ':'
+      + pad(date.getMinutes()) + ':'
+      + pad(date.getSeconds());
+    if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+    return localIsoString;
+  };
 }
