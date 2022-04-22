@@ -10,7 +10,7 @@ export class InterventionsFormService {
         this._interventionsService = new APIService();
     }
 
-    async getInterventionsAsync(userId: string | null, fromDate?: Date, toDate?: Date) {
+    async getInterventionsAsync(userId: string | null, fromDate?: any, toDate?: any) {
         try {
             if (!userId) { return null; }
 
@@ -19,13 +19,17 @@ export class InterventionsFormService {
 
             // Add Query Start From Limit
             if (!!fromDate) {
-                const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
-                const date: ModelStringInput = { ge: this._toLocalIsoString(firstDayOfMonth, true) };
-                filter.date = date;
+                let date = fromDate;
+                if (typeof fromDate !== 'string') {
+                    const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
+                    date = this._toLocalIsoString(firstDayOfMonth, false)
+                }
+                const datef: ModelStringInput = { ge: date };
+                filter.date = datef;
             }
 
             if (!!fromDate && !!toDate) {
-                const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
+                const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, false), le: this._toLocalIsoString(toDate, false) };
                 filter.date = date;
             }
 
@@ -45,7 +49,7 @@ export class InterventionsFormService {
         try {
             const filter: ModelInterventionsFilterInput = {};
             if (!!fromDate && !!toDate) {
-                const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
+                const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, false), le: this._toLocalIsoString(toDate, false) };
                 filter.date = date;
             }
 
@@ -141,7 +145,7 @@ export class InterventionsFormService {
         }
     }
 
-    private _toLocalIsoString(date: Date, includeSeconds: boolean) {
+    private _toLocalIsoString(date: Date, includeTime: boolean) {
         if (!date) {
             return '';
         }
@@ -149,11 +153,17 @@ export class InterventionsFormService {
         function pad(n: any) { return n < 10 ? '0' + n : n }
         var localIsoString = date.getFullYear() + '-'
             + pad(date.getMonth() + 1) + '-'
-            + pad(date.getDate()) + 'T'
-            + pad(date.getHours()) + ':'
-            + pad(date.getMinutes()) + ':'
-            + pad(date.getSeconds());
-        if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+            + pad(date.getDate());
+
+        if (includeTime) {
+            localIsoString = localIsoString + 'T'
+                + pad(date.getHours()) + ':'
+                + pad(date.getMinutes()) + ':'
+                + pad(date.getSeconds());
+
+            if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+        }
+
         return localIsoString;
     };
 }

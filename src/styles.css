@@ -70,9 +70,15 @@
     padding: 24px 0 !important;
   }
 
-  .my-dialog-enlightenments .mat-dialog-content {
+  .mat-dialog-wrapper .mat-dialog-content {
     margin: 0 !important;
     padding: 0 !important;
+   
+  }
+
+  .my-dialog-enlightenments .mat-dialog-content {
+    padding-left: 0 !important;
+    padding-right: 24px !important;
   }
 
   .my-dialog-enlightenments,

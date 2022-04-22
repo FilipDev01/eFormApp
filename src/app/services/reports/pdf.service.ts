@@ -38,8 +38,8 @@ export class PdfService {
             worksheet.columns = [
                 { header: 'Deň', key: 'day_int', width: 10.35, style: this._cellStyle },
                 { header: 'A1: Preventívna prehliadka', key: 'a1', width: 9.91, style: this._cellStyle },
-                { header: 'A2: Očkovanie', key: 'a2', width: 8.36, style: this._cellStyle },
-                { header: 'A3: Materská poradnňa', key: 'a3', width: 7.55, style: this._cellStyle },
+                { header: 'A2: Očkovanie', key: 'a2', width: 8.0, style: this._cellStyle },
+                { header: 'A3: Materská poradnňa', key: 'a3', width: 7.8, style: this._cellStyle },
                 { header: 'A4: OčkovanieCOVID-19', key: 'a4', width: 8.36, style: this._cellStyle },
                 { header: 'B1: Všeobecný pre dospelých', key: 'b1', width: 10.36, style: this._cellStyle },
                 { header: 'B2: Pediater', key: 'b2', width: 6.82, style: this._cellStyle },
@@ -61,13 +61,12 @@ export class PdfService {
                 { header: 'Charita, brigáda, zbierky iné...', key: 'e1', width: 8.45, style: this._cellStyle },
             ];
 
+            worksheet.mergeCells('A1', 'W1');
+            worksheet.mergeCells('A2', 'W2');
 
-            worksheet.mergeCells('A1', 'H1');
-            worksheet.mergeCells('I1', 'R1');
-            worksheet.mergeCells('S1', 'W1');
-
-            worksheet.mergeCells('A3', 'C3');
-            worksheet.mergeCells('F3', 'H3');
+            worksheet.mergeCells('A3', 'E3');
+            worksheet.mergeCells('F3', 'R3');
+            worksheet.mergeCells('S3', 'W3');
 
             worksheet.mergeCells('A4', 'W4');
 
@@ -81,8 +80,8 @@ export class PdfService {
             worksheet.addImage(imageId1, { tl: { col: 0, row: 24 }, ext: { width: 277, height: 82 } });
 
             const imageId2 = workbook.addImage({ base64: img.img1Base64, extension: 'png' });
-            worksheet.addImage(imageId2, { tl: { col: 8, row: 0 }, ext: { width: 308, height: 71 } });
-            worksheet.addImage(imageId2, { tl: { col: 8, row: 24 }, ext: { width: 308, height: 71 } });
+            worksheet.addImage(imageId2, { tl: { col: 8, row: 0 }, ext: { width: 308, height: 65 } });
+            worksheet.addImage(imageId2, { tl: { col: 8, row: 24 }, ext: { width: 308, height: 65 } });
 
             const imageId3 = workbook.addImage({ base64: img.img3Base64, extension: 'png' });
             worksheet.addImage(imageId3, { tl: { col: 18, row: 0.5 }, ext: { width: 186, height: 59 } });
@@ -99,16 +98,19 @@ export class PdfService {
             const colF3: Cell = worksheet.getCell('F3');
             colF3.value = `Meno APZ: ${agent.name}`;
 
+            const colS3: Cell = worksheet.getCell('S3');
+            colS3.value = `Lokalita: ${agent.location}`;
+
             const colA4: Cell = worksheet.getCell('A4');
             colA4.value = 'Intervencie';
             colA4.style = this._cellStyle;
 
-            const colB5: any = worksheet.getCell('B5');
-            colB5.value = 'A: Podpora preventívnych zdravotných programov ';
+            const colB5: Cell = worksheet.getCell('B5');
+            colB5.value = 'A: Podpora preventívnych zdravotných programov';
             const colF5: any = worksheet.getCell('F5');
-            colF5.value = 'B: Spolupráca s lekármi ';
+            colF5.value = 'B: Spolupráca s lekármi';
             const colJ5: any = worksheet.getCell('J5');
-            colJ5.value = 'C: Spolupráca ';
+            colJ5.value = 'C: Spolupráca';
             const colO5: any = worksheet.getCell('O5');
             colO5.value = 'D: Priama asistencia klientom';
             const colW5: any = worksheet.getCell('W5');
@@ -118,6 +120,21 @@ export class PdfService {
             headerRow.values = ['Deň', 'A1: Preventívna prehliadka', 'A2: Očkovanie', 'A3: Materská poradnňa', 'A4: OčkovanieCOVID-19', 'B1: Všeobecný pre dospelých', 'B2: Pediater', 'B3: Nemocnica', 'B4: Odborný lekár', 'C1: TSP', 'C2: OU/MS', 'C3: RPZ, 112', 'C4: Škola', 'C5: ÚPSVaR', 'D1: Meranie krvného tlaku', 'D2: Prvá pomoc ošetrenie poranení ', 'D3: Sprevádzanie na vyšetrenie', 'D4: Zdravotné poistenie', 'D5: Kompenzačné pomôcky a ZŤP', 'D6: Lieky', 'D7: RUVZ-Lekár v prípade epidémie', 'D8: Aktívna pomoc a podpora klienta', 'Charita, brigáda, zbierky iné...'];
             headerRow.height = 88;
 
+            const titleRows = [2, 3, 4, 5];
+            titleRows.forEach(r => {
+                const t = worksheet.getRow(r);
+                const sty = this._cellStyle;
+                sty.border =
+                {
+                    top: { style: 'thin', color: { argb: '121212' } },
+                    bottom: { style: 'thin', color: { argb: '121212' } },
+                    left: { style: 'thin', color: { argb: '121212' } },
+                    right: { style: 'thin', color: { argb: '121212' } }
+                }
+
+                t.eachCell((cell: Cell) => { cell.style = sty });
+            });
+
             const rows0 = worksheet.addRows(data[0]);
             rows0.forEach((row: Row) => {
                 row.height = 23;
@@ -126,7 +143,10 @@ export class PdfService {
 
             worksheet.addRow([]);
 
+            worksheet.mergeCells('A23', 'W23');
             worksheet.mergeCells('A24', 'W24');
+            worksheet.mergeCells('A25', 'W25');
+            worksheet.mergeCells('A26', 'W26');
 
             let colA24: Cell = worksheet.getCell('A24');
             colA24.value = '„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk';
@@ -139,7 +159,6 @@ export class PdfService {
 
             worksheet.addRow([]);
             worksheet.addRow([]);
-
 
             const imgRow2: Row = worksheet.getRow(25);
             imgRow2.height = 53.4;
@@ -178,15 +197,15 @@ export class PdfService {
 
             this._addRowMergeCellsAndSetValue(worksheet, `V mesiaci ${this._getCurrentMonth()} sa v mojej lokalite vyskytlo infekčné ochorenie:`, { align: 'left', height: 15.9 });
             this._addRowMergeCellsAndSetValue(worksheet, "Spolupracoval som s lekármi:", { align: 'left', height: 15.9 });
-            this._addRowMergeCellsAndSetValue(worksheet, ["Svojim podpisom vyhlasujem, že údaje uvedené v dokumente  sú pravdivé, reálne a správne a som si vedomý následkov spojených s uvedením/predložením nesprávnych,neúplných a nereálnych údajov.", "Podpis APZ:"], { align: 'left', height: 34, wrap: true, multiple_merges: true, ranges: [{ start: 'A', end: 'R' }, { start: 'S', end: 'W' }] });
+            this._addRowMergeCellsAndSetValue(worksheet, ["Svojím podpisom vyhlasujem, že údaje uvedené v dokumente sú pravdivé, reálne a správne a som si vedomý následkov spojených s uvedením/predložením nesprávnych, neúplných a nereálnych údajov.", "Podpis APZ:"], { align: 'left', height: 34, wrap: true, multiple_merges: true, ranges: [{ start: 'A', end: 'R' }, { start: 'S', end: 'W' }] });
 
             worksheet.addRow([]);
+            worksheet.mergeCells('A47', 'W47');
 
-            const lastRow: Row = this._addRowMergeCellsAndSetValue(worksheet, '„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk', { height: 47 });
+            const lastRow: Row = this._addRowMergeCellsAndSetValue(worksheet, '„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk', { height: 50, not_bold: true });
 
             // SET PRINT AREA
             worksheet.pageSetup.printArea = `A1:W${lastRow.number}`;
-
 
             const xlsxData = await workbook.xlsx.writeBuffer();
             let blob = new Blob([xlsxData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -312,7 +331,7 @@ export class PdfService {
             const rowTotal = worksheet.addRow(this._calculateTotal('enlightenments', enlightenments));
             rowTotal.height = 23;
 
-            this._addRowMergeCellsAndSetValue(worksheet, ["Svojim podpisom vyhlasujem, že údaje uvedené v dokumente  sú pravdivé, reálne a správne a som si vedomý následkov spojených s uvedením/predložením nesprávnych,neúplných a nereálnych údajov.", "Podpis APZ:"], { align: 'left', height: 34, wrap: true, multiple_merges: true, ranges: [{ start: 'A', end: 'J' }, { start: 'K', end: 'M' }] });
+            this._addRowMergeCellsAndSetValue(worksheet, ["Svojím podpisom vyhlasujem, že údaje uvedené v dokumente sú pravdivé, reálne a správne a som si vedomý následkov spojených s uvedením/predložením nesprávnych, neúplných a nereálnych údajov.", "Podpis APZ:"], { align: 'left', height: 34, wrap: true, multiple_merges: true, ranges: [{ start: 'A', end: 'J' }, { start: 'K', end: 'M' }] });
 
             worksheet.addRow([]);
 
@@ -491,6 +510,14 @@ export class PdfService {
                             horizontal: horizontalAlign,
                             wrapText: !!params.wrap
                         }
+                    }
+                })
+            }
+            if (params.not_bold) {
+                row.eachCell((cell: Cell) => {
+                    cell.style = {
+                        font: { bold: !params.not_bold },
+                        alignment: { wrapText: true, horizontal: 'center' }
                     }
                 })
             }

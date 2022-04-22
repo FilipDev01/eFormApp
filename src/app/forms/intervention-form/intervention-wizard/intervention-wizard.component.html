@@ -8,12 +8,13 @@
 
   <div class="text-center">
     <h3 class="my-0"><strong>Intervencie Formulár</strong></h3>
-    <small><span class="txt-transform-uppercase">{{dialogData.date | date:'EEEE'}}</span> - {{dialogData.date | date:'dd/MM/yyyy'}}</small>
+    <small><span class="txt-transform-uppercase">{{dialogData.date | date:'EEEE'}}</span> -
+      {{dialogData.date | date:'dd/MM/yyyy'}}</small>
   </div>
 
 
   <div class="mat-dialog-content">
-    <mat-vertical-stepper [linear]="false">
+    <mat-vertical-stepper [linear]="false" (selectionChange)="onStepChange($event)">
       <mat-step [stepControl]="sectionA" label="A: Podpora preventívnych zdravotných programov ">
         <form [formGroup]="sectionA">
           <mat-form-field>
@@ -67,7 +68,7 @@
           </mat-form-field>
 
           <div class="d-flex justify-content-between">
-
+            <button mat-raised-button matStepperPrevious>Späť</button>
             <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
           </div>
         </form>

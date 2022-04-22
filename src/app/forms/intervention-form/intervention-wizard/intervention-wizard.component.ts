@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { InterventionsFormService } from 'src/app/services/forms/interventions.form.service';
 
 @Component({
   selector: 'app-intervention-wizard',
@@ -15,32 +16,41 @@ export class InterventionWizardComponent implements OnInit {
   public sectionD: FormGroup;
   public sectionE: FormGroup;
 
+  public updated: boolean;
   private interventionId: string;
   private savedIntervention: any;
 
   constructor(
     private _formBuilder: FormBuilder,
+    private _interventionsFormService: InterventionsFormService,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     public dialogRef: MatDialogRef<InterventionWizardComponent>
   ) { }
 
   ngOnInit(): void {
+    this.updated = false;
     this.setForm(this.dialogData);
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close({ refresh: this.updated });
   }
 
   saveWizard() {
     this.dialogRef.close({ data: this.getWizardFormData() });
   }
 
+  onStepChange(event: any) {
+    if (!!event && event.previouslySelectedIndex < event.selectedIndex && this.dialogData.agent_id) {
+      this.updated = true;
+      this._interventionsFormService.handleInterventionAsync({ data: this.getWizardFormData() }, this.dialogData.agent_id);
+    }
+  }
+
   setForm(data: any) {
     let savedData = null;
     if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
-      var dateISOstr = this._toLocalIsoString(data.date, true);
-      savedData = data.form_data.find((x: any) => x.date === dateISOstr);
+      savedData = data.form_data.find((x: any) => x.date.includes(data.date));
     }
 
     if (!!savedData && !!savedData.id) {

@@ -6,10 +6,10 @@
 
   <h3 class="mt-0 mb-2 text-center"> <strong>{{reportName}}</strong> </h3>
 
-    <div class="mat-dialog-content">
+  <div class="mat-dialog-content">
 
-      <div class="col-md-12">
-        <div class="card-body">
+    <div class="col-md-12">
+      <div class="card-body">
         <section *ngIf="reportType === 'excel'" class="agent-details excel-report">
           <form [formGroup]="dateRangeForm" (ngSubmit)="confirm()">
             <mat-form-field appearance="standard">
@@ -28,26 +28,13 @@
 
         <section *ngIf="reportType === 'pdf'" class="agent-details excel-report">
           <form [formGroup]="pdfDataForm" (ngSubmit)="confirmPdf()">
-            <!-- <div class="row d-flex align-baseline" style="align-items: baseline !important;">
-              <div class="col-sm-3">
-                <h6 class="m-0">Formulár</h6>
-              </div>
-              <div class="col-sm-9">
-                <mat-select formControlName="pdfFormType">
-                  <mat-option value="1">Intervencie</mat-option>
-                  <mat-option value="2">Zdravotná Osveta</mat-option>
-                </mat-select>
-              </div>
-            </div> -->
+
+            <!-- SELECT AGENT -->
             <div class="row d-flex align-baseline pt-3" style="align-items: baseline !important;">
               <div class="col-sm-3">
                 <h6 class="m-0">APZ</h6>
               </div>
               <div *ngIf="agents" class="col-sm-9">
-                <!-- <mat-select formControlName="agentId">
-                  <mat-option *ngFor="let a of agents" [value]="a.user_id">{{a.name || '-'}}
-                  </mat-option>
-                </mat-select> -->
                 <mat-select [disableOptionCentering]="true" #select1 formControlName="agentId" placeholder="Auto Focus">
                   <mat-select-filter *ngIf="select1.focused" [array]="agents" [displayMember]="'name'"
                     (filteredReturn)="filteredAgents = $event" placeholder="Vyhľadať">
@@ -56,9 +43,23 @@
                     {{a.name || '-'}}
                   </mat-option>
                 </mat-select>
-
               </div>
             </div>
+
+             <!-- SELECT MONTH -->
+             <div class="row d-flex align-baseline pt-3" style="align-items: baseline !important;">
+              <div class="col-sm-3">
+                <h6 class="m-0">Mesiac</h6>
+              </div>
+              <div *ngIf="availableMonths" class="col-sm-9">
+                <mat-select [disableOptionCentering]="true" #select2 formControlName="month" placeholder="Vyber Mesiac">
+                  <mat-option *ngFor="let am of availableMonths" [value]="am.number">
+                    {{am.label || '-'}}
+                  </mat-option>
+                </mat-select>                
+              </div>
+            </div>
+
             <hr class="mt-2 mb-4">
             <button class="btn btn-primary w-100" type="submit"><strong>Stiahnuť PDF</strong></button>
           </form>

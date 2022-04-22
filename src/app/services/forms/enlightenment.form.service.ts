@@ -54,7 +54,7 @@ export class EnlightenmentsFormService {
         }
     }
 
-    async getEnlightenmentsAsync(userId: string | null, fromDate?: Date, toDate?: Date) {
+    async getEnlightenmentsAsync(userId: string | null, fromDate?: any, toDate?: any) {
         if (!userId) {
             return null;
         }
@@ -64,14 +64,19 @@ export class EnlightenmentsFormService {
 
         // Add Query Start From Limit
         if (!!fromDate) {
-            const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
-            const date: ModelStringInput = { ge: this._toLocalIsoString(firstDayOfMonth, true) };
-            filter.date = date;
+            let date = fromDate;
+            if (typeof fromDate !== 'string') {
+                const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
+                date = this._toLocalIsoString(firstDayOfMonth, false);
+            }
+
+            const rdate: ModelStringInput = { ge: date };
+            filter.date = rdate;
         }
 
         // Add Query Start To Limit
         if (!!fromDate && !!toDate) {
-            const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
+            const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, false), le: this._toLocalIsoString(toDate, false) };
             filter.date = date;
         }
 
@@ -90,13 +95,13 @@ export class EnlightenmentsFormService {
             // Add Query Start From Limit
             if (!!fromDate) {
                 const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
-                const date: ModelStringInput = { ge: this._toLocalIsoString(firstDayOfMonth, true) };
+                const date: ModelStringInput = { ge: this._toLocalIsoString(firstDayOfMonth, false) };
                 filter.date = date;
             }
 
             // Add Query Start To Limit
             if (!!fromDate && !!toDate) {
-                const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
+                const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, false), le: this._toLocalIsoString(toDate, false) };
                 filter.date = date;
             }
 
@@ -123,9 +128,14 @@ export class EnlightenmentsFormService {
 
     async createEnlightenmentAsync(data: any, userId: string | null) {
         try {
+            if (!data.date) {
+                console.warn('eForm:: Form Date Not Defined');
+                return null; // TODO: error message
+            }
+
             const request: CreateAgentEnlightenmentInput = {
                 user_id: userId,
-                date: (!!data.date ? this._toLocalIsoString(data.date, true) : null),
+                date: data.date,
                 no_individuals: !!data.no_individuals ? data.no_individuals : 0,
                 no_families: !!data.no_families ? data.no_families : 0,
                 no_people_in_families: !!data.no_people_in_families ? data.no_people_in_families : 0,
@@ -136,11 +146,6 @@ export class EnlightenmentsFormService {
                 no_community_center_members: !!data.no_community_center_members ? data.no_community_center_members : 0
             };
 
-            if (!request.date) {
-                console.warn('eForm:: Form Date Not Defined');
-                return null; // TODO: error message
-            }
-
             return await this._enlightenmentsService.CreateAgentEnlightenment(request);
         } catch (err: any) {
             console.error(err);
@@ -150,10 +155,15 @@ export class EnlightenmentsFormService {
 
     async updateEnlightenmentAsync(data: any, userId: string | null) {
         try {
+            if (!data.date || !data.id) {
+                console.warn('eForm:: Form Date Not Defined');
+                return null; // TODO: error message
+            }
+
             const request: UpdateAgentEnlightenmentInput = {
                 id: data.id,
                 user_id: userId,
-                date: (!!data.date ? this._toLocalIsoString(data.date, true) : null),
+                date: data.date,
                 no_individuals: !!data.no_individuals ? data.no_individuals : 0,
                 no_families: !!data.no_families ? data.no_families : 0,
                 no_people_in_families: !!data.no_people_in_families ? data.no_people_in_families : 0,
@@ -164,11 +174,6 @@ export class EnlightenmentsFormService {
                 no_community_center_members: !!data.no_community_center_members ? data.no_community_center_members : 0,
                 _version: !!data.version ? data.version : null,
             };
-
-            if (!request.date) {
-                console.warn('eForm:: Form Date Not Defined');
-                return null; // TODO: error message
-            }
 
             return await this._enlightenmentsService.UpdateAgentEnlightenment(request)
         } catch (err: any) {
@@ -246,7 +251,7 @@ export class EnlightenmentsFormService {
         return request;
     };
 
-    private _toLocalIsoString(date: Date, includeSeconds: boolean) {
+    private _toLocalIsoString(date: Date, includeTime: boolean) {
         if (!date) {
             return '';
         }
@@ -254,11 +259,17 @@ export class EnlightenmentsFormService {
         function pad(n: any) { return n < 10 ? '0' + n : n }
         var localIsoString = date.getFullYear() + '-'
             + pad(date.getMonth() + 1) + '-'
-            + pad(date.getDate()) + 'T'
-            + pad(date.getHours()) + ':'
-            + pad(date.getMinutes()) + ':'
-            + pad(date.getSeconds());
-        if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+            + pad(date.getDate());
+
+        if (includeTime) {
+            localIsoString = localIsoString + 'T'
+                + pad(date.getHours()) + ':'
+                + pad(date.getMinutes()) + ':'
+                + pad(date.getSeconds());
+
+            if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+        }
+
         return localIsoString;
     };
 }

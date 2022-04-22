@@ -37,12 +37,11 @@
                   <div class="col-md-12 col-lg-4">
                     <div class="mb-1 d-flex align-items-end gap-3">
                       <p class="form-label m-0">Status:</p>
-                      <div class="d-flex align-items-center" (click)="updateStatus($event)" style="cursor: pointer;">
-                        <label style="font-size: 14pt;">
-                          <strong *ngIf="agent.status.value === 'inactive'" class="text-danger">Neaktívny</strong>
-                          <strong *ngIf="agent.status.value === 'break'" class="text-warning">Prestávka</strong>
-                          <strong *ngIf="agent.status.value === 'active'" class="text-success">V Práci</strong>
+                      <div class="d-flex align-items-center" (click)="updateStatus($event)" style="cursor: pointer;">                      
+                        <label *ngIf="!!agentActiveStatus" style="font-size: 14pt; cursor: pointer;">
+                          <strong [ngClass]="agentActiveStatus.class">{{agentActiveStatus.label}}</strong>
                         </label>
+
                         <i class="material-icons dp48"
                           style="margin: 0 0 2px 5px; font-size: 17px; color: #a944bb;">create</i>
                       </div>

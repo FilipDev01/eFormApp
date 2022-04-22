@@ -85,8 +85,12 @@ export class AgentsService {
                 acts = acts.sort((x, y) => +(new Date(x.date)) - +(new Date(y.date)));
                 agent.status.value = acts[(acts.length - 1)].activity;
             }
-        }
 
+            if (!!agent?.status?.value) {
+                agent.status_obj = this._agentStatuses.find((x: any) => x.value === agent.status.value);
+            }
+        }
+        this._setAgentOrder(agent);
         return agent;
     }
 
@@ -131,4 +135,43 @@ export class AgentsService {
     private _isCognitoUserObj(data: CognitoUser): data is CognitoUser {
         return (<CognitoUser>data).getUserData !== undefined;
     }
+
+    private _setAgentOrder(agent: any) {
+        const order = [
+            { name: 'Balážová', order: 1 },
+            { name: 'Danielová', order: 2 },
+            { name: 'Danihelová Nadežda', order: 3 },
+            { name: 'Pútiková', order: 4 },
+            { name: 'Olah', order: 5 },
+            { name: 'Polakovičová', order: 6 },
+            { name: 'Salajová', order: 7 },
+            { name: 'Suchánková', order: 8 },
+            { name: 'Slezáková', order: 9 },
+            { name: 'Hrúzová', order: 10 },
+            { name: 'Biháriová', order: 11 },
+            { name: 'Danihelová', order: 12 },
+            { name: 'Kočnárová', order: 13 },
+            { name: 'Zemanová', order: 14 },
+            { name: 'Malíková', order: 15 },
+            { name: 'Test', order: 16 },
+        ];
+
+        const o = order.find((a: any) => agent.name.includes(a.name));
+        if (!!o) {
+            agent.order = o.order;
+        }
+    }
+
+    private _agentStatuses = [
+        { value: 'active', label: 'V Práci', class: 'bg-success' },
+        { value: 'break', label: 'Prestávka', class: 'bg-primary' },
+        { value: 'inactive', label: 'Neaktívny', class: 'bg-danger' },
+        { value: 'holidays', label: 'Dovolenka', class: 'bg-primary' },
+        { value: 'holidays_hd', label: 'Dovolenka poldeň', class: 'bg-primary' },
+        { value: 'ill', label: 'PN', class: 'bg-primary' },
+        { value: 'parenting', label: 'OČR', class: 'bg-primary' },
+        { value: 'doctor', label: 'Lekár', class: 'bg-primary' },
+        { value: 'doctor_hd', label: 'Lekár poldeň', class: 'bg-primary' },
+        //{ value: 'other', label: 'Iné' },
+    ];
 }

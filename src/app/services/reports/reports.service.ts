@@ -91,18 +91,27 @@ export class ReportsService {
             }
 
             const selectedAgent = agents.find((x: any) => x.user_id === response.agentId);
+            let fromDate = new Date();
+            let toDate = new Date();
+            if (response.month) {
+                const sDateNumber = new Date().setMonth((response.month - 1));
+                const sDate = new Date(sDateNumber);
+                
+                fromDate = new Date(sDate.getFullYear(), sDate.getMonth(), 1);
+                toDate = new Date(sDate.getFullYear(), sDate.getMonth() + 1, 0);
+            }
 
             let data: any;
             if (type === 'intervention') {
-                data = await this._interventionService.getInterventionsAsync(response.agentId, new Date());
+                data = await this._interventionService.getInterventionsAsync(response.agentId, fromDate, toDate);
                 if (!!data)
                     await this._pdfService.generateInterventionExcelFileAsync(selectedAgent, data);
             } else if (type === 'enlightenment') {
-                data = await this._enlightenmentsFormService.getEnlightenmentsReportAsync(new Date(), undefined, response.agentId);
+                data = await this._enlightenmentsFormService.getEnlightenmentsReportAsync(fromDate, toDate, response.agentId);
                 if (!!data)
                     await this._pdfService.generateEnlightenmentExcelFileAsync(selectedAgent, data);
             } else if (type === 'activity') {
-                data = await this._activitiesService.getActivitiesByUserIdAsync(new Date(), response.agentId);
+                data = await this._activitiesService.getActivitiesByUserIdAsync(fromDate, response.agentId);
                 if (!!data)
                     await this._pdfService.generateActivityExcelFileAsync(selectedAgent, data);
             }

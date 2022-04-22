@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CovidMonitoringFormService } from 'src/app/services/forms/covid-monitoring.service';
 
 @Component({
   selector: 'app-covid-monitoring-wizard',
@@ -26,10 +27,12 @@ export class MonitoringCovidWizardComponent implements OnInit {
   @ViewChild('matSelectF') matSelectF: any = null;
   @ViewChild('matSelectG') matSelectG: any = null;
 
+  public updated: boolean;
   private covidMonitoringId: string;
   private savedCovidMonitoring: any;
   constructor(
     private _formBuilder: FormBuilder,
+    private _covidMonitoringFormService: CovidMonitoringFormService,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     public dialogRef: MatDialogRef<MonitoringCovidWizardComponent>
   ) { }
@@ -39,11 +42,18 @@ export class MonitoringCovidWizardComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close({ refresh: this.updated });
   }
 
   saveWizard() {
     this.dialogRef.close({ data: this.getWizardFormData() });
+  }
+
+  onStepChange(event: any) {
+    if (!!event && event.previouslySelectedIndex < event.selectedIndex && this.dialogData.agent_id) {
+      this.updated = true;
+      this._covidMonitoringFormService.handleCovidMonitoringAsync({ data: this.getWizardFormData() }, this.dialogData.agent_id);
+    }
   }
 
   getWizardFormData() {
@@ -92,11 +102,10 @@ export class MonitoringCovidWizardComponent implements OnInit {
   private _setForm(data: any) {
     let savedData = null;
     if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
-      var dateISOstr = this._toLocalIsoString(data.date, true);
-      savedData = data.form_data.find((x: any) => x.date === dateISOstr);
+      savedData = data.form_data.find((x: any) => x.date.includes(data.date));
     }
 
-    if (!!savedData) {
+    if (!!savedData && !!savedData.id) {
       this.covidMonitoringId = savedData.id;
       this.savedCovidMonitoring = savedData;
     }

@@ -7,13 +7,27 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
     styleUrls: ['./update-status.modal.css']
 })
 export class UpdateStatusModal {
+    public statuses: Array<any>;
     public status: string;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public dialogData: any,
         public dialogRef: MatDialogRef<UpdateStatusModal>
     ) {
-        this.status = !!this.dialogData?.status?.value ? this.dialogData?.status?.value : 'inactive';
+        this.statuses = [
+            { value: 'active', label: 'V Práci' },
+            { value: 'break', label: 'Prestávka' },
+            { value: 'inactive', label: 'Neaktívny' },
+            { value: 'holidays', label: 'Dovolenka' },
+            { value: 'holidays_hd', label: 'Dovolenka poldeň ' },
+            { value: 'ill', label: 'PN' },
+            { value: 'parenting', label: 'OČR' },
+            { value: 'doctor', label: 'Lekár' },
+            { value: 'doctor_hd', label: 'Lekár poldeň' },
+            //{ value: 'other', label: 'Iné' },
+        ];
+
+        this.status = this.statuses[0].value;
     }
 
     close(): void {

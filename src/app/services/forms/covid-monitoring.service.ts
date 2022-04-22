@@ -10,7 +10,7 @@ export class CovidMonitoringFormService {
         this._covidMonitoringService = new APIService();
     }
 
-    async getCovidMonitoringAsync(userId: string | null, fromDate?: Date) {
+    async getCovidMonitoringAsync(userId: string | null, fromDate?: any) {
         if (!userId) {
             return null;
         }
@@ -20,9 +20,13 @@ export class CovidMonitoringFormService {
 
         // Add Query Start From Limit
         if (!!fromDate) {
-            const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
-            const date: ModelStringInput = { ge: this._toLocalIsoString(firstDayOfMonth, true) };
-            filter.date = date;
+            let date = fromDate;
+            if (typeof fromDate !== 'string') {
+                const firstDayOfMonth = new Date(fromDate.getFullYear(), fromDate.getMonth(), 1);
+                date = this._toLocalIsoString(firstDayOfMonth, true)
+            }
+            const datef: ModelStringInput = { ge: date };
+            filter.date = datef;
         }
 
         const covidMonitoring: ListCovidMonitoringsQuery = await this._covidMonitoringService.ListCovidMonitorings(filter);
@@ -36,7 +40,7 @@ export class CovidMonitoringFormService {
     async getCovidMonitoringReportAsync(fromDate?: Date, toDate?: Date) {
         const filter: ModelCovidMonitoringFilterInput = {};
         if (!!fromDate && !!toDate) {
-            const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, true), le: this._toLocalIsoString(toDate, true) };
+            const date: ModelStringInput = { ge: this._toLocalIsoString(fromDate, false), le: this._toLocalIsoString(toDate, false) };
             filter.date = date;
         }
 
@@ -115,7 +119,7 @@ export class CovidMonitoringFormService {
         }
     }
 
-    private _toLocalIsoString(date: Date, includeSeconds: boolean) {
+    private _toLocalIsoString(date: Date, includeTime: boolean) {
         if (!date) {
             return '';
         }
@@ -123,11 +127,17 @@ export class CovidMonitoringFormService {
         function pad(n: any) { return n < 10 ? '0' + n : n }
         var localIsoString = date.getFullYear() + '-'
             + pad(date.getMonth() + 1) + '-'
-            + pad(date.getDate()) + 'T'
-            + pad(date.getHours()) + ':'
-            + pad(date.getMinutes()) + ':'
-            + pad(date.getSeconds());
-        if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+            + pad(date.getDate());
+
+        if (includeTime) {
+            localIsoString = localIsoString + 'T'
+                + pad(date.getHours()) + ':'
+                + pad(date.getMinutes()) + ':'
+                + pad(date.getSeconds());
+
+            if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+        }
+
         return localIsoString;
     };
 }

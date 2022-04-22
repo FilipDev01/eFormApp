@@ -22,10 +22,10 @@ export interface Agent {
 })
 export class AgentsComponent implements OnInit, AfterViewInit {
   public processing: boolean;
+
   public agents: Array<any>;
 
   public displayedColumns: string[] = ['id', 'name', 'coordinator_name', 'location', 'status'];
-
   public dataSource: MatTableDataSource<Agent>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,7 +34,9 @@ export class AgentsComponent implements OnInit, AfterViewInit {
   constructor(
     private _service: AgentsService,
     private _router: Router
-  ) { }
+  ) {
+  
+  }
 
   async ngAfterViewInit() { }
 
@@ -51,7 +53,13 @@ export class AgentsComponent implements OnInit, AfterViewInit {
     this.processing = true;
 
     GlobalConstants.selectedAgent = null;
-    this.agents = await this._service.getAgentsAsync();
+
+    const data: any = await this._service.getAgentsAsync();
+    if (!!data) {
+      data.sort((a: any, b: any) => (!!a.order ? a.order : 999) - (!!b.order ? b.order : 999));
+      this.agents = data;
+    }
+
     this.dataSource = new MatTableDataSource(this.agents);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

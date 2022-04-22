@@ -43,7 +43,7 @@ export class EnlightenmentFormComponent implements OnInit {
   async openDialog(date: any): Promise<any> {
     try {
       this.processing = true;
-      const response = await this._formService.openFormWizardAsync(this.agentId, 'enlightenments', { data: this.enlightenments, date: date });
+      const response = await this._formService.openFormWizardAsync(this.agentId, 'enlightenments', { data: this.enlightenments, date: date, agent_id: this.agentId });
       this._handleResponse(response);
     } catch (err: any) {
       console.log(err);

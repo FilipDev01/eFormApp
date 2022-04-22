@@ -52,11 +52,16 @@
                   <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
                     <td class="pl-0 col-btn-download" mat-cell *matCellDef="let row">
-                      <container-element [ngSwitch]="row.status?.value">
+                      <!-- <container-element [ngSwitch]="row.status?.value">
                         <span *ngSwitchCase="'active'" class="badge bg-success">V PRÁCI</span>
                         <span *ngSwitchCase="'break'" class="badge bg-primary">NA PRESTÁVKE</span>
                         <span *ngSwitchCase="'inactive'" class="badge bg-danger">NEAKTÍVNY</span>
-                      </container-element>
+                      </container-element> -->
+
+
+                      <label *ngIf="!!row.status_obj" class="badge" [ngClass]="row.status_obj.class">
+                        <strong>{{row.status_obj.label}}</strong>
+                      </label>
                     </td>
                   </ng-container>
 

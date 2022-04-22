@@ -52,30 +52,21 @@ export class FormCommonService {
 
         const wizardType: any = this._selectFormWizardType(type);
         const wizarConfig: any = {
-            panelClass: 'my-dialog-enlightenments', disableClose: true, data: { form_data: wizardData.data, date: wizardData.date }
-        }
+            panelClass: 'my-dialog-enlightenments', disableClose: true, data: { form_data: wizardData.data, date: this._toLocalIsoString(wizardData.date, false), agent_id: wizardData.agent_id }
+        };
 
         const dialogRef = this.dialog.open(wizardType, wizarConfig);
         const dialogRes = await dialogRef.afterClosed().toPromise()
-        if (!dialogRes?.data) {
+        if (!!dialogRes?.refresh) {
+            return this.getFormData(type, agentId, wizardData.date);
+        } else if (!dialogRes?.data) {
             return wizardData;
+        } else {
+            return this.handleWizardResponseAsync(type, dialogRes, agentId);
         }
-
-        return this._handleWizardResponseAsync(type, dialogRes, agentId);
     }
 
-    private _selectFormWizardType(type: string) {
-        if (type === 'enlightenments') {
-            return EnlightenmentstionWizardComponent;
-        } else if (type === 'interventions') {
-            return InterventionWizardComponent;
-        } else if (type === 'covid_monitoring') {
-            return MonitoringCovidWizardComponent;
-        }
-        return null;
-    }
-
-    private async _handleWizardResponseAsync(type: string, wizardData: any, agentId: string) {
+    public async handleWizardResponseAsync(type: string, wizardData: any, agentId: string) {
         let response: any;
         if (type === 'enlightenments') {
             response = await this._enlightenmentsFormService.handleEnlightenmentAsync(type, wizardData, agentId);
@@ -89,7 +80,16 @@ export class FormCommonService {
         return this.getFormData(type, agentId, date);
     }
 
-
+    private _selectFormWizardType(type: string) {
+        if (type === 'enlightenments') {
+            return EnlightenmentstionWizardComponent;
+        } else if (type === 'interventions') {
+            return InterventionWizardComponent;
+        } else if (type === 'covid_monitoring') {
+            return MonitoringCovidWizardComponent;
+        }
+        return null;
+    }
 
     generatePdfTotals(formType: string, data: Array<any>) {
         if (!data) { return {}; }
@@ -189,4 +189,26 @@ export class FormCommonService {
 
         return agent.name;
     }
+
+    private _toLocalIsoString(date: Date, includeTime: boolean) {
+        if (!date) {
+            return '';
+        }
+
+        function pad(n: any) { return n < 10 ? '0' + n : n }
+        var localIsoString = date.getFullYear() + '-'
+            + pad(date.getMonth() + 1) + '-'
+            + pad(date.getDate());
+
+        if (includeTime) {
+            localIsoString = localIsoString + 'T'
+                + pad(date.getHours()) + ':'
+                + pad(date.getMinutes()) + ':'
+                + pad(date.getSeconds());
+
+            if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+        }
+
+        return localIsoString;
+    };
 }

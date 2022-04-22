@@ -21,7 +21,8 @@ export class ExcelService {
                 { header: 'Meno APZ', key: 'nameAssitant', width: 10.35 },
                 { header: 'Lokalita', key: 'location', width: 10.35 },
 
-                { header: 'Dátum', key: 'createdAt', width: 8.45 },
+                { header: 'Zápis', key: 'createdAt', width: 8.45 },
+                { header: 'Dátum', key: 'date', width: 8.45 },
 
                 { header: 'A1: Preventívna prehliadka', key: 'a1', width: 9.91 },
                 { header: 'A2: Očkovanie', key: 'a2', width: 8.36 },
@@ -314,7 +315,8 @@ export class ExcelService {
                 { header: 'Meno koordinátora', key: 'nameCoordinator', width: 10.35 },
                 { header: 'Meno APZ', key: 'nameAssitant', width: 10.35 },
                 { header: 'Lokalita', key: 'location', width: 10.35 },
-                { header: 'Dátum', key: 'createdAt', width: 8.45 },
+                { header: 'Zápis', key: 'createdAt', width: 8.45 },
+                { header: 'Dátum', key: 'date', width: 8.45 },
             ]
 
         // A 
@@ -400,7 +402,8 @@ export class ExcelService {
             { header: 'Meno APZ', key: 'nameAssitant', width: 10.35 },
             { header: 'Lokalita', key: 'location', width: 10.35 },
 
-            { header: 'Dátum', key: 'createdAt', width: 8.45 },
+            { header: 'Zápis', key: 'createdAt', width: 8.45 },
+            { header: 'Dátum', key: 'date', width: 8.45 },
 
             { header: 'Počet Vykonaných Testov', key: 'a1', width: 8 },
             { header: 'Pozitívne Testy Celkovo', key: 'a2', width: 8 },
@@ -463,6 +466,7 @@ export class InterventionExcelReportModel {
     nameAssitant: string;
     location: string;
     createdAt: string;
+    date: string;
 
     a1: number;
     a2: number;
@@ -500,6 +504,7 @@ export class InterventionExcelReportModel {
         this.location = !!agent.location ? agent.location : '-';
 
         this.createdAt = this._setDate(intervention.createdAt);
+        this.date = this._setDate(intervention.date, true);
 
         this.a1 = !!intervention.a1 ? intervention.a1 : 0;
         this.a2 = !!intervention.a2 ? intervention.a2 : 0;
@@ -525,14 +530,16 @@ export class InterventionExcelReportModel {
         this.e1 = !!intervention.e1 ? intervention.e1 : 0;
     };
 
-    private _setDate(date: string) {
-        if (!date) {
-            return '-';
-        }
+    private _setDate(date: string, withoutTime?: boolean) {
+        if (!date) { return '-'; }
 
         const d = new Date(date);
-        return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
-            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        let rDate = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+        if (!withoutTime) {
+            rDate = rDate + + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        }
+
+        return rDate;
     }
 }
 
@@ -543,6 +550,7 @@ export class EnlightenmentExcelReportModel {
     location: string;
 
     createdAt: string;
+    date: string;
 
     no_individuals: number;
     no_families: number;
@@ -566,6 +574,7 @@ export class EnlightenmentExcelReportModel {
         this.location = !!agent.location ? agent.location : '-';
 
         this.createdAt = this._setDate(enlightenment.createdAt);
+        this.date = this._setDate(enlightenment.date, true);
 
         this.no_individuals = !!enlightenment.no_individuals ? enlightenment.no_individuals : 0;
         this._setCodes(enlightenment, this, 0, 'a', {});
@@ -594,14 +603,16 @@ export class EnlightenmentExcelReportModel {
         }
     }
 
-    private _setDate(date: string) {
-        if (!date) {
-            return '-';
-        }
+    private _setDate(date: string, withoutTime?: boolean) {
+        if (!date) { return '-'; }
 
         const d = new Date(date);
-        return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
-            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        let rDate = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+        if (!withoutTime) {
+            rDate = rDate + + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        }
+
+        return rDate;
     }
 }
 
@@ -612,6 +623,7 @@ export class CovidMonitoringExcelReportModel {
     location: string;
 
     createdAt: string;
+    date: string;
 
     a1: number;
     a2: number;
@@ -680,6 +692,7 @@ export class CovidMonitoringExcelReportModel {
         this.location = !!agent.location ? agent.location : '-';
 
         this.createdAt = this._setDate(covidMonitoring.createdAt);
+        this.date = this._setDate(covidMonitoring.date, true);
 
         this.a1 = !!covidMonitoring.a1 ? covidMonitoring.a1 : 0;
         this.a2 = !!covidMonitoring.a2 ? covidMonitoring.a2 : 0;
@@ -733,14 +746,16 @@ export class CovidMonitoringExcelReportModel {
         this.h10 = !!covidMonitoring.h10 ? covidMonitoring.h10 : 0;
     };
 
-    private _setDate(date: string) {
-        if (!date) {
-            return '-';
-        }
+    private _setDate(date: string, withoutTime?: boolean) {
+        if (!date) { return '-'; }
 
         const d = new Date(date);
-        return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
-            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        let rDate = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+        if (!withoutTime) {
+            rDate = rDate + + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+        }
+
+        return rDate;
     }
 }
 

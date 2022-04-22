@@ -67,6 +67,14 @@ export class ActivitiesService {
             }
 
             const activities: any = await this._activityService.ListActivities(filter, 99999);
+            if (!!activities && Array.isArray(activities.items)) {
+                activities.items.sort(function (a: any, b: any) {
+                    const t: any = new Date(b.date);
+                    const tt: any = new Date(a.date);
+                    return t - tt;
+                });
+            }
+
             return !!activities ? activities.items : null;
         } catch (err: any) {
             console.error("Activities", err);

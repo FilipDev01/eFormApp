@@ -39,7 +39,7 @@ export class MonitoringCovidFormComponent implements OnInit {
     public async openDialog(date: any): Promise<any> {
         try {
             this.processing = true;
-            const response = await this._formService.openFormWizardAsync(this.agentId, 'covid_monitoring', { data: this.covidData, date: date });
+            const response = await this._formService.openFormWizardAsync(this.agentId, 'covid_monitoring', { data: this.covidData, date: date, agent_id: this.agentId });
             this._handleResponse(response);
         } catch (err: any) {
             console.error(err);

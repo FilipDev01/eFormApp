@@ -24,13 +24,14 @@ export class EnlightenmentstionWizardComponent implements OnInit {
   public enlightenmentOptions: Array<any>;
   public dropdownSettings: IDropdownSettings;
 
+  public updated: boolean;
   private enlightenmentId: string;
   private savedEnlightenment: any;
 
   constructor(
+    private _enlightenmentsFormService: EnlightenmentsFormService,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
-    public dialogRef: MatDialogRef<EnlightenmentstionWizardComponent>,
-    private _enlightenmentsFormService: EnlightenmentsFormService
+    public dialogRef: MatDialogRef<EnlightenmentstionWizardComponent>
   ) {
     this.dropdownSettings = {
       singleSelection: false,
@@ -44,16 +45,24 @@ export class EnlightenmentstionWizardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.updated = false;
     this._setEnlightenmentOptions();
     this._setFormAsync(this.dialogData);
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close({ refresh: this.updated });
   }
 
   saveWizard() {
     this.dialogRef.close({ data: this.getWizardFormData() });
+  }
+
+  onStepChange(event: any) {
+    if (!!event && event.previouslySelectedIndex < event.selectedIndex && this.dialogData.agent_id) {
+      this.updated = true;
+      this._enlightenmentsFormService.handleEnlightenmentAsync('', { data: this.getWizardFormData() }, this.dialogData.agent_id);
+    }
   }
 
   getWizardFormData() {
@@ -84,8 +93,7 @@ export class EnlightenmentstionWizardComponent implements OnInit {
   private async _setFormAsync(data: any) {
     let savedData: any = null;
     if (!!data.date && !!data.form_data && Array.isArray(data.form_data)) {
-      var dateISOstr = this._toLocalIsoString(data.date, true);
-      savedData = data.form_data.find((x: any) => x.date === dateISOstr);
+      savedData = data.form_data.find((x: any) => x.date.includes(data.date));
     }
 
     // Check if enlightenments codes exits

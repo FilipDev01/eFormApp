@@ -17,20 +17,22 @@ export class ReportWizardComponent {
     public reportName: any;
     public agents: any;
     public filteredAgents: any;
+    public availableMonths: Array<any>;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public dialogData: any,
         public dialogRef: MatDialogRef<ReportWizardComponent>,
         private formBuilder: FormBuilder,
     ) {
+        this.availableMonths = this._setAvailableMonhts();
         this.agents = this.dialogData.agents;
         this.filteredAgents = this.agents.slice();
-        
+
         this.reportType = "excel";
         if (!!this.dialogData && this.dialogData.report_type === 'pdf') {
             this.reportType = "pdf";
         }
-        
+
         this._setHeaderName();
 
         if (this.reportType === 'excel') {
@@ -43,7 +45,8 @@ export class ReportWizardComponent {
         if (this.reportType === 'pdf') {
             this.pdfDataForm = this.formBuilder.group({
                 pdfFormType: new FormControl('1', null),
-                agentId: new FormControl(this.agents[0].user_id, null)
+                agentId: new FormControl(this.agents[0].user_id, null),
+                month: new FormControl(this.availableMonths[this.availableMonths.length - 1].number, null)
             });
         }
     }
@@ -89,5 +92,25 @@ export class ReportWizardComponent {
         } else {
             this.reportName = 'Definuj Časové Rozpätie';
         }
+    }
+
+    private _setAvailableMonhts() {
+        const all = [
+            { number: 1, label: 'Január' },
+            { number: 2, label: 'Február' },
+            { number: 3, label: 'Marec' },
+            { number: 4, label: 'Apríl' },
+            { number: 5, label: 'Máj' },
+            { number: 6, label: 'Jún' },
+            { number: 7, label: 'Júl' },
+            { number: 8, label: 'August' },
+            { number: 9, label: 'September' },
+            { number: 10, label: 'Október' },
+            { number: 11, label: 'November' },
+            { number: 12, label: 'December' }
+        ];
+
+        const currentMonth = new Date().getMonth() + 1;
+        return all.filter((x: any) => x.number <= currentMonth)
     }
 }

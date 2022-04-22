@@ -12,7 +12,7 @@
   </div>
 
   <div class="mat-dialog-content">
-    <mat-vertical-stepper [linear]="false">
+    <mat-vertical-stepper [linear]="false" (selectionChange)="onStepChange($event)">
       <!-- PCR TESTS -->
       <mat-step [stepControl]="sectionA" label="PCR Testovanie">
         <form [formGroup]="sectionA" class="m-0">

@@ -12,7 +12,7 @@
       <div class="card-body px-0 pt-3 ecb">
 
         <small>Vyberte si jeden zo statusov a potvrdte svoju voľbu:</small>
-        <div class="d-flex justify-content-between mt-2 mb-3 ebtn-wrap">
+        <!-- <div class="d-flex justify-content-between mt-2 mb-3 ebtn-wrap">
           <button class="btn eb py-2" [class.e-btn-success]="status === 'active'" (click)="status = 'active'">
             <span>V Práci</span>
           </button>
@@ -24,7 +24,26 @@
           <button class="btn eb py-2" [class.e-btn-danger]="status === 'inactive'" (click)="status = 'inactive'">
             <span>Neaktívny</span>
           </button>
-        </div>
+        </div> -->
+
+        <form class="agent-status-form mt-1">
+          <mat-form-field *ngIf="statuses" appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select [(value)]="status">
+              <mat-option *ngFor="let s of statuses" [value]="s.value">
+                {{s.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div *ngIf="status === 'other'" class="agent-other-detail-ta mt-3">
+            <small>Napíšte dôvod vašej neprítomnosti</small>
+            <mat-form-field class="agent-full-width" appearance="fill">
+              <mat-label>Dôvod</mat-label>
+              <textarea  matInput placeholder=""></textarea>
+            </mat-form-field>
+          </div>
+        </form>
 
         <hr class="m-0" style="background-color: #702b7d47;">
 

@@ -12,7 +12,7 @@
   </div>
 
   <div class="mat-dialog-content">
-    <mat-vertical-stepper [linear]="false">
+    <mat-vertical-stepper [linear]="false" (selectionChange)="onStepChange($event)">
       <!-- JEDNOTLIVEC -->
       <mat-step *ngIf="sectionA" label="Jednotlivec">
         <mat-form-field>
@@ -74,7 +74,7 @@
         <mat-divider class="mt-3 mb-2"></mat-divider>
 
         <div class="text-end">
-          <button class="btn btn-primary py-1 px-4" matStepperNext>Ďalej</button>
+          <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
         </div>
       </mat-step>
 
@@ -145,8 +145,8 @@
         <mat-divider class="mt-3 mb-2"></mat-divider>
 
         <div class="d-flex justify-content-between">
-          <button class="btn btn-default py-1 px-4" matStepperPrevious>Späť</button>
-          <button class="btn btn-primary py-1 px-4" matStepperNext>Ďalej</button>
+          <button mat-raised-button matStepperPrevious>Späť</button>
+          <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
         </div>
       </mat-step>
 
@@ -222,8 +222,8 @@
         <mat-divider class="mt-3 mb-2"></mat-divider>
 
         <div class="d-flex justify-content-between">
-          <button class="btn btn-default py-1 px-4" matStepperPrevious>Späť</button>
-          <button class="btn btn-primary py-1 px-4" matStepperNext>Ďalej</button>
+          <button mat-raised-button matStepperPrevious>Späť</button>
+          <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
         </div>
       </mat-step>
 
@@ -293,14 +293,14 @@
         <mat-divider class="mt-3 mb-2"></mat-divider>
 
         <div class="d-flex justify-content-between">
-          <button class="btn btn-default py-1 px-4" matStepperPrevious>Späť</button>
-          <button class="btn btn-primary py-1 px-4" matStepperNext>Ďalej</button>
+          <button mat-raised-button matStepperPrevious>Späť</button>
+          <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
         </div>
       </mat-step>
 
       <mat-step label="Dokončiť Formulár">
         <div class="p-0 mt-2 text-end">
-          <button class="btn btn-primary py-2 px-3" style="line-height: 1;" (click)="saveWizard()">Uložiť</button>
+          <button mat-flat-button color="primary" (click)="saveWizard()">Ulož</button>
         </div>
       </mat-step>
     </mat-vertical-stepper>
