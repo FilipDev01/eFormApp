@@ -106,13 +106,12 @@ export class AgentsService {
 
             if (!!dialogRes && !!dialogRes.status && status && dialogRes.status !== status.value) {
                 const res = await this._activityService.createActvityAsync(agentId, dialogRes.status);
-                if (!!res) {
-                    status.value = dialogRes.status;
-                    GlobalConstants.selectedAgent.status = status;
+                if (!!res) {            
+                    GlobalConstants.selectedAgent.status = dialogRes.status;
                 }
             }
 
-            return null;
+            return dialogRes.status;
         } catch (err: any) {
             console.error("Save Activity");
             return null;

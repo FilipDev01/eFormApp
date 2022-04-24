@@ -58,8 +58,11 @@ export class AgentDetailComponent implements OnInit {
         this._router.navigate(['/agents']);
     }
 
-    updateStatus(event: any) {
-        this._service.createAgentActivityAsync(this.agentId, this.agent.status);
+    async updateStatus(event: any) {
+        const status = await this._service.createAgentActivityAsync(this.agentId, this.agentActiveStatus);
+        if (!!status) {
+            this.agentActiveStatus = this.agentStatuses.find((x: any) => x.value === status);
+        }
     }
 
     canDeactivate() {
