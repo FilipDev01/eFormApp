@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CovidMonitoringFormService } from 'src/app/services/forms/covid-monitoring.service';
+import { CovidMonitoringFormService } from '../../../services/forms/covid-monitoring.service';
 
 @Component({
   selector: 'app-covid-monitoring-wizard',
@@ -10,6 +10,8 @@ import { CovidMonitoringFormService } from 'src/app/services/forms/covid-monitor
   styleUrls: ['./covid-wizard.component.css']
 })
 export class MonitoringCovidWizardComponent implements OnInit {
+  @ViewChild('stepper') stepper: any = null;
+
   public sectionA: FormGroup;
   public sectionB: FormGroup;
   public sectionC: FormGroup;
@@ -49,10 +51,21 @@ export class MonitoringCovidWizardComponent implements OnInit {
     this.dialogRef.close({ data: this.getWizardFormData() });
   }
 
-  onStepChange(event: any) {
-    if (!!event && event.previouslySelectedIndex < event.selectedIndex && this.dialogData.agent_id) {
+  async onStepChange() {
+    try {
       this.updated = true;
-      this._covidMonitoringFormService.handleCovidMonitoringAsync({ data: this.getWizardFormData() }, this.dialogData.agent_id);
+      const response = await this._covidMonitoringFormService.handleCovidMonitoringAsync({ data: this.getWizardFormData() }, this.dialogData.agent_id);
+    
+      if (!this.savedCovidMonitoring || !this.savedCovidMonitoring.id || this.covidMonitoringId) {
+        this.savedCovidMonitoring = response;
+        this.covidMonitoringId = response.id;
+      } else {
+        this.savedCovidMonitoring._version = response._version;
+      }
+
+      this.stepper.next();
+    } catch (err) {
+      console.error("Err", err);
     }
   }
 

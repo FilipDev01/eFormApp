@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { InterventionsFormService } from 'src/app/services/forms/interventions.form.service';
+import { InterventionsFormService } from '../../../services/forms/interventions.form.service';
 
 @Component({
   selector: 'app-intervention-wizard',
@@ -10,6 +10,8 @@ import { InterventionsFormService } from 'src/app/services/forms/interventions.f
   styleUrls: ['./intervention-wizard.component.css']
 })
 export class InterventionWizardComponent implements OnInit {
+  @ViewChild('stepper') stepper: any = null;
+
   public sectionA: FormGroup;
   public sectionB: FormGroup;
   public sectionC: FormGroup;
@@ -40,10 +42,21 @@ export class InterventionWizardComponent implements OnInit {
     this.dialogRef.close({ data: this.getWizardFormData() });
   }
 
-  onStepChange(event: any) {
-    if (!!event && event.previouslySelectedIndex < event.selectedIndex && this.dialogData.agent_id) {
+  async onStepChange() {
+    try {
       this.updated = true;
-      this._interventionsFormService.handleInterventionAsync({ data: this.getWizardFormData() }, this.dialogData.agent_id);
+      const response = await this._interventionsFormService.handleInterventionAsync({ data: this.getWizardFormData() }, this.dialogData.agent_id);
+
+      if (!this.savedIntervention || this.savedIntervention.id || this.savedIntervention) {
+        this.savedIntervention = response;
+        this.interventionId = response.id;
+      } else {
+        this.savedIntervention._version = response._version;
+      }
+
+      this.stepper.next();
+    } catch (err) {
+      console.error("Err", err);
     }
   }
 

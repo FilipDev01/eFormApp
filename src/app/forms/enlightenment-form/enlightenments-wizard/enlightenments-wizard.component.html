@@ -12,290 +12,33 @@
   </div>
 
   <div class="mat-dialog-content">
-    <mat-vertical-stepper [linear]="false" (selectionChange)="onStepChange($event)">
+    <mat-vertical-stepper [linear]="false" #stepper>
       <!-- JEDNOTLIVEC -->
       <mat-step *ngIf="sectionA" label="Jednotlivec">
-        <mat-form-field>
-          <mat-label>Počet</mat-label>
-          <input matInput type="number" min="0" placeholder="Počet" [(ngModel)]="sectionA.no_individuals">
-        </mat-form-field>
-
-        <p class="mt-1 mb-0"><strong>Osvety</strong></p>
-
-        <table class="table table-responsive enlightenment-table mb-0">
-          <tbody>
-            <tr *ngFor="let item of sectionA.individual_codes; let ind = index">
-              <td class="table-colum-code pl-0" colspan="1">
-                <mat-form-field class="p-0">
-                  <mat-label>Kód</mat-label>
-                  <mat-select #matSelectA class="eform-mat-select" name="a" [(ngModel)]="item.description">
-                    <mat-select-trigger>
-                      {{item.description}}
-                    </mat-select-trigger>
-                    <header class="mat-select">
-                      <h4 class="text-center mb-0 py-3">Vyber Kód</h4>
-                      <mat-divider class="table-divider"></mat-divider>
-                    </header>
-                    <div class="custom-panel">
-                      <mat-option *ngFor="let enlightenmentOption of enlightenmentOptions"
-                        [value]="enlightenmentOption.code">
-                        <small>{{enlightenmentOption.code}}: {{enlightenmentOption.description}}</small>
-                      </mat-option>
-                    </div>
-                    <footer class="mat-select mt-footer">
-                      <button mat-raised-button (click)="handleSelectionAction('a');">Zruš</button>
-                      <!-- <button mat-raised-button (click)="handleSelectionAction('a');">Potvrď</button> -->
-                    </footer>
-                  </mat-select>
-                </mat-form-field>
-              </td>
-              <td class="px-0">
-                <mat-form-field class="p-0">
-                  <mat-label>Počet</mat-label>
-                  <input matInput type="number" min="0" name="a" [(ngModel)]="item.count">
-                </mat-form-field>
-              </td>
-              <td class="table-column-action pr-0">
-                <p class="text-danger" (click)="removeCode(sectionA.individual_codes, item)">X</p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="text-start" style="padding-right: 0 !important;" colspan="3">
-                <button mat-flat-button class="bg-success mt-2 pb-0 px-2 btn-add-e"
-                  (click)="addCode(sectionA, 'individual_codes')">
-                  Pridaj Osvetu
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <mat-divider class="mt-3 mb-2"></mat-divider>
-
-        <div class="text-end">
-          <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
-        </div>
+        <app-enlightenment-wizard-step-individuals [section]="sectionA" [enlightenmentOptions]="enlightenmentOptions"
+          [wizardStepper]="stepper" (saveChanges)="onStepChange($event)">
+        </app-enlightenment-wizard-step-individuals>
       </mat-step>
 
       <!-- RODINY -->
       <mat-step *ngIf="sectionB" label="Rodiny">
-        <mat-form-field>
-          <mat-label>Počet Rodín</mat-label>
-          <input matInput type="number" min="0" placeholder="Počet" [(ngModel)]="sectionB.no_families">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Počet Osôb</mat-label>
-          <input matInput type="number" min="0" placeholder="Počet" [(ngModel)]="sectionB.no_people_in_families">
-        </mat-form-field>
-
-        <p class="my-1"><strong>Osvety</strong></p>
-
-        <table class="table table-responsive enlightenment-table mb-0">
-          <tbody>
-            <tr *ngFor="let item of sectionB.family_codes; let ind = index">
-              <td class="table-colum-code pl-0" colspan="1">
-                <mat-form-field class="p-0">
-                  <mat-label>Kód</mat-label>
-                  <mat-select #matSelectB class="eform-mat-select" name="b" [(ngModel)]="item.description">
-                    <mat-select-trigger>
-                      {{item.description}}
-                    </mat-select-trigger>
-
-                    <header class="mat-select">
-                      <h4 class="text-center mb-0 py-3">Vyber Kód</h4>
-                      <mat-divider class="table-divider"></mat-divider>
-                    </header>
-                    <div class="custom-panel">
-                      <mat-option *ngFor="let enlightenmentOption of enlightenmentOptions"
-                        [value]="enlightenmentOption.code">
-                        <small>{{enlightenmentOption.code}}: {{enlightenmentOption.description}}</small>
-                      </mat-option>
-                    </div>
-                    <footer class="mat-select mt-footer">
-                      <button mat-raised-button (click)="handleSelectionAction('b');">Zruš</button>
-                      <!-- <button mat-raised-button (click)="handleSelectionAction('b');">Potvrď</button> -->
-                    </footer>
-                  </mat-select>
-                </mat-form-field>
-              </td>
-              <td class="px-0">
-                <mat-form-field class="p-0">
-                  <mat-label>Počet</mat-label>
-                  <input matInput type="number" min="0" name="a" [(ngModel)]="item.count">
-                </mat-form-field>
-              </td>
-              <td class="table-column-action pr-0">
-                <p class="text-danger" (click)="removeCode(sectionB.family_codes, item)">X</p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="text-start" colspan="3">
-                <button mat-flat-button class="bg-success py-0 px-2 btn-add-e"
-                  (click)="addCode(sectionB, 'family_codes')">
-                  Pridaj Osvetu
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <mat-divider class="mt-3 mb-2"></mat-divider>
-
-        <div class="d-flex justify-content-between">
-          <button mat-raised-button matStepperPrevious>Späť</button>
-          <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
-        </div>
+        <app-enlightenment-wizard-step-families [section]="sectionB" [enlightenmentOptions]="enlightenmentOptions"
+          [wizardStepper]="stepper" (saveChanges)="onStepChange($event)">
+        </app-enlightenment-wizard-step-families>
       </mat-step>
 
       <!-- SKOLA -->
       <mat-step *ngIf="sectionC" label="Škola">
-        <mat-form-field>
-          <mat-label>Škola Názov</mat-label>
-          <input matInput type="text" placeholder="Názov" [(ngModel)]="sectionC.school_name">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Ročník</mat-label>
-          <input matInput type="text" placeholder="Ročník" [(ngModel)]="sectionC.school_year">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Počet žiakov</mat-label>
-          <input matInput type="number" min="0" placeholder="Počet" [(ngModel)]="sectionC.no_students">
-        </mat-form-field>
-
-        <p class="my-1"><strong>Osvety</strong></p>
-
-        <table class="table table-responsive enlightenment-table mb-0">
-          <tbody>
-            <tr *ngFor="let item of sectionC.school_codes; let ind = index">
-              <td class="table-colum-code pl-0" colspan="1">
-                <mat-form-field class="p-0">
-                  <mat-label>Kód</mat-label>
-                  <mat-select #matSelectC class="eform-mat-select" name="c" [(ngModel)]="item.description">
-                    <mat-select-trigger>
-                      {{item.description}}
-                    </mat-select-trigger>
-
-                    <header class="mat-select">
-                      <h4 class="text-center mb-0 py-3">Vyber Kód</h4>
-                      <mat-divider class="table-divider"></mat-divider>
-                    </header>
-                    <div class="custom-panel">
-                      <mat-option *ngFor="let enlightenmentOption of enlightenmentOptions"
-                        [value]="enlightenmentOption.code">
-                        <small>{{enlightenmentOption.code}}: {{enlightenmentOption.description}}</small>
-                      </mat-option>
-                    </div>
-                    <footer class="mat-select mt-footer">
-                      <button mat-raised-button (click)="handleSelectionAction('c');">Zruš</button>
-                      <!-- <button mat-raised-button (click)="handleSelectionAction('c');">Potvrď</button> -->
-                    </footer>
-                  </mat-select>
-                </mat-form-field>
-              </td>
-              <td class="px-0">
-                <mat-form-field class="p-0">
-                  <mat-label>Počet</mat-label>
-                  <input matInput type="number" min="0" name="a" [(ngModel)]="item.count">
-                </mat-form-field>
-              </td>
-              <td class="table-column-action pr-0">
-                <p class="text-danger" (click)="removeCode(sectionC.school_codes, item)">X</p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="text-start" colspan="3">
-                <button mat-flat-button class="bg-success py-0 px-2 btn-add-e"
-                  (click)="addCode(sectionC, 'school_codes')">
-                  Pridaj Osvetu
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <mat-divider class="mt-3 mb-2"></mat-divider>
-
-        <div class="d-flex justify-content-between">
-          <button mat-raised-button matStepperPrevious>Späť</button>
-          <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
-        </div>
+        <app-enlightenment-wizard-step-school [section]="sectionC" [enlightenmentOptions]="enlightenmentOptions"
+          [wizardStepper]="stepper" (saveChanges)="onStepChange($event)">
+        </app-enlightenment-wizard-step-school>
       </mat-step>
 
       <!-- KOMUNITNE CENTRUM -->
       <mat-step *ngIf="sectionD" label="Komunitné Centrum">
-        <mat-form-field>
-          <mat-label>KC Názov</mat-label>
-          <input matInput type="text" placeholder="Názov" [(ngModel)]="sectionD.community_center_name">
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Počet Osôb</mat-label>
-          <input matInput type="number" min="0" placeholder="Počet" [(ngModel)]="sectionD.no_community_center_members">
-        </mat-form-field>
-
-        <p class="my-1"><strong>Osvety</strong></p>
-
-        <table class="table table-responsive enlightenment-table mb-0">
-          <tbody>
-            <tr *ngFor="let item of sectionD.community_center_codes; let ind = index">
-              <td class="table-colum-code pl-0" colspan="1">
-                <mat-form-field class="p-0">
-                  <mat-label>Kód</mat-label>
-                  <mat-select #matSelectD class="eform-mat-select" name="d" [(ngModel)]="item.description">
-                    <mat-select-trigger>
-                      {{item.description}}
-                    </mat-select-trigger>
-
-                    <header class="mat-select">
-                      <h4 class="text-center mb-0 py-3">Vyber Kód</h4>
-                      <mat-divider class="table-divider"></mat-divider>
-                    </header>
-                    <div class="custom-panel">
-                      <mat-option *ngFor="let enlightenmentOption of enlightenmentOptions"
-                        [value]="enlightenmentOption.code">
-                        <small>{{enlightenmentOption.code}}: {{enlightenmentOption.description}}</small>
-                      </mat-option>
-                    </div>
-                    <footer class="mat-select mt-footer">
-                      <button mat-raised-button (click)="handleSelectionAction('d');">Zruš</button>
-                    </footer>
-                  </mat-select>
-                </mat-form-field>
-              </td>
-              <td class="px-0">
-                <mat-form-field class="p-0">
-                  <mat-label>Počet</mat-label>
-                  <input matInput type="number" min="0" name="a" [(ngModel)]="item.count">
-                </mat-form-field>
-              </td>
-              <td class="table-column-action pr-0">
-                <p class="text-danger" (click)="removeCode(sectionD.community_center_codes, item)">X</p>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="text-start" colspan="3">
-                <button mat-flat-button class="bg-success py-0 px-2 btn-add-e"
-                  (click)="addCode(sectionD, 'community_center_codes')">
-                  Pridaj Osvetu
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <mat-divider class="mt-3 mb-2"></mat-divider>
-
-        <div class="d-flex justify-content-between">
-          <button mat-raised-button matStepperPrevious>Späť</button>
-          <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
-        </div>
+        <app-enlightenment-wizard-step-community [section]="sectionD" [enlightenmentOptions]="enlightenmentOptions"
+          [wizardStepper]="stepper" (saveChanges)="onStepChange($event)">
+        </app-enlightenment-wizard-step-community>
       </mat-step>
 
       <mat-step label="Dokončiť Formulár">

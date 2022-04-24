@@ -26,34 +26,38 @@
   padding-right: 0 !important;
 }
 
-.enlightenment-table th,
-.enlightenment-table td {
+:host ::ng-deep .table-colum-code{
+  width: 50px;
+}
+
+:host ::ng-deep .enlightenment-table th,
+:host ::ng-deep .enlightenment-table td {
   border: unset;
 }
 
-.enlightenment-table td {
+:host ::ng-deep .enlightenment-table td {
   padding: 0 5px;
 }
 
-.enlightenment-table tr td:first-child {
+:host ::ng-deep .enlightenment-table tr td:first-child {
   padding-left: 0;
 }
 
-.enlightenment-table .table-row-action {
+:host ::ng-deep .enlightenment-table .table-row-action {
   width: 50px;
   text-align: center;
 }
 
-.enlightenment-table .table-colum-code {
+:host ::ng-deep .enlightenment-table .table-colum-code {
   max-width: 70px;
   text-align: center;
 }
 
-.enlightenment-table .table-column-action {
+:host ::ng-deep .enlightenment-table .table-column-action {
   min-width: 40px;
 }
 
-.enlightenment-table .table-column-action p {
+:host ::ng-deep .enlightenment-table .table-column-action p {
   width: 15px;
   font-weight: 600;
   padding-top: 10px;
@@ -66,8 +70,19 @@
   display: none;
 }
 
-.btn-add-e {
+:host ::ng-deep .btn-add-e {
   line-height: 2;
   color: white;
   float: unset !important;
 }
+
+:host ::ng-deep .e-wizard-err-msg {
+  margin: 10px 0 -15px 0 !important;
+  color: red;
+  font-weight: 600;
+}
+
+:host ::ng-deep .wizInputErr {
+  color: red;
+}
+

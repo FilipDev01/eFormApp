@@ -25,7 +25,6 @@
 
 
 :host ::ng-deep .form-filled .mat-calendar-body-cell-content {
-
   border-radius: 50px;
 }
 

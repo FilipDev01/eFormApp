@@ -9,6 +9,10 @@ import { MonitoringCovidFormComponent } from './covid-monitoring/covid-monitorin
 import { MonitoringCovidWizardComponent } from './covid-monitoring/wizard/covid-wizard.component';
 import { EnlightenmentFormComponent } from './enlightenment-form/enlightenment-form.component';
 import { EnlightenmentstionWizardComponent } from './enlightenment-form/enlightenments-wizard/enlightenments-wizard.component';
+import { EnlightenmentsWizardStepIndividuals } from './enlightenment-form/enlightenments-wizard/steps/individuals/individuals.component';
+import { EnlightenmentsWizardStepFamilies } from './enlightenment-form/enlightenments-wizard/steps/families/families.component';
+import { EnlightenmentsWizardStepSchool } from './enlightenment-form/enlightenments-wizard/steps/school/school.component';
+import { EnlightenmentsWizardStepCommunity } from './enlightenment-form/enlightenments-wizard/steps/community/community.component';
 
 import { CalendarModule } from '../common/calendar/calendar.module';
 import { CustomDateAdapter } from '../common/customDateAdapter/customDateAdapter';
@@ -68,7 +72,11 @@ registerLocaleData(sk);
         MonitoringCovidFormComponent,
         MonitoringCovidWizardComponent,
         EnlightenmentFormComponent,
-        EnlightenmentstionWizardComponent
+        EnlightenmentstionWizardComponent,
+        EnlightenmentsWizardStepIndividuals,
+        EnlightenmentsWizardStepFamilies,
+        EnlightenmentsWizardStepSchool,
+        EnlightenmentsWizardStepCommunity
     ],
     exports: [
         InterventionFormComponent,

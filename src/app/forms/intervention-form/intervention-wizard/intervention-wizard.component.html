@@ -14,7 +14,7 @@
 
 
   <div class="mat-dialog-content">
-    <mat-vertical-stepper [linear]="false" (selectionChange)="onStepChange($event)">
+    <mat-vertical-stepper [linear]="false" #stepper>
       <mat-step [stepControl]="sectionA" label="A: Podpora preventívnych zdravotných programov ">
         <form [formGroup]="sectionA">
           <mat-form-field>
@@ -39,7 +39,7 @@
           </mat-form-field>
 
           <div class="text-end">
-            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+            <button mat-flat-button color="primary" (click)="onStepChange()">Ďalej</button>
           </div>
         </form>
       </mat-step>
@@ -69,7 +69,7 @@
 
           <div class="d-flex justify-content-between">
             <button mat-raised-button matStepperPrevious>Späť</button>
-            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+            <button mat-flat-button color="primary" (click)="onStepChange()">Ďalej</button>
           </div>
         </form>
       </mat-step>
@@ -103,7 +103,7 @@
           </mat-form-field>
           <div class="d-flex justify-content-between">
             <button mat-raised-button matStepperPrevious>Späť</button>
-            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+            <button mat-flat-button color="primary" (click)="onStepChange()">Ďalej</button>
           </div>
         </form>
       </mat-step>
@@ -153,7 +153,7 @@
 
           <div class="d-flex justify-content-between">
             <button mat-raised-button matStepperPrevious>Späť</button>
-            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+            <button mat-flat-button color="primary" (click)="onStepChange()">Ďalej</button>
           </div>
         </form>
       </mat-step>
@@ -168,7 +168,7 @@
 
           <div class="d-flex justify-content-between">
             <button mat-raised-button matStepperPrevious>Späť</button>
-            <button mat-flat-button color="primary" matStepperNext>Ďalej</button>
+            <button mat-flat-button color="primary" (click)="onStepChange()">Ďalej</button>
           </div>
         </form>
       </mat-step>

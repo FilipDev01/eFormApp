@@ -29,9 +29,14 @@ export class FormCommonService {
         this._router.navigate([route]);
     }
 
-    async getFormData(type: string, agentId: string | null, fromDate: Date): Promise<any> {
+    async getFormData(type: string, agentId: string | null, fromDate: Date | string): Promise<any> {
         if (!agentId) {
             return null;
+        }
+
+        if (!!fromDate && typeof fromDate === 'string') {
+            const t = new Date(fromDate);
+            fromDate = this._toLocalIsoString(new Date(t.getFullYear(), t.getMonth(), 1), false);
         }
 
         if (type === 'enlightenments') {
@@ -46,7 +51,7 @@ export class FormCommonService {
 
     // Wizard (Dialog/Modal) Methods
     async openFormWizardAsync(agentId: string | null, type: string, wizardData: any): Promise<any> {
-        if (!agentId) {
+        if (!agentId || agentId === 'undefined') {
             return null;
         }
 

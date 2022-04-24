@@ -80,7 +80,7 @@ export class EnlightenmentsFormService {
             filter.date = date;
         }
 
-        const enlightenments: ListAgentEnlightenmentsQuery = await this._enlightenmentsService.ListAgentEnlightenments(filter);
+        const enlightenments: ListAgentEnlightenmentsQuery = await this._enlightenmentsService.ListAgentEnlightenments(filter, 99999);
         return enlightenments.items;
 
         console.log("Dummy enlightenments");

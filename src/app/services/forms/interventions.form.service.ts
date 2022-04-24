@@ -33,7 +33,7 @@ export class InterventionsFormService {
                 filter.date = date;
             }
 
-            const intervetions: ListInterventionsQuery = await this._interventionsService.ListInterventions(filter);
+            const intervetions: ListInterventionsQuery = await this._interventionsService.ListInterventions(filter, 99999);
             return intervetions.items;
 
             console.log("Dummy intervetions");
@@ -81,7 +81,7 @@ export class InterventionsFormService {
             } else {
                 response = await this.createInterventionAsync(data, agentId);
             }
-
+            
             return response;
         } catch (err: any) {
             console.error(err);

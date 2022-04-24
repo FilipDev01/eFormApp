@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -10,11 +11,12 @@ import { EnlightenmentsFormService } from '../../../services/forms/enlightenment
   styleUrls: ['./enlightenments-wizard.component.css']
 })
 export class EnlightenmentstionWizardComponent implements OnInit {
-  public sectionA: any;
-  public sectionB: any;
-  public sectionC: any;
-  public sectionD: any;
+  public sectionA: FormGroup;
+  public sectionB: FormGroup;
+  public sectionC: FormGroup;
+  public sectionD: FormGroup;
 
+  @ViewChild('stepper') stepper: any = null;
   @ViewChild('matSelectA') matSelectA: any = null;
   @ViewChild('matSelectB') matSelectB: any = null;
   @ViewChild('matSelectC') matSelectC: any = null;
@@ -30,9 +32,11 @@ export class EnlightenmentstionWizardComponent implements OnInit {
 
   constructor(
     private _enlightenmentsFormService: EnlightenmentsFormService,
+    private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     public dialogRef: MatDialogRef<EnlightenmentstionWizardComponent>
   ) {
+
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -58,17 +62,30 @@ export class EnlightenmentstionWizardComponent implements OnInit {
     this.dialogRef.close({ data: this.getWizardFormData() });
   }
 
-  onStepChange(event: any) {
-    if (!!event && event.previouslySelectedIndex < event.selectedIndex && this.dialogData.agent_id) {
+  async onStepChange(event: any) {
+    if (!!event?.save_action) {
       this.updated = true;
-      this._enlightenmentsFormService.handleEnlightenmentAsync('', { data: this.getWizardFormData() }, this.dialogData.agent_id);
+      const response = await this._enlightenmentsFormService.handleEnlightenmentAsync('', { data: this.getWizardFormData() }, this.dialogData.agent_id);
+
+      if (!this.savedEnlightenment || !this.savedEnlightenment.id || this.enlightenmentId) {
+        this.savedEnlightenment = response;
+        this.enlightenmentId = response.id;
+      } else {
+        this.savedEnlightenment._version = response._version;
+      }
+
     }
   }
 
   getWizardFormData() {
     const formData: any = {};
     [this.sectionA, this.sectionB, this.sectionC, this.sectionD].forEach((group: any) => {
-      Object.assign(formData, group);
+
+      if (!!group.controls) {
+        Object.assign(formData, group.value);
+      } else {
+        Object.assign(formData, group);
+      }
     });
 
     formData.date = this.dialogData.date;
@@ -108,52 +125,58 @@ export class EnlightenmentstionWizardComponent implements OnInit {
       this.savedEnlightenment = savedData;
     }
 
+
+    function tt(codes: any): FormArray {
+      const fa: FormArray = new FormArray([]);
+      if (!Array.isArray(codes)) {
+        return fa;
+      }
+
+      codes.forEach((c: any) => {
+        fa.push(new FormGroup({
+          code: new FormControl(c.code),
+          count: new FormControl(c.count),
+          description: new FormControl(c.description)
+        }))
+      });
+
+      return fa;
+    }
     const sectionACodes = this._setEnlightenmentCodes(0, codes);
-    this.sectionA = {
-      no_individuals: savedData?.no_individuals ?? 0,
-      individual_codes_id: sectionACodes?.id ?? null,
-      individual_codes_version: sectionACodes?.version ?? null,
-      individual_codes: sectionACodes?.codes ?? null
-    };
+    this.sectionA = this._formBuilder.group({
+      no_individuals: [(savedData?.no_individuals ?? 0), Validators.required],
+      individual_codes_id: [(sectionACodes?.id ?? null), null],
+      individual_codes_version: [(sectionACodes?.version ?? null), null],
+      individual_codes: tt(sectionACodes?.codes)
+    });
 
     const sectionBCodes = this._setEnlightenmentCodes(1, codes);
-    this.sectionB = {
-      no_families: savedData?.no_families ?? 0, no_people_in_families: savedData?.no_people_in_families ?? 0,
-      family_codes_id: sectionBCodes?.id ?? null,
-      family_codes_version: sectionBCodes?.version ?? null,
-      family_codes: sectionBCodes?.codes ?? null
-    };
+    this.sectionB = this._formBuilder.group({
+      no_families: [(savedData?.no_families ?? 0)],
+      no_people_in_families: [(savedData?.no_people_in_families ?? 0)],
+      family_codes_id: [(sectionBCodes?.id ?? null), null],
+      family_codes_version: [(sectionBCodes?.version ?? null), null],
+      family_codes: tt(sectionBCodes?.codes)
+    });
 
     const sectionCCodes = this._setEnlightenmentCodes(2, codes);
-    this.sectionC = {
-      school_name: savedData?.school_name ?? '',
-      school_year: savedData?.school_year ?? '',
-      no_students: savedData?.no_students ?? 0,
-      school_codes_id: sectionCCodes?.id ?? null,
-      school_codes_version: sectionCCodes?.version ?? null,
-      school_codes: sectionCCodes?.codes ?? null
-    };
+    this.sectionC = this._formBuilder.group({
+      school_name: [(savedData?.school_name ?? '')],
+      school_year: [(savedData?.school_year ?? '')],
+      no_students: [(savedData?.no_students ?? 0), null],
+      school_codes_id: [(sectionCCodes?.id ?? null), null],
+      school_codes_version: [(sectionCCodes?.version ?? null), null],
+      school_codes: tt(sectionCCodes?.codes)
+    });
 
     const sectionDCodes = this._setEnlightenmentCodes(3, codes);
-    this.sectionD = {
-      community_center_name: savedData?.community_center_name ?? '',
-      no_community_center_members: savedData?.no_community_center_members ?? 0,
-      community_center_codes_id: sectionDCodes?.id ?? null,
-      community_center_codes_version: sectionDCodes?.version ?? null,
-      community_center_codes: sectionDCodes?.codes ?? null
-    };
-  }
-
-  public addCode(section: any, type: string) {
-    section[type] = !section[type] ? new Array<any>() : section[type];
-    section[type].push({ code: '', count: null, description: '' });
-  }
-
-  public removeCode(sectionCodes: any, item: any) {
-    const ind = sectionCodes.indexOf(item);
-    if (ind > -1) {
-      sectionCodes.splice(ind, 1);
-    }
+    this.sectionD = this._formBuilder.group({
+      community_center_name: [(savedData?.community_center_name ?? '')],
+      no_community_center_members: [(savedData?.no_community_center_members ?? 0)],
+      community_center_codes_id: [(sectionDCodes?.id ?? null), null],
+      community_center_codes_version: [(sectionDCodes?.version ?? null), null],
+      community_center_codes: tt(sectionDCodes?.codes)
+    });
   }
 
   private _setEnlightenmentCodes(type: number, codes: Array<any>) {
@@ -224,16 +247,4 @@ export class EnlightenmentstionWizardComponent implements OnInit {
       this.enlightenmentOptions.push({ code: `F${index}`, description: option, value: index });
     });
   }
-
-  private _toLocalIsoString(date: Date, includeSeconds: boolean) {
-    function pad(n: any) { return n < 10 ? '0' + n : n }
-    var localIsoString = date.getFullYear() + '-'
-      + pad(date.getMonth() + 1) + '-'
-      + pad(date.getDate()) + 'T'
-      + pad(date.getHours()) + ':'
-      + pad(date.getMinutes()) + ':'
-      + pad(date.getSeconds());
-    if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
-    return localIsoString;
-  };
 }
