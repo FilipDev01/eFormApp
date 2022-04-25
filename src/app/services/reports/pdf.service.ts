@@ -261,7 +261,7 @@ export class PdfService {
             const worksheet: Worksheet = this._setWorksheetConfiguration('Osveta', workbook);
 
             worksheet.pageSetup.printArea = "A1:M45";
-            worksheet.pageSetup.scale = 54;
+            worksheet.pageSetup.scale = 52;
 
             worksheet.columns = [
                 { header: 'Deň', key: 'day_int', width: 10, style: this._cellStyle },
@@ -292,12 +292,12 @@ export class PdfService {
             worksheet.addImage(imageId1, { tl: { col: 0, row: 21.9 }, ext: { width: 200, height: 85 } });
 
             const imageId2 = workbook.addImage({ base64: img.img1Base64, extension: 'png' });
-            worksheet.addImage(imageId2, { tl: { col: 5, row: 0.9 }, ext: { width: 200, height: 80 } });
-            worksheet.addImage(imageId2, { tl: { col: 5, row: 21.9 }, ext: { width: 200, height: 80 } });
+            worksheet.addImage(imageId2, { tl: { col: 5, row: 0.99 }, ext: { width: 200, height: 80 } });
+            worksheet.addImage(imageId2, { tl: { col: 5, row: 21.99 }, ext: { width: 200, height: 80 } });
 
             const imageId3 = workbook.addImage({ base64: img.img3Base64, extension: 'png' });
-            worksheet.addImage(imageId3, { tl: { col: 10, row: 0.9 }, ext: { width: 200, height: 60 } });
-            worksheet.addImage(imageId3, { tl: { col: 10, row: 21.9 }, ext: { width: 200, height: 60 } });
+            worksheet.addImage(imageId3, { tl: { col: 10, row: 0.9999 }, ext: { width: 200, height: 65 } });
+            worksheet.addImage(imageId3, { tl: { col: 10, row: 21.9999 }, ext: { width: 200, height: 65 } });
 
             const imgRow1: Row = worksheet.getRow(1);
             imgRow1.height = 85;
@@ -338,11 +338,11 @@ export class PdfService {
                 row.eachCell((cell: Cell) => { cell.style = this._dataRowStyle });
             });
 
-            this._addRowMergeCellsAndSetValue(worksheet, [`„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk`], { height: this._settings.rows.height.title, multiple_merges: true, align: 'center', vertical_align: 'middle', wrap: true, not_bold: true, ranges: [{ start: 'A', end: 'M' }] });
+            this._addRowMergeCellsAndSetValue(worksheet, [`„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk`], { height: 80, multiple_merges: true, align: 'center', vertical_align: 'middle', wrap: true, not_bold: true, ranges: [{ start: 'A', end: 'M' }] });
 
             // PAGE BREAK ROW
             const pageBreakRow: Row = worksheet.getRow(21);
-            pageBreakRow.height = 55;
+            pageBreakRow.height = 80;
             pageBreakRow.eachCell((cell: Cell) => { cell.style = { font: { bold: false }, alignment: { wrapText: true, horizontal: 'center', vertical: 'middle' } } });
             pageBreakRow.addPageBreak(0, 12);
 
@@ -372,8 +372,8 @@ export class PdfService {
                     border: {
                         top: { style: 'medium', color: { argb: '121212' } },
                         bottom: { style: 'medium', color: { argb: '121212' } },
-                        left: { style: 'thin', color: { argb: 'ffffff' } },
-                        right: { style: 'thin', color: { argb: 'ffffff' } }
+                        left: { style: 'thin', color: { argb: '121212' } },
+                        right: { style: 'thin', color: { argb: '121212' } }
                     }
                 }
             });
@@ -383,7 +383,7 @@ export class PdfService {
 
             // worksheet.addRow([]);
 
-            const lastRow: Row = this._addRowMergeCellsAndSetValue(worksheet, [`„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk`], {align: 'center', vertical_align: 'middle', wrap: true, height: 47, multiple_merges: true, ranges: [{ start: 'A', end: 'M' }] });
+            const lastRow: Row = this._addRowMergeCellsAndSetValue(worksheet, [`„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk`], {align: 'center', vertical_align: 'middle', wrap: true, height: 80, multiple_merges: true, ranges: [{ start: 'A', end: 'M' }] });
             worksheet.pageSetup.printArea = `A1:M${lastRow.number}`;
 
             const xlsxData = await workbook.xlsx.writeBuffer();
