@@ -1,16 +1,29 @@
 import { Injectable } from "@angular/core";
-import { Cell, Row, Workbook, Worksheet } from 'exceljs';
+import { Cell, Column, Row, Workbook, Worksheet } from 'exceljs';
 import * as fs from 'file-saver';
 import * as img from './assets';
 
 @Injectable({ providedIn: 'root', })
 
 export class PdfService {
-
     private _cellStyle: any;
     private _dataRowStyle: any;
+
+    private _titleCellStyle: any;
+
+    private _settings: any;
     constructor() {
-        this._cellStyle = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true, shrinkToFit: false }, font: { bold: true, size: 10 } };
+        this._settings = {
+            rows: {
+                height: {
+                    img: 53.4,
+                    title: 70,
+                    data: 23,
+                    page_break: 47
+                }
+            }
+        }
+
         this._dataRowStyle = {
             font: { bold: false },
             alignment: { horizontal: 'center', vertical: 'middle' },
@@ -21,48 +34,59 @@ export class PdfService {
                 left: { style: 'thin', color: { argb: '121212' } },
                 right: { style: 'thin', color: { argb: '121212' } }
             }
-        }
+        };
+
+        this._cellStyle = this._dataRowStyle;
+        this._cellStyle.alignment.wrapText = true;
+        this._cellStyle.font.size = 10;
+
+        this._titleCellStyle = this._dataRowStyle;
+        this._titleCellStyle.alignment.wrapText = true;
+        this._titleCellStyle.font.size = 10;
+        this._titleCellStyle.font.bold = true;
     }
 
     async generateInterventionExcelFileAsync(agent: any, intervetions: any) {
         try {
-            if (!intervetions) {
+            if (!intervetions || intervetions.length === 0) {
                 return;
             }
 
             const data: any = this._generatePdfData('interventions', intervetions);
-
             const workbook = new Workbook();
             const worksheet = this._setWorksheetConfiguration('Intervencie', workbook);
+            worksheet.pageSetup.scale = 73;
 
-            worksheet.columns = [
+            const cols = [
                 { header: 'Deň', key: 'day_int', width: 10.35, style: this._cellStyle },
-                { header: 'A1: Preventívna prehliadka', key: 'a1', width: 9.91, style: this._cellStyle },
-                { header: 'A2: Očkovanie', key: 'a2', width: 8.0, style: this._cellStyle },
-                { header: 'A3: Materská poradnňa', key: 'a3', width: 7.8, style: this._cellStyle },
-                { header: 'A4: OčkovanieCOVID-19', key: 'a4', width: 8.36, style: this._cellStyle },
-                { header: 'B1: Všeobecný pre dospelých', key: 'b1', width: 10.36, style: this._cellStyle },
-                { header: 'B2: Pediater', key: 'b2', width: 6.82, style: this._cellStyle },
-                { header: 'B3: Nemocnica', key: 'b3', width: 8.82, style: this._cellStyle },
-                { header: 'B4: Odborný lekár', key: 'b4', width: 7.36, style: this._cellStyle },
-                { header: 'C1: TSP', key: 'c1', width: 6.82, style: this._cellStyle },
-                { header: 'C2: OU/MS', key: 'c2', width: 6, style: this._cellStyle },
-                { header: 'C3: RPZ, 112', key: 'c3', width: 7.91, style: this._cellStyle },
-                { header: 'C4: Škola', key: 'c4', width: 5.36, style: this._cellStyle },
-                { header: 'C5: ÚPSVaR', key: 'c5', width: 6.45, style: this._cellStyle },
-                { header: 'D1: Meranie krvného tlaku', key: 'd1', width: 6.91, style: this._cellStyle },
+                { header: 'A1: Preventívna prehliadka', key: 'a1', width: 10.2, style: this._cellStyle },
+                { header: 'A2: Očkovanie', key: 'a2', width: 9.5, style: this._cellStyle },
+                { header: 'A3: Materská poradnňa', key: 'a3', width: 9.5, style: this._cellStyle },
+                { header: 'A4: OčkovanieCOVID-19', key: 'a4', width: 9.5, style: this._cellStyle },
+                { header: 'B1: Všeobecný lekár pre dospelých', key: 'b1', width: 10.36, style: this._cellStyle },
+                { header: 'B2: Pediater', key: 'b2', width: 8.0, style: this._cellStyle },
+                { header: 'B3: Nemocnica', key: 'b3', width: 9.8, style: this._cellStyle },
+                { header: 'B4: Odborný lekár', key: 'b4', width: 7.8, style: this._cellStyle },
+                { header: 'C1: TSP', key: 'c1', width: 6, style: this._cellStyle },
+                { header: 'C2: OU/MS', key: 'c2', width: 7, style: this._cellStyle },
+                { header: 'C3: RPZ, 112', key: 'c3', width: 7.7, style: this._cellStyle },
+                { header: 'C4: Škola', key: 'c4', width: 5.5, style: this._cellStyle },
+                { header: 'C5: ÚPSVaR', key: 'c5', width: 7.4, style: this._cellStyle },
+                { header: 'D1: Meranie krvného tlaku', key: 'd1', width: 7.6, style: this._cellStyle },
                 { header: 'D2: Prvá pomoc ošetrenie poranení ', key: 'd2', width: 9.36, style: this._cellStyle },
-                { header: 'D3: Sprevádzanie na vyšetrenie', key: 'd3', width: 10.27, style: this._cellStyle },
-                { header: 'D4: Zdravotné poistenie', key: 'd4', width: 8, style: this._cellStyle },
-                { header: 'D5: Kompenzačné pomôcky a ZŤP', key: 'd5', width: 11.73, style: this._cellStyle },
+                { header: 'D3: Sprevádzanie na vyšetrenie', key: 'd3', width: 11.0, style: this._cellStyle },
+                { header: 'D4: Zdravotné poistenie', key: 'd4', width: 9.0, style: this._cellStyle },
+                { header: 'D5: Kompenzačné pomôcky a ZŤP', key: 'd5', width: 12.00, style: this._cellStyle },
                 { header: 'D6: Lieky', key: 'd6', width: 5.82, style: this._cellStyle },
-                { header: 'D7: RUVZ-Lekár v prípade epidémie', key: 'd7', width: 7.82, style: this._cellStyle },
+                { header: 'D7: RUVZ-Lekár v prípade epidémie', key: 'd7', width: 8.0, style: this._cellStyle },
                 { header: 'D8: Aktívna pomoc a podpora klienta', key: 'd8', width: 8.27, style: this._cellStyle },
                 { header: 'Charita, brigáda, zbierky iné...', key: 'e1', width: 8.45, style: this._cellStyle },
             ];
 
-            worksheet.mergeCells('A1', 'W1');
-            worksheet.mergeCells('A2', 'W2');
+            worksheet.columns = cols;
+
+            worksheet.mergeCells('A1', 'W2');
+            // worksheet.mergeCells('A2', 'W2');
 
             worksheet.mergeCells('A3', 'E3');
             worksheet.mergeCells('F3', 'R3');
@@ -76,34 +100,37 @@ export class PdfService {
             worksheet.mergeCells('O5', 'V5');
 
             const imageId1 = workbook.addImage({ base64: img.img2Base64, extension: 'png' });
-            worksheet.addImage(imageId1, { tl: { col: 0, row: 0 }, ext: { width: 277, height: 82 } });
-            worksheet.addImage(imageId1, { tl: { col: 0, row: 24 }, ext: { width: 277, height: 82 } });
+            worksheet.addImage(imageId1, { tl: { col: 0, row: 0.3 }, ext: { width: 277, height: 82 } });
+            worksheet.addImage(imageId1, { tl: { col: 0, row: 24.3 }, ext: { width: 277, height: 82 } });
 
             const imageId2 = workbook.addImage({ base64: img.img1Base64, extension: 'png' });
-            worksheet.addImage(imageId2, { tl: { col: 8, row: 0 }, ext: { width: 308, height: 65 } });
-            worksheet.addImage(imageId2, { tl: { col: 8, row: 24 }, ext: { width: 308, height: 65 } });
+            worksheet.addImage(imageId2, { tl: { col: 8, row: 0.6 }, ext: { width: 308, height: 65 } });
+            worksheet.addImage(imageId2, { tl: { col: 8, row: 24.6 }, ext: { width: 308, height: 65 } });
 
             const imageId3 = workbook.addImage({ base64: img.img3Base64, extension: 'png' });
-            worksheet.addImage(imageId3, { tl: { col: 18, row: 0.5 }, ext: { width: 186, height: 59 } });
-            worksheet.addImage(imageId3, { tl: { col: 18, row: 24.5 }, ext: { width: 186, height: 59 } });
+            worksheet.addImage(imageId3, { tl: { col: 19, row: 0.7 }, ext: { width: 186, height: 59 } });
+            worksheet.addImage(imageId3, { tl: { col: 19, row: 24.7 }, ext: { width: 186, height: 59 } });
 
             const imgRow1: Row = worksheet.getRow(1);
-            imgRow1.height = 53.4;
+            imgRow1.height = this._settings.rows.height.img;
             imgRow1.eachCell((cell: Cell) => { cell.value = ''; });
 
+            const agentStyle: any = { alignment: { horizontal: 'left' }, font: { bold: true } };
             const colA3: Cell = worksheet.getCell('A3');
-            colA3.value = `Mesiac/rok: ${this._getCurrentMonth()}`;
-            colA3.style = { alignment: { horizontal: 'left' } };
+            colA3.value = `Mesiac/rok: ${this._getCurrentMonth(intervetions[0].date)} ${this._getCurrentYear(intervetions[0].date)}`;
+            colA3.style = agentStyle;
 
             const colF3: Cell = worksheet.getCell('F3');
             colF3.value = `Meno APZ: ${agent.name}`;
+            colF3.style = agentStyle;
 
             const colS3: Cell = worksheet.getCell('S3');
             colS3.value = `Lokalita: ${agent.location}`;
+            colS3.style = agentStyle;
 
             const colA4: Cell = worksheet.getCell('A4');
             colA4.value = 'Intervencie';
-            colA4.style = this._cellStyle;
+            colA4.style = this._titleCellStyle;
 
             const colB5: Cell = worksheet.getCell('B5');
             colB5.value = 'A: Podpora preventívnych zdravotných programov';
@@ -115,53 +142,41 @@ export class PdfService {
             colO5.value = 'D: Priama asistencia klientom';
             const colW5: any = worksheet.getCell('W5');
             colW5.value = 'E: Ďalšie aktivity';
+            const titleRow = worksheet.getRow(5);
+            titleRow.eachCell((cell: Cell) => cell.style = this._titleCellStyle);
 
-            const headerRow = worksheet.getRow(6);
-            headerRow.values = ['Deň', 'A1: Preventívna prehliadka', 'A2: Očkovanie', 'A3: Materská poradnňa', 'A4: OčkovanieCOVID-19', 'B1: Všeobecný pre dospelých', 'B2: Pediater', 'B3: Nemocnica', 'B4: Odborný lekár', 'C1: TSP', 'C2: OU/MS', 'C3: RPZ, 112', 'C4: Škola', 'C5: ÚPSVaR', 'D1: Meranie krvného tlaku', 'D2: Prvá pomoc ošetrenie poranení ', 'D3: Sprevádzanie na vyšetrenie', 'D4: Zdravotné poistenie', 'D5: Kompenzačné pomôcky a ZŤP', 'D6: Lieky', 'D7: RUVZ-Lekár v prípade epidémie', 'D8: Aktívna pomoc a podpora klienta', 'Charita, brigáda, zbierky iné...'];
-            headerRow.height = 88;
-
-            const titleRows = [2, 3, 4, 5];
-            titleRows.forEach(r => {
-                const t = worksheet.getRow(r);
-                const sty = this._cellStyle;
-                sty.border =
-                {
-                    top: { style: 'thin', color: { argb: '121212' } },
-                    bottom: { style: 'thin', color: { argb: '121212' } },
-                    left: { style: 'thin', color: { argb: '121212' } },
-                    right: { style: 'thin', color: { argb: '121212' } }
-                }
-
-                t.eachCell((cell: Cell) => { cell.style = sty });
-            });
+            const headerRow: Row = worksheet.getRow(6);
+            headerRow.height = this._settings.rows.height.title;
+            headerRow.values = ['Deň', 'A1: Preventívna prehliadka', 'A2: Očkovanie', 'A3: Materská poradnňa', 'A4: OčkovanieCOVID-19', 'B1: Všeobecný lekár pre dospelých', 'B2: Pediater', 'B3: Nemocnica', 'B4: Odborný lekár', 'C1: TSP', 'C2: OU/MS', 'C3: RPZ, 112', 'C4: Škola', 'C5: ÚPSVaR', 'D1: Meranie krvného tlaku', 'D2: Prvá pomoc ošetrenie poranení ', 'D3: Sprevádzanie na vyšetrenie', 'D4: Zdravotné poistenie', 'D5: Kompenzačné pomôcky a ZŤP', 'D6: Lieky', 'D7: RUVZ-Lekár v prípade epidémie', 'D8: Aktívna pomoc a podpora klienta', 'Charita, brigáda, zbierky iné...'];
 
             const rows0 = worksheet.addRows(data[0]);
             rows0.forEach((row: Row) => {
-                row.height = 23;
+                row.height = this._settings.rows.height.data;
                 row.eachCell((cell: Cell) => { cell.style = this._dataRowStyle });
             });
 
             worksheet.addRow([]);
 
-            worksheet.mergeCells('A23', 'W23');
-            worksheet.mergeCells('A24', 'W24');
-            worksheet.mergeCells('A25', 'W25');
-            worksheet.mergeCells('A26', 'W26');
+            worksheet.mergeCells('A23', 'W24');
+            worksheet.mergeCells('A25', 'W26');
 
-            let colA24: Cell = worksheet.getCell('A24');
-            colA24.value = '„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk';
+            const colA23: Cell = worksheet.getCell('A23');
+            colA23.value = '„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk';
+            colA23.style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true, shrinkToFit: false }, font: { bold: false, size: 10 } };
+
+            const row23: Row = worksheet.getRow(23);
+            row23.height = this._settings.rows.height.title;
 
             // PAGE BREAK ROW
             const pageBreakRow: any = worksheet.getRow(24);
-            pageBreakRow.height = 47;
-            pageBreakRow.eachCell((cell: Cell) => { cell.style = { font: { bold: false }, alignment: { wrapText: true, horizontal: 'center', vertical: 'middle' } } });
+            pageBreakRow.eachCell((cell: Cell) => { cell.style = { alignment: { horizontal: 'center', vertical: 'middle', wrapText: true, shrinkToFit: false }, font: { bold: false, size: 11 } } });
             pageBreakRow.addPageBreak();
 
             worksheet.addRow([]);
             worksheet.addRow([]);
 
             const imgRow2: Row = worksheet.getRow(25);
-            imgRow2.height = 53.4;
+            imgRow2.height = this._settings.rows.height.img;
             imgRow2.eachCell((cell: Cell) => { cell.value = ''; });
 
             worksheet.mergeCells('B27', 'E27');
@@ -170,39 +185,53 @@ export class PdfService {
             worksheet.mergeCells('O27', 'V27');
 
             const colB27: any = worksheet.getCell('B27');
-            colB27.value = 'A: Podpora preventívnych zdravotných programov ';
+            colB27.value = 'A: Podpora preventívnych zdravotných programov';
             const colF27: any = worksheet.getCell('F27');
-            colF27.value = 'B: Spolupráca s lekármi ';
+            colF27.value = 'B: Spolupráca s lekármi';
             const colJ27: any = worksheet.getCell('J27');
-            colJ27.value = 'C: Spolupráca ';
+            colJ27.value = 'C: Spolupráca';
             const colO27: any = worksheet.getCell('O27');
             colO27.value = 'D: Priama asistencia klientom';
             const colW27: any = worksheet.getCell('W27');
             colW27.value = 'E: Ďalšie aktivity';
 
+            const row27: any = worksheet.getRow(27);
+            row27.eachCell((cell: Cell) => { cell.style = this._titleCellStyle });
+
             const headerRow2 = worksheet.getRow(28);
-            headerRow2.values = ['Deň', 'A1: Preventívna prehliadka', 'A2: Očkovanie', 'A3: Materská poradnňa', 'A4: OčkovanieCOVID-19', 'B1: Všeobecný pre dospelých', 'B2: Pediater', 'B3: Nemocnica', 'B4: Odborný lekár', 'C1: TSP', 'C2: OU/MS', 'C3: RPZ, 112', 'C4: Škola', 'C5: ÚPSVaR', 'D1: Meranie krvného tlaku', 'D2: Prvá pomoc ošetrenie poranení ', 'D3: Sprevádzanie na vyšetrenie', 'D4: Zdravotné poistenie', 'D5: Kompenzačné pomôcky a ZŤP', 'D6: Lieky', 'D7: RUVZ-Lekár v prípade epidémie', 'D8: Aktívna pomoc a podpora klienta', 'Charita, brigáda, zbierky iné...'];
-            headerRow2.height = 88;
+            headerRow2.values = ['Deň', 'A1: Preventívna prehliadka', 'A2: Očkovanie', 'A3: Materská poradnňa', 'A4: OčkovanieCOVID-19', 'B1: Všeobecný lekár pre dospelých', 'B2: Pediater', 'B3: Nemocnica', 'B4: Odborný lekár', 'C1: TSP', 'C2: OU/MS', 'C3: RPZ, 112', 'C4: Škola', 'C5: ÚPSVaR', 'D1: Meranie krvného tlaku', 'D2: Prvá pomoc ošetrenie poranení ', 'D3: Sprevádzanie na vyšetrenie', 'D4: Zdravotné poistenie', 'D5: Kompenzačné pomôcky a ZŤP', 'D6: Lieky', 'D7: RUVZ-Lekár v prípade epidémie', 'D8: Aktívna pomoc a podpora klienta', 'Charita, brigáda, zbierky iné...'];
+            headerRow2.height = this._settings.rows.height.title;
 
             const rows1 = worksheet.addRows(data[1]);
             rows1.forEach((row: Row) => {
-                row.height = 23;
+                row.height = this._settings.rows.height.data;
                 row.eachCell((cell: Cell) => { cell.style = this._dataRowStyle });
             });
 
 
             // TOTALS ROW
             const rowTotal = worksheet.addRow(this._calculateTotal('intervetions', intervetions));
-            rowTotal.height = 23;
+            rowTotal.height = this._settings.rows.height.data;
+            rowTotal.eachCell((cell: Cell) => {
+                cell.style = {
+                    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true, shrinkToFit: false },
+                    font: { bold: true, size: 12 },
+                    border: {
+                        top: { style: 'medium', color: { argb: '121212' } },
+                        bottom: { style: 'medium', color: { argb: '121212' } },
+                        left: { style: 'medium', color: { argb: '121212' } },
+                        right: { style: 'medium', color: { argb: '121212' } }
+                    }
+                }
+            });
 
-            this._addRowMergeCellsAndSetValue(worksheet, `V mesiaci ${this._getCurrentMonth()} sa v mojej lokalite vyskytlo infekčné ochorenie:`, { align: 'left', height: 15.9 });
+            this._addRowMergeCellsAndSetValue(worksheet, `V mesiaci ${this._getCurrentMonth(intervetions[0].date)} sa v mojej lokalite vyskytlo infekčné ochorenie:`, { align: 'left', height: 15.9 });
             this._addRowMergeCellsAndSetValue(worksheet, "Spolupracoval som s lekármi:", { align: 'left', height: 15.9 });
-            this._addRowMergeCellsAndSetValue(worksheet, ["Svojím podpisom vyhlasujem, že údaje uvedené v dokumente sú pravdivé, reálne a správne a som si vedomý následkov spojených s uvedením/predložením nesprávnych, neúplných a nereálnych údajov.", "Podpis APZ:"], { align: 'left', height: 34, wrap: true, multiple_merges: true, ranges: [{ start: 'A', end: 'R' }, { start: 'S', end: 'W' }] });
+            this._addRowMergeCellsAndSetValue(worksheet, ["Svojím podpisom vyhlasujem, že údaje uvedené v dokumente sú pravdivé, reálne a správne a som si vedomý následkov spojených s uvedením/predložením nesprávnych, neúplných a nereálnych údajov.", "Podpis APZ:"], { align: 'left', vertical_align: 'middle', height: 34, wrap: true, multiple_merges: true, ranges: [{ start: 'A', end: 'R' }, { start: 'S', end: 'W' }] });
 
-            worksheet.addRow([]);
-            worksheet.mergeCells('A47', 'W47');
-
-            const lastRow: Row = this._addRowMergeCellsAndSetValue(worksheet, '„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk', { height: 50, not_bold: true });
+            const lastRow: Row =
+                this._addRowMergeCellsAndSetValue(worksheet, '„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk', { align: 'center', vertical_align: 'middle', wrap: true, not_bold: true });
+            lastRow.height = this._settings.rows.height.title;
 
             // SET PRINT AREA
             worksheet.pageSetup.printArea = `A1:W${lastRow.number}`;
@@ -211,7 +240,7 @@ export class PdfService {
             let blob = new Blob([xlsxData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
             const agentName = agent.name.replace(' ', '_');
-            const fileName = `Intervencie_${this._getCurrentMonth()}_${agentName}.xlsx`;
+            const fileName = `Intervencie_${this._getCurrentMonth(intervetions[0].date)}_${agentName}.xlsx`;
             fs.saveAs(blob, fileName);
 
             return true;
@@ -223,7 +252,7 @@ export class PdfService {
 
     public async generateEnlightenmentExcelFileAsync(agent: any, enlightenments: any) {
         try {
-            if (!enlightenments) {
+            if (!enlightenments || enlightenments.length === 0) {
                 return;
             }
             const data: any = this._generatePdfData('enlightenments', enlightenments);
@@ -232,117 +261,136 @@ export class PdfService {
             const worksheet: Worksheet = this._setWorksheetConfiguration('Osveta', workbook);
 
             worksheet.pageSetup.printArea = "A1:M45";
-            worksheet.pageSetup.scale = 51;
+            worksheet.pageSetup.scale = 54;
 
             worksheet.columns = [
                 { header: 'Deň', key: 'day_int', width: 10, style: this._cellStyle },
-
                 { header: '1: Jednotlivec počet', key: 'a1', width: 13.91, style: this._cellStyle },
                 { header: 'Kód intervencie osvetovej činnosti', key: 'a_codes', width: 30, style: this._cellStyle },
-
                 { header: '2: Počet rodín ', key: 'b1', width: 11.73, style: this._cellStyle },
                 { header: 'Počet osôb v rodinách', key: 'b2', width: 15, style: this._cellStyle },
                 { header: 'Kód intervencie osvetovej činnosti', key: 'b_codes', width: 30, style: this._cellStyle },
-
                 { header: '3:  Škola', key: 'c1', width: 37.27, style: this._cellStyle },
                 { header: 'Ročník', key: 'c2', width: 8.45, style: this._cellStyle },
                 { header: 'Počet osôb', key: 'c3', width: 11.36, style: this._cellStyle },
                 { header: 'Kód intervencie osvetovej činnosti', key: 'c_codes', width: 30, style: this._cellStyle },
-
                 { header: '4: Komunitné centrum', key: 'd1', width: 15.82, style: this._cellStyle },
                 { header: 'Počet osôb', key: 'd2', width: 11.36, style: this._cellStyle },
                 { header: 'Kód intervencie osvetovej činnosti', key: 'd_codes', width: 30, style: this._cellStyle },
             ];
 
             // MERGE CELLS
-            worksheet.mergeCells('A1', 'E1');
-            worksheet.mergeCells('F1', 'J1');
-            worksheet.mergeCells('K1', 'M1');
-
-            worksheet.mergeCells('A2', 'D2');
-            worksheet.mergeCells('E2', 'M2');
-
+            worksheet.mergeCells('A1', 'M1');
+            worksheet.mergeCells('A2', 'E2');
+            worksheet.mergeCells('F2', 'H2');
+            worksheet.mergeCells('I2', 'M2');
             worksheet.mergeCells('A3', 'M3');
 
             // ADD IMAGES
             const imageId1 = workbook.addImage({ base64: img.img2Base64, extension: 'png' });
-            worksheet.addImage(imageId1, { tl: { col: 0, row: 0 }, ext: { width: 200, height: 70 } });
-            worksheet.addImage(imageId1, { tl: { col: 0, row: 21 }, ext: { width: 200, height: 70 } });
+            worksheet.addImage(imageId1, { tl: { col: 0, row: 0.9 }, ext: { width: 200, height: 85 } });
+            worksheet.addImage(imageId1, { tl: { col: 0, row: 21.9 }, ext: { width: 200, height: 85 } });
 
             const imageId2 = workbook.addImage({ base64: img.img1Base64, extension: 'png' });
-            worksheet.addImage(imageId2, { tl: { col: 5, row: 0.2 }, ext: { width: 200, height: 70 } });
-            worksheet.addImage(imageId2, { tl: { col: 5, row: 21 }, ext: { width: 200, height: 70 } });
+            worksheet.addImage(imageId2, { tl: { col: 5, row: 0.9 }, ext: { width: 200, height: 80 } });
+            worksheet.addImage(imageId2, { tl: { col: 5, row: 21.9 }, ext: { width: 200, height: 80 } });
 
             const imageId3 = workbook.addImage({ base64: img.img3Base64, extension: 'png' });
-            worksheet.addImage(imageId3, { tl: { col: 10, row: 0 }, ext: { width: 200, height: 60 } });
-            worksheet.addImage(imageId3, { tl: { col: 10, row: 21 }, ext: { width: 200, height: 70 } });
+            worksheet.addImage(imageId3, { tl: { col: 10, row: 0.9 }, ext: { width: 200, height: 60 } });
+            worksheet.addImage(imageId3, { tl: { col: 10, row: 21.9 }, ext: { width: 200, height: 60 } });
 
             const imgRow1: Row = worksheet.getRow(1);
-            imgRow1.height = 57;
+            imgRow1.height = 85;
             imgRow1.eachCell((cell: Cell) => { cell.value = ''; });
 
-
+            const agentStyle: any = { alignment: { horizontal: 'left', vertical: 'middle' }, font: { bold: true } };
             const colA2: Cell = worksheet.getCell('A2');
-            colA2.value = `Mesiac/rok: ${this._getCurrentMonth()}`;
-            colA2.style = { alignment: { horizontal: 'left' } };
+            colA2.value = `Mesiac/rok: ${this._getCurrentMonth(enlightenments[0].date)} ${this._getCurrentYear(enlightenments[0].date)}`;
+            colA2.style = agentStyle;
 
             const colF2: Cell = worksheet.getCell('F2');
             colF2.value = `Meno APZ: ${agent.name}`;
+            colF2.style = agentStyle;
 
+            const colI2: Cell = worksheet.getCell('I2');
+            colI2.value = `Lokalita: ${agent.location}`;
+            colI2.style = agentStyle;
+
+            const row2 = worksheet.getRow(2);
+            row2.height = 30;
+
+            const titCell = this._titleCellStyle;
+            titCell.font.size = 11;
             const colA3: Cell = worksheet.getCell('A3');
             colA3.value = 'Realizácia zdravotnej osvety a výchovy s jednotlivcom a skupinami';
-            colA3.style = this._cellStyle;
+            colA3.style = titCell;
+
+            const row3 = worksheet.getRow(3);
+            row3.height = 30;
 
             const headerRow = worksheet.getRow(4);
             headerRow.values = ['Deň', '1: Jednotlivec počet', 'Kód intervencie osvetovej činnosti', '2: Počet rodín ', 'Počet osôb v rodinách', 'Kód intervencie osvetovej činnosti', '3:  Škola', 'Ročník', 'Počet osôb', 'Kód intervencie osvetovej činnosti', '4: Komunitné centrum', 'Počet osôb', 'Kód intervencie osvetovej činnosti'];
-            headerRow.height = 64.3;
+            headerRow.height = 50;
 
             const rows0 = worksheet.addRows(data[0]);
             rows0.forEach((row: Row) => {
-                row.height = 23;
+                row.height = 30;
                 row.eachCell((cell: Cell) => { cell.style = this._dataRowStyle });
             });
 
-            this._addRowMergeCellsAndSetValue(worksheet, [`„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk`], { height: 47, multiple_merges: true, ranges: [{ start: 'A', end: 'M' }] });
+            this._addRowMergeCellsAndSetValue(worksheet, [`„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk`], { height: this._settings.rows.height.title, multiple_merges: true, align: 'center', vertical_align: 'middle', wrap: true, not_bold: true, ranges: [{ start: 'A', end: 'M' }] });
 
             // PAGE BREAK ROW
             const pageBreakRow: Row = worksheet.getRow(21);
-            pageBreakRow.height = 51.7;
+            pageBreakRow.height = 55;
             pageBreakRow.eachCell((cell: Cell) => { cell.style = { font: { bold: false }, alignment: { wrapText: true, horizontal: 'center', vertical: 'middle' } } });
             pageBreakRow.addPageBreak(0, 12);
 
             worksheet.addRow([]);
 
             const imgRow2: Row = worksheet.getRow(22);
-            imgRow2.height = 53.4;
+            imgRow2.height = 85;
             imgRow2.eachCell((cell: Cell) => { cell.value = ''; });
 
             const headerRow2 = worksheet.getRow(23);
             headerRow2.values = ['Deň', '1: Jednotlivec počet', 'Kód intervencie osvetovej činnosti', '2: Počet rodín ', 'Počet osôb v rodinách', 'Kód intervencie osvetovej činnosti', '3:  Škola', 'Ročník', 'Počet osôb', 'Kód intervencie osvetovej činnosti', '4: Komunitné centrum', 'Počet osôb', 'Kód intervencie osvetovej činnosti'];
-            headerRow2.height = 64.3;
+            headerRow2.height = 50;
 
             const rows1 = worksheet.addRows(data[1]);
             rows1.forEach((row: Row) => {
-                row.height = 23;
+                row.height = 30;
                 row.eachCell((cell: Cell) => { cell.style = this._dataRowStyle });
             });
 
             // TOTALS ROW
             const rowTotal = worksheet.addRow(this._calculateTotal('enlightenments', enlightenments));
-            rowTotal.height = 23;
+            rowTotal.height = 30;
+            rowTotal.eachCell((cell: Cell) => {
+                cell.style = {
+                    alignment: { horizontal: 'center', vertical: 'middle', wrapText: true, shrinkToFit: false },
+                    font: { bold: true, size: 12 },
+                    border: {
+                        top: { style: 'medium', color: { argb: '121212' } },
+                        bottom: { style: 'medium', color: { argb: '121212' } },
+                        left: { style: 'thin', color: { argb: 'ffffff' } },
+                        right: { style: 'thin', color: { argb: 'ffffff' } }
+                    }
+                }
+            });
 
-            this._addRowMergeCellsAndSetValue(worksheet, ["Svojím podpisom vyhlasujem, že údaje uvedené v dokumente sú pravdivé, reálne a správne a som si vedomý následkov spojených s uvedením/predložením nesprávnych, neúplných a nereálnych údajov.", "Podpis APZ:"], { align: 'left', height: 34, wrap: true, multiple_merges: true, ranges: [{ start: 'A', end: 'J' }, { start: 'K', end: 'M' }] });
+            worksheet.mergeCells('A22', 'M22');
+            this._addRowMergeCellsAndSetValue(worksheet, ["Svojím podpisom vyhlasujem, že údaje uvedené v dokumente sú pravdivé, reálne a správne a som si vedomý následkov spojených s uvedením/predložením nesprávnych, neúplných a nereálnych údajov.", "Podpis APZ:"], { align: 'left', vertical_align: 'middle', height: 34, wrap: true, multiple_merges: true, ranges: [{ start: 'A', end: 'J' }, { start: 'K', end: 'M' }] });
 
-            worksheet.addRow([]);
+            // worksheet.addRow([]);
 
-            const lastRow: Row = this._addRowMergeCellsAndSetValue(worksheet, [`„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk`], { height: 47, multiple_merges: true, ranges: [{ start: 'A', end: 'M' }] });
+            const lastRow: Row = this._addRowMergeCellsAndSetValue(worksheet, [`„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk`], {align: 'center', vertical_align: 'middle', wrap: true, height: 47, multiple_merges: true, ranges: [{ start: 'A', end: 'M' }] });
             worksheet.pageSetup.printArea = `A1:M${lastRow.number}`;
 
             const xlsxData = await workbook.xlsx.writeBuffer();
             let blob = new Blob([xlsxData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
             const agentName = agent.name.replace(' ', '_');
-            const fileName = `Osveta_${this._getCurrentMonth()}_${agentName}.xlsx`;
+            const fileName = `Osveta_${this._getCurrentMonth(enlightenments[0].date)}_${agentName}.xlsx`;
             fs.saveAs(blob, fileName);
 
             return true;
@@ -386,7 +434,7 @@ export class PdfService {
             let blob = new Blob([xlsxData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
             const agentName = agent.name.replace(' ', '_');
-            const fileName = `Aktivity_${this._getCurrentMonth()}_${agentName}.xlsx`;
+            const fileName = `Aktivity_${this._getCurrentMonth(activities[0].date)}_${agentName}.xlsx`;
             fs.saveAs(blob, fileName);
 
             return true;
@@ -398,9 +446,9 @@ export class PdfService {
 
     // GENEREATE PDF METHODS
     private _generatePdfData(formType: string, data: Array<any>) {
-        if (!data) { return null; }
+        if (!data || data.length === 0) { return null; }
 
-        const daysInMonth = this._getDaysInCurrentMonth();
+        const daysInMonth = this._getDaysInCurrentMonth(data[0].date);
         const rows: Array<any> = new Array<any>();
 
         // Set row data
@@ -429,7 +477,7 @@ export class PdfService {
             return {};
         }
 
-        let int = data.find((x: any) => x.date === date);
+        let int = data.find((x: any) => x.date.includes(date));
         int = !!int ? int : data.find((x: any) => x.date.includes(date.split('T')[0]));
 
         let rowData: any;
@@ -442,15 +490,19 @@ export class PdfService {
         return !!rowData ? rowData : {};
     }
 
-    private _getDaysInCurrentMonth() {
-        const currentDate = new Date();
+    private _getDaysInCurrentMonth(reportDate?: any) {
+        let currentDate = new Date();
+        if (!!reportDate) {
+            currentDate = new Date(reportDate);
+        }
+
         const month = currentDate.getMonth();
         const year = currentDate.getFullYear();
 
         var date = new Date(year, month, 1);
         var days = [];
         while (date.getMonth() === month) {
-            days.push(this._toLocalIsoString(new Date(date), true));
+            days.push(this._toLocalIsoString(new Date(date), false));
             date.setDate(date.getDate() + 1);
         }
         return days;
@@ -465,13 +517,14 @@ export class PdfService {
                     paperSize: 9,
                     orientation: 'landscape',
                     fitToPage: false,
-                    scale: 66,
+                    blackAndWhite: true,
+                    scale: 75,
                     showGridLines: true,
                     printArea: 'A1:W50',
                     margins: {
-                        left: 0.708661417322835, right: 0.708661417322835,
-                        top: 0.748031496062992, bottom: 0.748031496062992,
-                        header: 0.31496062992126, footer: 0.31496062992126
+                        left: 0, right: 0,
+                        top: 0, bottom: 0,
+                        header: 0, footer: 0
                     }
                 }
             });
@@ -502,25 +555,22 @@ export class PdfService {
             if (params.height) {
                 row.height = params.height;
             }
-            if (params.align || params.wrap) {
-                const horizontalAlign = (!!params.align ? 'left' : 'center');
-                row.eachCell((cell: Cell) => {
-                    cell.style = {
-                        alignment: {
-                            horizontal: horizontalAlign,
-                            wrapText: !!params.wrap
-                        }
-                    }
-                })
+
+            let style: any = {};
+            if (params.align || params.wrap || params.vertical_align) {
+                style.alignment = !!style.alignment ? style.alignment : {};
+                style.alignment.horizontal = !!params.align ? params.align : 'center';
+                style.alignment.vertical = !!params.vertical_align ? params.vertical_align : 'bottom';
+                style.alignment.wrapText = !!params.wrap;
             }
+
             if (params.not_bold) {
-                row.eachCell((cell: Cell) => {
-                    cell.style = {
-                        font: { bold: !params.not_bold },
-                        alignment: { wrapText: true, horizontal: 'center' }
-                    }
-                })
+                style.font = { bold: false };
             }
+
+            row.eachCell((cell: Cell) => {
+                cell.style = style;
+            })
         }
 
         return row;
@@ -530,7 +580,7 @@ export class PdfService {
         let totalArray = ['Spolu'];
         function sum(type: string) {
             const sum = (data.map((item: any) => item[type]).reduce((prev: any, next: any) => (!!prev ? prev : 0) + (!!next ? next : 0)));
-            return !!sum ? sum : '';
+            return !!sum ? sum : 0;
         }
 
         if (type === 'enlightenments') {
@@ -542,9 +592,21 @@ export class PdfService {
         return totalArray;
     }
 
+    private _getCurrentYear(reportDate?: any) {
+        let dateNow = new Date();
+        if (!!reportDate) {
+            dateNow = new Date(reportDate);
+        }
 
-    private _getCurrentMonth() {
-        const dateNow = new Date();
+        return dateNow.getFullYear();
+    }
+
+    private _getCurrentMonth(reportDate?: any) {
+        let dateNow = new Date();
+        if (!!reportDate) {
+            dateNow = new Date(reportDate);
+        }
+
         const currentMonth = dateNow.getMonth() + 1;
 
         switch (currentMonth) {
@@ -585,11 +647,17 @@ export class PdfService {
         function pad(n: any) { return n < 10 ? '0' + n : n }
         var localIsoString = date.getFullYear() + '-'
             + pad(date.getMonth() + 1) + '-'
-            + pad(date.getDate()) + 'T'
-            + pad(date.getHours()) + ':'
-            + pad(date.getMinutes()) + ':'
-            + pad(date.getSeconds());
-        if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+            + pad(date.getDate());
+
+        if (includeSeconds) {
+            localIsoString += 'T'
+                + pad(date.getHours()) + ':'
+                + pad(date.getMinutes()) + ':'
+                + pad(date.getSeconds());
+
+            if (date.getTimezoneOffset() == 0) localIsoString += 'Z';
+        }
+
         return localIsoString;
     };
 }
