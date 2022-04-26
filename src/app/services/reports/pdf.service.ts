@@ -261,7 +261,7 @@ export class PdfService {
             const worksheet: Worksheet = this._setWorksheetConfiguration('Osveta', workbook);
 
             worksheet.pageSetup.printArea = "A1:M45";
-            worksheet.pageSetup.scale = 52;
+            worksheet.pageSetup.scale = 50;
 
             worksheet.columns = [
                 { header: 'Deň', key: 'day_int', width: 10, style: this._cellStyle },
@@ -288,12 +288,12 @@ export class PdfService {
 
             // ADD IMAGES
             const imageId1 = workbook.addImage({ base64: img.img2Base64, extension: 'png' });
-            worksheet.addImage(imageId1, { tl: { col: 0, row: 0.9 }, ext: { width: 200, height: 85 } });
-            worksheet.addImage(imageId1, { tl: { col: 0, row: 21.9 }, ext: { width: 200, height: 85 } });
+            worksheet.addImage(imageId1, { tl: { col: 0, row: 0.5 }, ext: { width: 250, height: 90 } });
+            worksheet.addImage(imageId1, { tl: { col: 0, row: 21.5 }, ext: { width: 250, height: 90 } });
 
             const imageId2 = workbook.addImage({ base64: img.img1Base64, extension: 'png' });
-            worksheet.addImage(imageId2, { tl: { col: 5, row: 0.99 }, ext: { width: 200, height: 80 } });
-            worksheet.addImage(imageId2, { tl: { col: 5, row: 21.99 }, ext: { width: 200, height: 80 } });
+            worksheet.addImage(imageId2, { tl: { col: 5.7, row: 0.6 }, ext: { width: 260, height: 80 } });
+            worksheet.addImage(imageId2, { tl: { col: 5.7, row: 21.6 }, ext: { width: 260, height: 80 } });
 
             const imageId3 = workbook.addImage({ base64: img.img3Base64, extension: 'png' });
             worksheet.addImage(imageId3, { tl: { col: 10, row: 0.9999 }, ext: { width: 200, height: 65 } });
@@ -334,8 +334,10 @@ export class PdfService {
 
             const rows0 = worksheet.addRows(data[0]);
             rows0.forEach((row: Row) => {
-                row.height = 30;
-                row.eachCell((cell: Cell) => { cell.style = this._dataRowStyle });
+                const temp = this._dataRowStyle;
+                temp.font.size = 12;
+                row.height = 37;
+                row.eachCell((cell: Cell) => { cell.style = temp });
             });
 
             this._addRowMergeCellsAndSetValue(worksheet, [`„Tento projekt sa realizuje vďaka podpore z Európskeho sociálneho fondu  v rámci Operačného programu Ľudské zdroje“ \n Odkaz na riadiaci orgán - www.esf.gov.sk \n Sprostredkovateľský orgán - www.mpsvr.sk`], { height: 80, multiple_merges: true, align: 'center', vertical_align: 'middle', wrap: true, not_bold: true, ranges: [{ start: 'A', end: 'M' }] });
@@ -349,7 +351,7 @@ export class PdfService {
             worksheet.addRow([]);
 
             const imgRow2: Row = worksheet.getRow(22);
-            imgRow2.height = 85;
+            imgRow2.height = 90;
             imgRow2.eachCell((cell: Cell) => { cell.value = ''; });
 
             const headerRow2 = worksheet.getRow(23);
@@ -358,7 +360,9 @@ export class PdfService {
 
             const rows1 = worksheet.addRows(data[1]);
             rows1.forEach((row: Row) => {
-                row.height = 30;
+                const temp = this._dataRowStyle;
+                temp.font.size = 12;
+                row.height = 37;
                 row.eachCell((cell: Cell) => { cell.style = this._dataRowStyle });
             });
 
