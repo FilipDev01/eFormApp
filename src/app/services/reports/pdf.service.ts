@@ -261,21 +261,21 @@ export class PdfService {
             const worksheet: Worksheet = this._setWorksheetConfiguration('Osveta', workbook);
 
             worksheet.pageSetup.printArea = "A1:M45";
-            worksheet.pageSetup.scale = 50;
+            worksheet.pageSetup.scale = 60;
 
             worksheet.columns = [
                 { header: 'Deň', key: 'day_int', width: 10, style: this._cellStyle },
-                { header: '1: Jednotlivec počet', key: 'a1', width: 13.91, style: this._cellStyle },
+                { header: '1: Jednotlivec počet', key: 'a1', width: 10, style: this._cellStyle },
                 { header: 'Kód intervencie osvetovej činnosti', key: 'a_codes', width: 30, style: this._cellStyle },
-                { header: '2: Počet rodín ', key: 'b1', width: 11.73, style: this._cellStyle },
-                { header: 'Počet osôb v rodinách', key: 'b2', width: 15, style: this._cellStyle },
+                { header: '2: Počet rodín ', key: 'b1', width: 10, style: this._cellStyle },
+                { header: 'Počet osôb v rodinách', key: 'b2', width: 10, style: this._cellStyle },
                 { header: 'Kód intervencie osvetovej činnosti', key: 'b_codes', width: 30, style: this._cellStyle },
-                { header: '3:  Škola', key: 'c1', width: 37.27, style: this._cellStyle },
-                { header: 'Ročník', key: 'c2', width: 8.45, style: this._cellStyle },
-                { header: 'Počet osôb', key: 'c3', width: 11.36, style: this._cellStyle },
+                { header: '3:  Škola', key: 'c1', width: 38.00, style: this._cellStyle },
+                { header: 'Ročník', key: 'c2', width: 8, style: this._cellStyle },
+                { header: 'Počet osôb', key: 'c3', width: 10, style: this._cellStyle },
                 { header: 'Kód intervencie osvetovej činnosti', key: 'c_codes', width: 30, style: this._cellStyle },
-                { header: '4: Komunitné centrum', key: 'd1', width: 15.82, style: this._cellStyle },
-                { header: 'Počet osôb', key: 'd2', width: 11.36, style: this._cellStyle },
+                { header: '4: Komunitné centrum', key: 'd1', width: 16, style: this._cellStyle },
+                { header: 'Počet osôb', key: 'd2', width: 10, style: this._cellStyle },
                 { header: 'Kód intervencie osvetovej činnosti', key: 'd_codes', width: 30, style: this._cellStyle },
             ];
 
@@ -292,8 +292,8 @@ export class PdfService {
             worksheet.addImage(imageId1, { tl: { col: 0, row: 21.5 }, ext: { width: 250, height: 90 } });
 
             const imageId2 = workbook.addImage({ base64: img.img1Base64, extension: 'png' });
-            worksheet.addImage(imageId2, { tl: { col: 5.7, row: 0.6 }, ext: { width: 260, height: 80 } });
-            worksheet.addImage(imageId2, { tl: { col: 5.7, row: 21.6 }, ext: { width: 260, height: 80 } });
+            worksheet.addImage(imageId2, { tl: { col: 5.99, row: 0.9 }, ext: { width: 260, height: 80 } });
+            worksheet.addImage(imageId2, { tl: { col: 5.99, row: 21.9 }, ext: { width: 260, height: 80 } });
 
             const imageId3 = workbook.addImage({ base64: img.img3Base64, extension: 'png' });
             worksheet.addImage(imageId3, { tl: { col: 10, row: 0.9999 }, ext: { width: 200, height: 65 } });
@@ -372,7 +372,7 @@ export class PdfService {
             rowTotal.eachCell((cell: Cell) => {
                 cell.style = {
                     alignment: { horizontal: 'center', vertical: 'middle', wrapText: true, shrinkToFit: false },
-                    font: { bold: true, size: 12 },
+                    font: { bold: true, size: 14 },
                     border: {
                         top: { style: 'medium', color: { argb: '121212' } },
                         bottom: { style: 'medium', color: { argb: '121212' } },
