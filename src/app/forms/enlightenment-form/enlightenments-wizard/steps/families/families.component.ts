@@ -67,7 +67,7 @@ export class EnlightenmentsWizardStepFamilies implements OnInit {
                 total = formData.family_codes.reduce((n: any, { count }: any) => n + count, 0);
             }
 
-            this.isInvalid = total !== formData.no_people_in_families
+            this.isInvalid = formData.no_people_in_families === 0 && total > 0;
             if (!this.isInvalid) {
                 this.saveChanges.emit({ save_action: true });
                 this.wizardStepper.next();

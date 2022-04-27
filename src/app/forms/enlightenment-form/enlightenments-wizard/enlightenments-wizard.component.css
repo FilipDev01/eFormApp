@@ -80,6 +80,7 @@
   margin: 10px 0 -15px 0 !important;
   color: red;
   font-weight: 600;
+  font-size: 9pt;
 }
 
 :host ::ng-deep .wizInputErr {

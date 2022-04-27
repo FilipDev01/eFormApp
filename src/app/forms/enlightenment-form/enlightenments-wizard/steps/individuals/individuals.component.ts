@@ -68,7 +68,7 @@ export class EnlightenmentsWizardStepIndividuals implements OnInit {
                 total = formData.individual_codes.reduce((n: any, { count }: any) => n + count, 0);
             }
 
-            this.isInvalid = total !== formData.no_individuals
+            this.isInvalid = formData.no_individuals === 0 && total > 0;
             if (!this.isInvalid) {
                 this.saveChanges.emit({ save_action: true });
                 this.wizardStepper.next();

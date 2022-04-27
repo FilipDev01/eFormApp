@@ -68,7 +68,7 @@ export class EnlightenmentsWizardStepCommunity implements OnInit {
                 total = formData.community_center_codes.reduce((n: any, { count }: any) => n + count, 0);
             }
 
-            this.isInvalid = total !== formData.no_community_center_members
+            this.isInvalid = formData.no_community_center_members === 0 && total > 0;            
             if (!this.isInvalid) {
                 this.saveChanges.emit({ save_action: true });
                 this.wizardStepper.next();

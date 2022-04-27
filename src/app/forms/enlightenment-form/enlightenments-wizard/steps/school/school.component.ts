@@ -67,7 +67,7 @@ export class EnlightenmentsWizardStepSchool implements OnInit {
                 total = formData.school_codes.reduce((n: any, { count }: any) => n + count, 0);
             }
 
-            this.isInvalid = total !== formData.no_students
+            this.isInvalid = formData.no_students === 0 && total > 0;
             if (!this.isInvalid) {
                 this.saveChanges.emit({ save_action: true });
                 this.wizardStepper.next();
