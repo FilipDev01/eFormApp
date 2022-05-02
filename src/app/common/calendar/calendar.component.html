@@ -2,13 +2,14 @@
     <!--  [minDate]="minDate"  -->
     <!--  -->
     <mat-calendar #calendar 
-       
+        [headerComponent]="calendarHeaderComponent"
         [maxDate]="maxDate" 
         [dateClass]="dateClass()" 
-        prevMonthLabel="'Predchádzajúci Mesiac'"
+        prevMonthLabel="'Predchádzajúci Mesiac'"        
         [selected]="selectedDate" 
         (selectedChange)="dateChanged($event)"
-        (click)="onClick($event)"
+        (monthSelected)="onMonthChanged($event)"
+        (click)="onClick($event)"        
        >
     </mat-calendar>
 </div>

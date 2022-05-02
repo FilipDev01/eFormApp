@@ -24,19 +24,19 @@
               <p *ngIf="isAdmin" class="details-grid mt-3">
                 <strong>Agent:</strong><span>{{agentName || '-'}}</span>
               </p>
-              <p class="details-grid mt-3">
-                <strong>Aktuálny deň:</strong><span> {{dateToday | date:'dd/MM/yyyy'}}</span>
+              <p class="details-grid mt-3" *ngIf="reportDate.getMonth() === currentDay.getMonth()">
+                <strong>Aktuálny deň:</strong><span> {{currentDay | date:'dd/MM/yyyy'}}</span>
               </p>
               <p class="details-grid">
                 <strong>Aktuálny mesiac:</strong><span style="text-transform: capitalize;">
-                  {{dateToday | date:'LLLL'}}</span>
+                  {{reportDate | date:'LLLL'}}</span>
               </p>
 
               <mat-divider></mat-divider>
             </div>
 
-            <app-calendar *ngIf="interventions && !dataProcessing" [data]="interventions"
-              (dateSelected)="openDialog($event)">
+            <app-calendar *ngIf="interventions && !processing" [data]="interventions" [reportDate]="reportDate" 
+              (dateSelected)="openDialog($event)" (monthChanged)="onMonthChangedAsync($event)">
             </app-calendar>
 
             <div class="form-details-wrapper legend">

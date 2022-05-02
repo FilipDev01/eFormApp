@@ -57,7 +57,7 @@ export class InterventionsFormService {
                 return null;
             }
 
-            const intervetions: ListInterventionsQuery = await this._interventionsService.ListInterventions(filter);
+            const intervetions: ListInterventionsQuery = await this._interventionsService.ListInterventions(filter, 9999);
             return intervetions.items;
 
             console.log("DUMMY getInterventionsReportAsync")

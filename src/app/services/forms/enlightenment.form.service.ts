@@ -110,7 +110,7 @@ export class EnlightenmentsFormService {
                 filter.user_id = uid;
             }
 
-            const options: GraphQLOptions = { filter: filter };
+            const options: GraphQLOptions = { filter: filter, limit: 9999 };
             const data: any = await callGraphQL<any>(listAllAgentEnlightenments, options);
             if (!!data && !!data.data && !!data.data.listAgentEnlightenments && Array.isArray(data.data.listAgentEnlightenments.items)) {
                 return data.data.listAgentEnlightenments.items;

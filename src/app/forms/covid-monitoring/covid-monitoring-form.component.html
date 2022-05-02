@@ -26,12 +26,12 @@
               <p *ngIf="agentIsAdmin" class="details-grid mt-3">
                 <strong>Agent:</strong><span>{{agentName || '-'}}</span>
               </p>
-              <p class="details-grid mt-3">
-                <strong>Aktuálny deň:</strong><span> {{dateToday | date:'dd/MM/yyyy'}}</span>
+              <p class="details-grid mt-3" *ngIf="reportDate.getMonth() === currentDay.getMonth()">
+                <strong>Aktuálny deň:</strong><span> {{currentDay | date:'dd/MM/yyyy'}}</span>
               </p>
               <p class="details-grid">
                 <strong>Aktuálny mesiac:</strong><span style="text-transform: capitalize;">
-                  {{dateToday | date:'LLLL'}}</span>
+                  {{reportDate | date:'LLLL'}}</span>
               </p>
             </div>
             <!-- AGENT DETAILS END -->
@@ -40,7 +40,8 @@
 
             <!-- CALENDAR START -->
             <div class="calendar-wrapper">
-              <app-calendar *ngIf="covidData && !processing" [data]="covidData" (dateSelected)="openDialog($event)">
+              <app-calendar *ngIf="covidData && !processing" [data]="covidData" [reportDate]="reportDate"
+                (dateSelected)="openDialog($event)" (monthChanged)="onMonthChangedAsync($event)">
               </app-calendar>
 
               <div class="form-details-wrapper legend">

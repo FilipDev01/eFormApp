@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { DateRange, MatCalendar, MatCalendarCellCssClasses } from '@angular/material/datepicker';
+import { CalendarHeaderComponent } from './header/header.component';
 import * as moment from 'moment';
 
 @Component({
@@ -8,7 +9,7 @@ import * as moment from 'moment';
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
-
+  public calendarHeaderComponent = CalendarHeaderComponent;
   public selectedDate: Date | DateRange<Date> | null;
   public minDate: Date | null = null;
   public maxDate: Date | null = null;
@@ -16,33 +17,39 @@ export class CalendarComponent implements OnInit {
   private _datesToHighlight: Array<string>;
 
   @Input() data: any;
+  @Input() reportDate: any;
+
   @Output() dateSelected: EventEmitter<Date | DateRange<Date> | null> = new EventEmitter();
+  @Output() monthChanged: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('calendar', { static: true }) calendar: MatCalendar<moment.Moment>;
 
-  constructor(private _renderer: Renderer2) {
+  constructor(private _elementRef: ElementRef) {
     this._datesToHighlight = new Array<string>();
   }
 
   ngOnInit(): void {
-    this.setMinDate();
-    this.setMaxDate();
+    let date = !!this.reportDate ? this.reportDate : new Date();
+
+    this.setMinDate(date);
+    this.setMaxDate(date);
   }
 
-  ngAfterViewInit() { }
-
-  setMinDate() {
-    const date = new Date();
+  setMinDate(date: Date) {
     this.minDate = new Date(date.getFullYear(), date.getMonth(), 1);
   }
 
-  setMaxDate() {
-    this.maxDate = new Date();
+  setMaxDate(date: Date) {
+    this.maxDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   }
 
   dateChanged(event: any) {
     this.selectedDate = event;
     // this.dateSelected.emit(this.selectedDate);
+  }
+
+  onMonthChanged(event: any) {
+    this.monthChanged.emit(new Date(event));
   }
 
   onClick(event: any) {

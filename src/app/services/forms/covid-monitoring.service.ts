@@ -29,7 +29,7 @@ export class CovidMonitoringFormService {
             filter.date = datef;
         }
 
-        const covidMonitoring: ListCovidMonitoringsQuery = await this._covidMonitoringService.ListCovidMonitorings(filter);
+        const covidMonitoring: ListCovidMonitoringsQuery = await this._covidMonitoringService.ListCovidMonitorings(filter, 9999);
         return covidMonitoring.items;
 
         console.log("Dummy enlightenments");
@@ -48,7 +48,7 @@ export class CovidMonitoringFormService {
             return null;
         }
 
-        const covidMonitoring: ListCovidMonitoringsQuery = await this._covidMonitoringService.ListCovidMonitorings(filter);
+        const covidMonitoring: ListCovidMonitoringsQuery = await this._covidMonitoringService.ListCovidMonitorings(filter, 9999);
         return covidMonitoring.items;
 
         console.log("Dummy covidMonitoring REPORT");

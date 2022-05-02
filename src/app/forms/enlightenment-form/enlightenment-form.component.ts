@@ -14,7 +14,8 @@ export class EnlightenmentFormComponent implements OnInit {
   public agentName: string;
   public agentIsAdmin: boolean;
 
-  public dateToday: Date;
+  public currentDay: Date;
+  public reportDate: Date;
   public processing: boolean;
 
   public enlightenments: any;
@@ -24,11 +25,12 @@ export class EnlightenmentFormComponent implements OnInit {
     private _formService: FormCommonService,
   ) {
     this.agentId = this._route.snapshot.paramMap.get('agentId');
-    this.dateToday = new Date();
+    this.currentDay = new Date();
+    this.reportDate = new Date();
   }
 
   async ngOnInit() {
-    this.enlightenments = await this._formService.getFormData('enlightenments', this.agentId, this.dateToday);
+    this.enlightenments = await this._formService.getFormData('enlightenments', this.agentId, this.reportDate);
 
     this.agentIsAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
     if (this.agentIsAdmin) {
@@ -47,6 +49,20 @@ export class EnlightenmentFormComponent implements OnInit {
       this._handleResponse(response);
     } catch (err: any) {
       console.log(err);
+      this.processing = false;
+    }
+  }
+
+  public async onMonthChangedAsync(date: any): Promise<any> {
+    try {
+      this.processing = true;
+      this.reportDate = date;
+      const data = await this._formService.getFormData('enlightenments', this.agentId, this.reportDate.toString());
+      this.enlightenments = data;
+
+      this.processing = false;
+    } catch (err: any) {
+      console.error(err);
       this.processing = false;
     }
   }

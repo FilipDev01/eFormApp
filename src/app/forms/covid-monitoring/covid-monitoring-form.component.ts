@@ -15,7 +15,8 @@ export class MonitoringCovidFormComponent implements OnInit {
     public agentIsAdmin: boolean;
     public agentName: string;
 
-    public dateToday: Date;
+    public currentDay: Date;
+    public reportDate: Date;
 
     public covidData: any;
 
@@ -24,12 +25,16 @@ export class MonitoringCovidFormComponent implements OnInit {
         private _formService: FormCommonService,
     ) {
         this.agentId = this._route.snapshot.paramMap.get('agentId');
-        this.dateToday = new Date();
+        this.currentDay = new Date();
+        this.reportDate = new Date();
     }
 
     async ngOnInit() {
-        this.covidData = await this._formService.getFormData('covid_monitoring', this.agentId, this.dateToday);
+        this.covidData = await this._formService.getFormData('covid_monitoring', this.agentId, this.reportDate);
         this.agentIsAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
+        if (this.agentIsAdmin) {
+            this.agentName = this._formService.setAgentDetails();
+        }
     }
 
     public goBackToAgent() {
@@ -41,6 +46,20 @@ export class MonitoringCovidFormComponent implements OnInit {
             this.processing = true;
             const response = await this._formService.openFormWizardAsync(this.agentId, 'covid_monitoring', { data: this.covidData, date: date, agent_id: this.agentId });
             this._handleResponse(response);
+        } catch (err: any) {
+            console.error(err);
+            this.processing = false;
+        }
+    }
+
+    public async onMonthChangedAsync(date: any): Promise<any> {
+        try {
+            this.processing = true;
+            this.reportDate = date;
+            const data = await this._formService.getFormData('covid_monitoring', this.agentId, this.reportDate.toString());
+            this.covidData = data;
+
+            this.processing = false;
         } catch (err: any) {
             console.error(err);
             this.processing = false;

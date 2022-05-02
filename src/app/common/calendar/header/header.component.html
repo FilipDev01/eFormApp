@@ -1,0 +1,20 @@
+<div class="mat-calendar-controls eform-custom">
+
+  <div class="mat-calendar-spacer"></div>
+
+  <button mat-icon-button="" type="button" (click)="previousClicked('month')"
+    class="mat-focus-indicator mat-calendar-previous-button mat-icon-button mat-button-base"
+    aria-label="Previous month">
+    <span class="mat-button-wrapper"></span>
+    <span class="mat-ripple mat-button-ripple mat-button-ripple-round"></span>
+    <span class="mat-button-focus-overlay"></span>
+  </button>
+
+  <button mat-icon-button="" type="button" (click)="nextClicked('month')" [class.mat-button-disabled]="nextMonthDisabled"
+    class="mat-focus-indicator mat-calendar-next-button mat-icon-button" aria-label="Next month"
+    [disabled]="nextMonthDisabled">
+    <span class="mat-button-wrapper"></span>
+    <span matripple="" class="mat-ripple mat-button-ripple mat-button-ripple-round"></span>
+    <span class="mat-button-focus-overlay"></span>
+  </button>
+</div>

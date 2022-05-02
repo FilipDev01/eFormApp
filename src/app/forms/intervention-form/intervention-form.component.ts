@@ -14,7 +14,8 @@ export class InterventionFormComponent implements OnInit {
   public agentName: string;
   public isAdmin: boolean;
 
-  public dateToday: Date;
+  public currentDay: Date;
+  public reportDate: Date;
   public processing: boolean;
 
   public dataProcessing: boolean;
@@ -25,11 +26,12 @@ export class InterventionFormComponent implements OnInit {
     private _route: ActivatedRoute,
   ) {
     this.agentId = this._route.snapshot.paramMap.get('agentId');
-    this.dateToday = new Date();
+    this.currentDay = new Date();
+    this.reportDate = new Date();
   }
 
   async ngOnInit() {
-    this.interventions = await this._formService.getFormData('interventions', this.agentId, this.dateToday);
+    this.interventions = await this._formService.getFormData('interventions', this.agentId, this.reportDate);
 
     this.isAdmin = !!GlobalConstants.currentUserGroups && GlobalConstants.currentUserGroups.includes('admin');
     if (this.isAdmin) {
@@ -46,6 +48,20 @@ export class InterventionFormComponent implements OnInit {
       this.processing = true;
       const response = await this._formService.openFormWizardAsync(this.agentId, 'interventions', { data: this.interventions, date: date, agent_id: this.agentId });
       this._handleResponse(response);
+    } catch (err: any) {
+      console.error(err);
+      this.processing = false;
+    }
+  }
+
+  public async onMonthChangedAsync(date: any): Promise<any> {
+    try {
+      this.processing = true;
+      this.reportDate = date;
+      const data = await this._formService.getFormData('interventions', this.agentId, this.reportDate.toString());
+      this.interventions = data;
+
+      this.processing = false;
     } catch (err: any) {
       console.error(err);
       this.processing = false;
