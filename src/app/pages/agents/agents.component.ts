@@ -35,19 +35,10 @@ export class AgentsComponent implements OnInit, AfterViewInit {
     private _service: AgentsService,
     private _router: Router
   ) {
-  
+
   }
 
   async ngAfterViewInit() { }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
 
   async ngOnInit() {
     this.processing = true;
@@ -73,4 +64,14 @@ export class AgentsComponent implements OnInit, AfterViewInit {
     GlobalConstants.selectedAgent = agnt;
     this._router.navigate(['/agent', agnt.user_id]);
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
 }

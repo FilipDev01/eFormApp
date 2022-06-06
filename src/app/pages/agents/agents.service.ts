@@ -145,14 +145,15 @@ export class AgentsService {
             { name: 'Polakovičová', order: 6 },
             { name: 'Salajová', order: 7 },
             { name: 'Suchánková', order: 8 },
-            { name: 'Slezáková', order: 9 },
-            { name: 'Hrúzová', order: 10 },
-            { name: 'Biháriová', order: 11 },
-            { name: 'Danihelová', order: 12 },
-            { name: 'Kočnárová', order: 13 },
-            { name: 'Zemanová', order: 14 },
-            { name: 'Malíková', order: 15 },
-            { name: 'Test', order: 16 },
+            { name: 'Slezáková', order: 9 },          
+            { name: 'Galbova', order: 10 },
+            { name: 'Hrúzová', order: 11 },
+            { name: 'Biháriová', order: 12 },
+            { name: 'Danihelová', order: 13 },
+            { name: 'Kočnárová', order: 14 },
+            { name: 'Zemanová', order: 15 },
+            { name: 'Malíková', order: 16 },
+            { name: 'Test', order: 17 },
         ];
 
         const o = order.find((a: any) => agent.name.includes(a.name));
